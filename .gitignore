@@ -28,5 +28,6 @@ weights/
 dist/
 .hf_home/
 .cache/
+test-results/
 /yolov8*.pt
 /yolo11*.pt
