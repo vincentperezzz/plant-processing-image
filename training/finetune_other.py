@@ -19,7 +19,7 @@ from tqdm import tqdm
 from src.infer import save_meta
 from src.labels import crops, health_levels, load_spec
 from src.model import TwoHeadNet
-from src.paths import CKPT, DATA, MANIFEST, OLD_MODELS
+from src.paths import CKPT, DATA, FIELD_HOLDOUT_GROUPS, MANIFEST, OLD_MODELS
 
 NEG_MANIFEST = DATA / "negatives_manifest.csv"
 CROP_NAMES = crops() + ["other"]
@@ -112,6 +112,11 @@ def load_frames():
         group_id=neg.apply(gid, axis=1),
     )[["path", "crop", "health", "source", "group_id"]]
     pos = pos[["path", "crop", "health", "source", "group_id"]]
+    if FIELD_HOLDOUT_GROUPS.exists():
+        locked = {g.strip() for g in FIELD_HOLDOUT_GROUPS.read_text(encoding="utf-8").splitlines() if g.strip()}
+        dropped = int(pos["group_id"].astype(str).isin(locked).sum())
+        pos = pos[~pos["group_id"].astype(str).isin(locked)].copy()
+        print("field holdout locked", len(locked), "photos out", dropped)
     pos_tr, pos_va = grouped_split(pos)
     neg_tr, neg_va = grouped_split(neg, seed=7)
     train = pd.concat([pos_tr, neg_tr], ignore_index=True)

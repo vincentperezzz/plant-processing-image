@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.infer import Scanner
-from src.paths import CKPT, HOLDOUT_MANIFEST, MANIFEST
+from src.paths import CKPT, FIELD_HOLDOUT_MANIFEST, HOLDOUT_MANIFEST, MANIFEST
 
 CROPS = ("eggplant", "lettuce", "palay", "sili", "tomato")
 HEALTH = ("healthy", "mild", "critical", "dead")
@@ -37,6 +37,8 @@ def _bar(n: int, d: int, width: int = 20) -> str:
 def _load_set(kind: str) -> pd.DataFrame:
     if kind == "holdout":
         path = HOLDOUT_MANIFEST
+    elif kind == "field":
+        path = FIELD_HOLDOUT_MANIFEST
     elif kind == "realistic":
         path = REALISTIC_MANIFEST
     elif kind == "train":
@@ -232,9 +234,9 @@ def main() -> None:
     )
     p.add_argument(
         "--set",
-        choices=["holdout", "realistic", "train"],
+        choices=["holdout", "field", "realistic", "train"],
         default="holdout",
-        help="which labeled pile to feed (default: holdout exam)",
+        help="holdout=UCI/PlantDoc exam, field=locked field palay, train=random train pile",
     )
     p.add_argument("--sample", type=int, metavar="N", help="random subset of N photos")
     p.add_argument("--seed", type=int, default=42)

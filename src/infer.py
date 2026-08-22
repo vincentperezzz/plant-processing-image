@@ -85,15 +85,15 @@ def plant_look(img: Image.Image) -> dict:
     orange_f = float(orange.mean())
     lime_f = float(lime.mean())
     purple_f = float(purple.mean())
-    color_fruit = red_f + orange_f + lime_f
+    ripe = red_f + orange_f
     hint = None
     if purple_f >= 0.018 or purple_round + purple_skinny >= 0.008:
         hint = "eggplant"
-    elif round_m >= 0.0045 and round_m >= skinny_m * 0.8 and color_fruit >= 0.0035:
+    elif round_m >= 0.0045 and round_m >= skinny_m * 0.8 and ripe >= 0.0035:
         hint = "tomato"
-    elif skinny_m >= 0.0055 and skinny_m > round_m * 1.2 and color_fruit >= 0.0028:
+    elif skinny_m >= 0.0055 and skinny_m > round_m * 1.2 and ripe >= 0.0028:
         hint = "sili"
-    elif round_m >= 0.01 and (orange_f + red_f + lime_f) >= 0.0025:
+    elif round_m >= 0.01 and ripe >= 0.0025:
         hint = "tomato"
     return {
         "leaf": round(leaf, 4),
@@ -251,7 +251,8 @@ class Scanner:
             reason = reason or "not_in_list"
         health = None if unknown or health_conf < self.health_thr else self.health_names[health_i]
         hint = look.get("fruit_hint")
-        if hint in FARM_CROPS and hint in self.crop_names:
+        cnn_name = self.crop_names[crop_i]
+        if hint in FARM_CROPS and hint in self.crop_names and cnn_name != "palay" and crop != "palay":
             strong = (look.get("fruit_round") or 0) >= 0.0045 or (look.get("fruit") or 0) >= 0.016
             if strong or (hint != crop and (look.get("fruit_round") or 0) >= 0.003):
                 crop = hint

@@ -11,6 +11,8 @@ data/external/
 data/manifest.csv
 data/holdout_manifest.csv
 data/holdout_results.csv
+data/field_holdout_manifest.csv
+data/field_holdout_results.csv
 data/realistic_manifest.csv
 data/realistic_results.csv
 data/negatives/

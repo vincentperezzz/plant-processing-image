@@ -1,0 +1,4396 @@
+paddydoc:bacterial_leaf_blight:01781
+paddydoc:bacterial_leaf_blight:01789
+paddydoc:bacterial_leaf_blight:01796
+paddydoc:bacterial_leaf_blight:01803
+paddydoc:bacterial_leaf_blight:01806
+paddydoc:bacterial_leaf_blight:01816
+paddydoc:bacterial_leaf_blight:01826
+paddydoc:bacterial_leaf_blight:01833
+paddydoc:bacterial_leaf_blight:01852
+paddydoc:bacterial_leaf_blight:01866
+paddydoc:bacterial_leaf_blight:01867
+paddydoc:bacterial_leaf_blight:01877
+paddydoc:bacterial_leaf_blight:01878
+paddydoc:bacterial_leaf_blight:01887
+paddydoc:bacterial_leaf_blight:01889
+paddydoc:bacterial_leaf_blight:01894
+paddydoc:bacterial_leaf_blight:01914
+paddydoc:bacterial_leaf_blight:01921
+paddydoc:bacterial_leaf_blight:01922
+paddydoc:bacterial_leaf_blight:01923
+paddydoc:bacterial_leaf_blight:01935
+paddydoc:bacterial_leaf_blight:01943
+paddydoc:bacterial_leaf_blight:01944
+paddydoc:bacterial_leaf_blight:01947
+paddydoc:bacterial_leaf_blight:01949
+paddydoc:bacterial_leaf_blight:01956
+paddydoc:bacterial_leaf_blight:01964
+paddydoc:bacterial_leaf_blight:01966
+paddydoc:bacterial_leaf_blight:02004
+paddydoc:bacterial_leaf_blight:02009
+paddydoc:bacterial_leaf_blight:02017
+paddydoc:bacterial_leaf_blight:02018
+paddydoc:bacterial_leaf_blight:02020
+paddydoc:bacterial_leaf_blight:02021
+paddydoc:bacterial_leaf_blight:02029
+paddydoc:bacterial_leaf_blight:02053
+paddydoc:bacterial_leaf_blight:02054
+paddydoc:bacterial_leaf_blight:02056
+paddydoc:bacterial_leaf_blight:02058
+paddydoc:bacterial_leaf_blight:02062
+paddydoc:bacterial_leaf_blight:02067
+paddydoc:bacterial_leaf_blight:02068
+paddydoc:bacterial_leaf_blight:02070
+paddydoc:bacterial_leaf_blight:02075
+paddydoc:bacterial_leaf_blight:02076
+paddydoc:bacterial_leaf_blight:02106
+paddydoc:bacterial_leaf_blight:02111
+paddydoc:bacterial_leaf_blight:02125
+paddydoc:bacterial_leaf_blight:02136
+paddydoc:bacterial_leaf_blight:02141
+paddydoc:bacterial_leaf_blight:02142
+paddydoc:bacterial_leaf_blight:02149
+paddydoc:bacterial_leaf_blight:02178
+paddydoc:bacterial_leaf_blight:02183
+paddydoc:bacterial_leaf_blight:02185
+paddydoc:bacterial_leaf_blight:02188
+paddydoc:bacterial_leaf_blight:02192
+paddydoc:bacterial_leaf_blight:02197
+paddydoc:bacterial_leaf_blight:02198
+paddydoc:bacterial_leaf_blight:02200
+paddydoc:bacterial_leaf_blight:02202
+paddydoc:bacterial_leaf_blight:02207
+paddydoc:bacterial_leaf_blight:02208
+paddydoc:bacterial_leaf_blight:02210
+paddydoc:bacterial_leaf_blight:02217
+paddydoc:bacterial_leaf_blight:02226
+paddydoc:bacterial_leaf_blight:02227
+paddydoc:bacterial_leaf_blight:02230
+paddydoc:bacterial_leaf_blight:02246
+paddydoc:bacterial_leaf_blight:02247
+paddydoc:bacterial_leaf_blight:02251
+paddydoc:bacterial_leaf_blight:02252
+paddydoc:bacterial_leaf_streak:08939
+paddydoc:bacterial_leaf_streak:08949
+paddydoc:bacterial_leaf_streak:08956
+paddydoc:bacterial_leaf_streak:08958
+paddydoc:bacterial_leaf_streak:08963
+paddydoc:bacterial_leaf_streak:08969
+paddydoc:bacterial_leaf_streak:08991
+paddydoc:bacterial_leaf_streak:08998
+paddydoc:bacterial_leaf_streak:08999
+paddydoc:bacterial_leaf_streak:09003
+paddydoc:bacterial_leaf_streak:09018
+paddydoc:bacterial_leaf_streak:09022
+paddydoc:bacterial_leaf_streak:09028
+paddydoc:bacterial_leaf_streak:09029
+paddydoc:bacterial_leaf_streak:09038
+paddydoc:bacterial_leaf_streak:09043
+paddydoc:bacterial_leaf_streak:09053
+paddydoc:bacterial_leaf_streak:09060
+paddydoc:bacterial_leaf_streak:09092
+paddydoc:bacterial_leaf_streak:09098
+paddydoc:bacterial_leaf_streak:09103
+paddydoc:bacterial_leaf_streak:09106
+paddydoc:bacterial_leaf_streak:09112
+paddydoc:bacterial_leaf_streak:09114
+paddydoc:bacterial_leaf_streak:09115
+paddydoc:bacterial_leaf_streak:09116
+paddydoc:bacterial_leaf_streak:09127
+paddydoc:bacterial_leaf_streak:09137
+paddydoc:bacterial_leaf_streak:09143
+paddydoc:bacterial_leaf_streak:09151
+paddydoc:bacterial_leaf_streak:09158
+paddydoc:bacterial_leaf_streak:09161
+paddydoc:bacterial_leaf_streak:09163
+paddydoc:bacterial_leaf_streak:09165
+paddydoc:bacterial_leaf_streak:09166
+paddydoc:bacterial_leaf_streak:09170
+paddydoc:bacterial_leaf_streak:09178
+paddydoc:bacterial_leaf_streak:09186
+paddydoc:bacterial_leaf_streak:09200
+paddydoc:bacterial_leaf_streak:09205
+paddydoc:bacterial_leaf_streak:09206
+paddydoc:bacterial_leaf_streak:09209
+paddydoc:bacterial_leaf_streak:09211
+paddydoc:bacterial_leaf_streak:09213
+paddydoc:bacterial_leaf_streak:09232
+paddydoc:bacterial_leaf_streak:09261
+paddydoc:bacterial_leaf_streak:09262
+paddydoc:bacterial_leaf_streak:09268
+paddydoc:bacterial_leaf_streak:09274
+paddydoc:bacterial_leaf_streak:09275
+paddydoc:bacterial_leaf_streak:09277
+paddydoc:bacterial_leaf_streak:09285
+paddydoc:bacterial_leaf_streak:09291
+paddydoc:bacterial_leaf_streak:09299
+paddydoc:bacterial_leaf_streak:09304
+paddydoc:bacterial_leaf_streak:09310
+paddydoc:bacterial_panicle_blight:01445
+paddydoc:bacterial_panicle_blight:01461
+paddydoc:bacterial_panicle_blight:01472
+paddydoc:bacterial_panicle_blight:01494
+paddydoc:bacterial_panicle_blight:01495
+paddydoc:bacterial_panicle_blight:01498
+paddydoc:bacterial_panicle_blight:01505
+paddydoc:bacterial_panicle_blight:01512
+paddydoc:bacterial_panicle_blight:01520
+paddydoc:bacterial_panicle_blight:01521
+paddydoc:bacterial_panicle_blight:01526
+paddydoc:bacterial_panicle_blight:01532
+paddydoc:bacterial_panicle_blight:01548
+paddydoc:bacterial_panicle_blight:01550
+paddydoc:bacterial_panicle_blight:01552
+paddydoc:bacterial_panicle_blight:01570
+paddydoc:bacterial_panicle_blight:01573
+paddydoc:bacterial_panicle_blight:01574
+paddydoc:bacterial_panicle_blight:01580
+paddydoc:bacterial_panicle_blight:01603
+paddydoc:bacterial_panicle_blight:01610
+paddydoc:bacterial_panicle_blight:01617
+paddydoc:bacterial_panicle_blight:01620
+paddydoc:bacterial_panicle_blight:01634
+paddydoc:bacterial_panicle_blight:01652
+paddydoc:bacterial_panicle_blight:01657
+paddydoc:bacterial_panicle_blight:01659
+paddydoc:bacterial_panicle_blight:01671
+paddydoc:bacterial_panicle_blight:01673
+paddydoc:bacterial_panicle_blight:01674
+paddydoc:bacterial_panicle_blight:01678
+paddydoc:bacterial_panicle_blight:01680
+paddydoc:bacterial_panicle_blight:01687
+paddydoc:bacterial_panicle_blight:01691
+paddydoc:bacterial_panicle_blight:01694
+paddydoc:bacterial_panicle_blight:01704
+paddydoc:bacterial_panicle_blight:01708
+paddydoc:bacterial_panicle_blight:01709
+paddydoc:bacterial_panicle_blight:01721
+paddydoc:bacterial_panicle_blight:01723
+paddydoc:bacterial_panicle_blight:01736
+paddydoc:bacterial_panicle_blight:01742
+paddydoc:bacterial_panicle_blight:01754
+paddydoc:bacterial_panicle_blight:01765
+paddydoc:bacterial_panicle_blight:01772
+paddydoc:bacterial_panicle_blight:01778
+paddydoc:blast:05443
+paddydoc:blast:05457
+paddydoc:blast:05461
+paddydoc:blast:05462
+paddydoc:blast:05470
+paddydoc:blast:05491
+paddydoc:blast:05503
+paddydoc:blast:05506
+paddydoc:blast:05514
+paddydoc:blast:05517
+paddydoc:blast:05522
+paddydoc:blast:05524
+paddydoc:blast:05528
+paddydoc:blast:05532
+paddydoc:blast:05541
+paddydoc:blast:05556
+paddydoc:blast:05563
+paddydoc:blast:05570
+paddydoc:blast:05580
+paddydoc:blast:05581
+paddydoc:blast:05582
+paddydoc:blast:05584
+paddydoc:blast:05586
+paddydoc:blast:05592
+paddydoc:blast:05600
+paddydoc:blast:05607
+paddydoc:blast:05608
+paddydoc:blast:05610
+paddydoc:blast:05634
+paddydoc:blast:05638
+paddydoc:blast:05642
+paddydoc:blast:05649
+paddydoc:blast:05653
+paddydoc:blast:05657
+paddydoc:blast:05661
+paddydoc:blast:05674
+paddydoc:blast:05685
+paddydoc:blast:05688
+paddydoc:blast:05689
+paddydoc:blast:05690
+paddydoc:blast:05694
+paddydoc:blast:05702
+paddydoc:blast:05705
+paddydoc:blast:05706
+paddydoc:blast:05719
+paddydoc:blast:05723
+paddydoc:blast:05732
+paddydoc:blast:05742
+paddydoc:blast:05750
+paddydoc:blast:05761
+paddydoc:blast:05777
+paddydoc:blast:05782
+paddydoc:blast:05785
+paddydoc:blast:05793
+paddydoc:blast:05798
+paddydoc:blast:05801
+paddydoc:blast:05802
+paddydoc:blast:05803
+paddydoc:blast:05804
+paddydoc:blast:05816
+paddydoc:blast:05825
+paddydoc:blast:05838
+paddydoc:blast:05841
+paddydoc:blast:05854
+paddydoc:blast:05862
+paddydoc:blast:05864
+paddydoc:blast:05872
+paddydoc:blast:05873
+paddydoc:blast:05874
+paddydoc:blast:05878
+paddydoc:blast:05889
+paddydoc:blast:05894
+paddydoc:blast:05895
+paddydoc:blast:05912
+paddydoc:blast:05915
+paddydoc:blast:05919
+paddydoc:blast:05922
+paddydoc:blast:05933
+paddydoc:blast:05934
+paddydoc:blast:05945
+paddydoc:blast:05950
+paddydoc:blast:05951
+paddydoc:blast:05952
+paddydoc:blast:05954
+paddydoc:blast:05959
+paddydoc:blast:05971
+paddydoc:blast:05981
+paddydoc:blast:05990
+paddydoc:blast:05993
+paddydoc:blast:05997
+paddydoc:blast:06005
+paddydoc:blast:06020
+paddydoc:blast:06032
+paddydoc:blast:06036
+paddydoc:blast:06039
+paddydoc:blast:06043
+paddydoc:blast:06045
+paddydoc:blast:06050
+paddydoc:blast:06051
+paddydoc:blast:06052
+paddydoc:blast:06057
+paddydoc:blast:06060
+paddydoc:blast:06070
+paddydoc:blast:06077
+paddydoc:blast:06100
+paddydoc:blast:06135
+paddydoc:blast:06145
+paddydoc:blast:06147
+paddydoc:blast:06152
+paddydoc:blast:06165
+paddydoc:blast:06169
+paddydoc:blast:06182
+paddydoc:blast:06186
+paddydoc:blast:06197
+paddydoc:blast:06199
+paddydoc:blast:06200
+paddydoc:blast:06204
+paddydoc:blast:06222
+paddydoc:blast:06224
+paddydoc:blast:06225
+paddydoc:blast:06229
+paddydoc:blast:06230
+paddydoc:blast:06234
+paddydoc:blast:06249
+paddydoc:blast:06259
+paddydoc:blast:06262
+paddydoc:blast:06268
+paddydoc:blast:06279
+paddydoc:blast:06285
+paddydoc:blast:06289
+paddydoc:blast:06292
+paddydoc:blast:06298
+paddydoc:blast:06308
+paddydoc:blast:06326
+paddydoc:blast:06328
+paddydoc:blast:06334
+paddydoc:blast:06341
+paddydoc:blast:06346
+paddydoc:blast:06356
+paddydoc:blast:06378
+paddydoc:blast:06379
+paddydoc:blast:06382
+paddydoc:blast:06384
+paddydoc:blast:06406
+paddydoc:blast:06408
+paddydoc:blast:06421
+paddydoc:blast:06481
+paddydoc:blast:06483
+paddydoc:blast:06484
+paddydoc:blast:06487
+paddydoc:blast:06512
+paddydoc:blast:06515
+paddydoc:blast:06522
+paddydoc:blast:06531
+paddydoc:blast:06536
+paddydoc:blast:06555
+paddydoc:blast:06562
+paddydoc:blast:06564
+paddydoc:blast:06567
+paddydoc:blast:06571
+paddydoc:blast:06587
+paddydoc:blast:06602
+paddydoc:blast:06618
+paddydoc:blast:06636
+paddydoc:blast:06658
+paddydoc:blast:06659
+paddydoc:blast:06660
+paddydoc:blast:06686
+paddydoc:blast:06692
+paddydoc:blast:06697
+paddydoc:blast:06699
+paddydoc:blast:06700
+paddydoc:blast:06701
+paddydoc:blast:06705
+paddydoc:blast:06710
+paddydoc:blast:06711
+paddydoc:blast:06735
+paddydoc:blast:06741
+paddydoc:blast:06749
+paddydoc:blast:06750
+paddydoc:blast:06751
+paddydoc:blast:06766
+paddydoc:blast:06769
+paddydoc:blast:06777
+paddydoc:blast:06779
+paddydoc:blast:06812
+paddydoc:blast:06814
+paddydoc:blast:06815
+paddydoc:blast:06823
+paddydoc:blast:06829
+paddydoc:blast:06846
+paddydoc:blast:06850
+paddydoc:blast:06856
+paddydoc:blast:06857
+paddydoc:blast:06861
+paddydoc:blast:06865
+paddydoc:blast:06869
+paddydoc:blast:06879
+paddydoc:blast:06885
+paddydoc:blast:06886
+paddydoc:blast:06891
+paddydoc:blast:06892
+paddydoc:blast:06896
+paddydoc:blast:06903
+paddydoc:blast:06914
+paddydoc:blast:06917
+paddydoc:blast:06924
+paddydoc:blast:06934
+paddydoc:blast:06938
+paddydoc:blast:06945
+paddydoc:blast:06947
+paddydoc:blast:06968
+paddydoc:blast:06973
+paddydoc:blast:06976
+paddydoc:blast:06980
+paddydoc:blast:06986
+paddydoc:blast:06990
+paddydoc:blast:06991
+paddydoc:blast:07001
+paddydoc:blast:07006
+paddydoc:blast:07012
+paddydoc:blast:07015
+paddydoc:blast:07021
+paddydoc:blast:07023
+paddydoc:blast:07032
+paddydoc:blast:07035
+paddydoc:blast:07036
+paddydoc:blast:07037
+paddydoc:blast:07042
+paddydoc:blast:07049
+paddydoc:blast:07061
+paddydoc:blast:07071
+paddydoc:blast:07080
+paddydoc:blast:07085
+paddydoc:blast:07087
+paddydoc:blast:07097
+paddydoc:blast:07101
+paddydoc:blast:07112
+paddydoc:blast:07133
+paddydoc:blast:07137
+paddydoc:blast:07142
+paddydoc:blast:07148
+paddydoc:blast:07156
+paddydoc:blast:07167
+paddydoc:blast:07174
+paddydoc:brown_spot:02260
+paddydoc:brown_spot:02261
+paddydoc:brown_spot:02269
+paddydoc:brown_spot:02270
+paddydoc:brown_spot:02271
+paddydoc:brown_spot:02280
+paddydoc:brown_spot:02286
+paddydoc:brown_spot:02295
+paddydoc:brown_spot:02309
+paddydoc:brown_spot:02323
+paddydoc:brown_spot:02327
+paddydoc:brown_spot:02331
+paddydoc:brown_spot:02338
+paddydoc:brown_spot:02342
+paddydoc:brown_spot:02359
+paddydoc:brown_spot:02369
+paddydoc:brown_spot:02373
+paddydoc:brown_spot:02376
+paddydoc:brown_spot:02387
+paddydoc:brown_spot:02392
+paddydoc:brown_spot:02395
+paddydoc:brown_spot:02435
+paddydoc:brown_spot:02442
+paddydoc:brown_spot:02453
+paddydoc:brown_spot:02454
+paddydoc:brown_spot:02463
+paddydoc:brown_spot:02467
+paddydoc:brown_spot:02474
+paddydoc:brown_spot:02478
+paddydoc:brown_spot:02480
+paddydoc:brown_spot:02481
+paddydoc:brown_spot:02527
+paddydoc:brown_spot:02536
+paddydoc:brown_spot:02538
+paddydoc:brown_spot:02541
+paddydoc:brown_spot:02550
+paddydoc:brown_spot:02556
+paddydoc:brown_spot:02558
+paddydoc:brown_spot:02576
+paddydoc:brown_spot:02594
+paddydoc:brown_spot:02596
+paddydoc:brown_spot:02605
+paddydoc:brown_spot:02622
+paddydoc:brown_spot:02627
+paddydoc:brown_spot:02628
+paddydoc:brown_spot:02632
+paddydoc:brown_spot:02633
+paddydoc:brown_spot:02638
+paddydoc:brown_spot:02642
+paddydoc:brown_spot:02645
+paddydoc:brown_spot:02647
+paddydoc:brown_spot:02651
+paddydoc:brown_spot:02652
+paddydoc:brown_spot:02659
+paddydoc:brown_spot:02662
+paddydoc:brown_spot:02673
+paddydoc:brown_spot:02680
+paddydoc:brown_spot:02681
+paddydoc:brown_spot:02696
+paddydoc:brown_spot:02700
+paddydoc:brown_spot:02706
+paddydoc:brown_spot:02712
+paddydoc:brown_spot:02718
+paddydoc:brown_spot:02735
+paddydoc:brown_spot:02741
+paddydoc:brown_spot:02742
+paddydoc:brown_spot:02743
+paddydoc:brown_spot:02747
+paddydoc:brown_spot:02760
+paddydoc:brown_spot:02764
+paddydoc:brown_spot:02767
+paddydoc:brown_spot:02769
+paddydoc:brown_spot:02775
+paddydoc:brown_spot:02778
+paddydoc:brown_spot:02780
+paddydoc:brown_spot:02781
+paddydoc:brown_spot:02790
+paddydoc:brown_spot:02798
+paddydoc:brown_spot:02807
+paddydoc:brown_spot:02821
+paddydoc:brown_spot:02828
+paddydoc:brown_spot:02833
+paddydoc:brown_spot:02849
+paddydoc:brown_spot:02867
+paddydoc:brown_spot:02868
+paddydoc:brown_spot:02895
+paddydoc:brown_spot:02900
+paddydoc:brown_spot:02909
+paddydoc:brown_spot:02919
+paddydoc:brown_spot:02930
+paddydoc:brown_spot:02939
+paddydoc:brown_spot:02940
+paddydoc:brown_spot:02941
+paddydoc:brown_spot:02944
+paddydoc:brown_spot:02945
+paddydoc:brown_spot:02955
+paddydoc:brown_spot:02957
+paddydoc:brown_spot:02978
+paddydoc:brown_spot:02983
+paddydoc:brown_spot:02987
+paddydoc:brown_spot:02990
+paddydoc:brown_spot:02998
+paddydoc:brown_spot:03006
+paddydoc:brown_spot:03025
+paddydoc:brown_spot:03026
+paddydoc:brown_spot:03028
+paddydoc:brown_spot:03034
+paddydoc:brown_spot:03045
+paddydoc:brown_spot:03055
+paddydoc:brown_spot:03068
+paddydoc:brown_spot:03081
+paddydoc:brown_spot:03092
+paddydoc:brown_spot:03097
+paddydoc:brown_spot:03099
+paddydoc:brown_spot:03110
+paddydoc:brown_spot:03115
+paddydoc:brown_spot:03116
+paddydoc:brown_spot:03117
+paddydoc:brown_spot:03120
+paddydoc:brown_spot:03122
+paddydoc:brown_spot:03135
+paddydoc:brown_spot:03136
+paddydoc:brown_spot:03139
+paddydoc:brown_spot:03141
+paddydoc:brown_spot:03148
+paddydoc:brown_spot:03151
+paddydoc:brown_spot:03152
+paddydoc:brown_spot:03168
+paddydoc:brown_spot:03174
+paddydoc:brown_spot:03182
+paddydoc:brown_spot:03184
+paddydoc:brown_spot:03192
+paddydoc:brown_spot:03199
+paddydoc:brown_spot:03202
+paddydoc:brown_spot:03204
+paddydoc:brown_spot:03205
+paddydoc:dead_heart:00001
+paddydoc:dead_heart:00005
+paddydoc:dead_heart:00022
+paddydoc:dead_heart:00031
+paddydoc:dead_heart:00037
+paddydoc:dead_heart:00046
+paddydoc:dead_heart:00047
+paddydoc:dead_heart:00049
+paddydoc:dead_heart:00050
+paddydoc:dead_heart:00054
+paddydoc:dead_heart:00061
+paddydoc:dead_heart:00067
+paddydoc:dead_heart:00078
+paddydoc:dead_heart:00085
+paddydoc:dead_heart:00089
+paddydoc:dead_heart:00090
+paddydoc:dead_heart:00097
+paddydoc:dead_heart:00099
+paddydoc:dead_heart:00112
+paddydoc:dead_heart:00139
+paddydoc:dead_heart:00149
+paddydoc:dead_heart:00156
+paddydoc:dead_heart:00167
+paddydoc:dead_heart:00169
+paddydoc:dead_heart:00176
+paddydoc:dead_heart:00177
+paddydoc:dead_heart:00184
+paddydoc:dead_heart:00186
+paddydoc:dead_heart:00190
+paddydoc:dead_heart:00192
+paddydoc:dead_heart:00196
+paddydoc:dead_heart:00201
+paddydoc:dead_heart:00215
+paddydoc:dead_heart:00232
+paddydoc:dead_heart:00238
+paddydoc:dead_heart:00247
+paddydoc:dead_heart:00248
+paddydoc:dead_heart:00250
+paddydoc:dead_heart:00266
+paddydoc:dead_heart:00271
+paddydoc:dead_heart:00276
+paddydoc:dead_heart:00278
+paddydoc:dead_heart:00289
+paddydoc:dead_heart:00290
+paddydoc:dead_heart:00297
+paddydoc:dead_heart:00302
+paddydoc:dead_heart:00312
+paddydoc:dead_heart:00329
+paddydoc:dead_heart:00355
+paddydoc:dead_heart:00358
+paddydoc:dead_heart:00366
+paddydoc:dead_heart:00371
+paddydoc:dead_heart:00373
+paddydoc:dead_heart:00382
+paddydoc:dead_heart:00396
+paddydoc:dead_heart:00419
+paddydoc:dead_heart:00424
+paddydoc:dead_heart:00428
+paddydoc:dead_heart:00430
+paddydoc:dead_heart:00443
+paddydoc:dead_heart:00446
+paddydoc:dead_heart:00451
+paddydoc:dead_heart:00455
+paddydoc:dead_heart:00463
+paddydoc:dead_heart:00482
+paddydoc:dead_heart:00487
+paddydoc:dead_heart:00490
+paddydoc:dead_heart:00491
+paddydoc:dead_heart:00495
+paddydoc:dead_heart:00500
+paddydoc:dead_heart:00507
+paddydoc:dead_heart:00509
+paddydoc:dead_heart:00517
+paddydoc:dead_heart:00521
+paddydoc:dead_heart:00522
+paddydoc:dead_heart:00529
+paddydoc:dead_heart:00533
+paddydoc:dead_heart:00537
+paddydoc:dead_heart:00538
+paddydoc:dead_heart:00542
+paddydoc:dead_heart:00545
+paddydoc:dead_heart:00550
+paddydoc:dead_heart:00552
+paddydoc:dead_heart:00553
+paddydoc:dead_heart:00556
+paddydoc:dead_heart:00569
+paddydoc:dead_heart:00581
+paddydoc:dead_heart:00588
+paddydoc:dead_heart:00592
+paddydoc:dead_heart:00594
+paddydoc:dead_heart:00596
+paddydoc:dead_heart:00599
+paddydoc:dead_heart:00604
+paddydoc:dead_heart:00610
+paddydoc:dead_heart:00623
+paddydoc:dead_heart:00624
+paddydoc:dead_heart:00630
+paddydoc:dead_heart:00641
+paddydoc:dead_heart:00653
+paddydoc:dead_heart:00666
+paddydoc:dead_heart:00667
+paddydoc:dead_heart:00676
+paddydoc:dead_heart:00677
+paddydoc:dead_heart:00682
+paddydoc:dead_heart:00697
+paddydoc:dead_heart:00698
+paddydoc:dead_heart:00709
+paddydoc:dead_heart:00720
+paddydoc:dead_heart:00722
+paddydoc:dead_heart:00723
+paddydoc:dead_heart:00732
+paddydoc:dead_heart:00737
+paddydoc:dead_heart:00764
+paddydoc:dead_heart:00783
+paddydoc:dead_heart:00785
+paddydoc:dead_heart:00789
+paddydoc:dead_heart:00793
+paddydoc:dead_heart:00795
+paddydoc:dead_heart:00798
+paddydoc:dead_heart:00808
+paddydoc:dead_heart:00820
+paddydoc:dead_heart:00825
+paddydoc:dead_heart:00826
+paddydoc:dead_heart:00827
+paddydoc:dead_heart:00831
+paddydoc:dead_heart:00835
+paddydoc:dead_heart:00843
+paddydoc:dead_heart:00850
+paddydoc:dead_heart:00857
+paddydoc:dead_heart:00860
+paddydoc:dead_heart:00866
+paddydoc:dead_heart:00870
+paddydoc:dead_heart:00882
+paddydoc:dead_heart:00891
+paddydoc:dead_heart:00892
+paddydoc:dead_heart:00896
+paddydoc:dead_heart:00897
+paddydoc:dead_heart:00898
+paddydoc:dead_heart:00899
+paddydoc:dead_heart:00903
+paddydoc:dead_heart:00910
+paddydoc:dead_heart:00915
+paddydoc:dead_heart:00923
+paddydoc:dead_heart:00935
+paddydoc:dead_heart:00936
+paddydoc:dead_heart:00943
+paddydoc:dead_heart:00952
+paddydoc:dead_heart:00957
+paddydoc:dead_heart:00961
+paddydoc:dead_heart:00972
+paddydoc:dead_heart:00973
+paddydoc:dead_heart:00974
+paddydoc:dead_heart:00976
+paddydoc:dead_heart:01001
+paddydoc:dead_heart:01005
+paddydoc:dead_heart:01029
+paddydoc:dead_heart:01031
+paddydoc:dead_heart:01037
+paddydoc:dead_heart:01040
+paddydoc:dead_heart:01042
+paddydoc:dead_heart:01066
+paddydoc:dead_heart:01074
+paddydoc:dead_heart:01081
+paddydoc:dead_heart:01091
+paddydoc:dead_heart:01092
+paddydoc:dead_heart:01093
+paddydoc:dead_heart:01098
+paddydoc:dead_heart:01099
+paddydoc:dead_heart:01109
+paddydoc:dead_heart:01110
+paddydoc:dead_heart:01123
+paddydoc:dead_heart:01125
+paddydoc:dead_heart:01134
+paddydoc:dead_heart:01141
+paddydoc:dead_heart:01145
+paddydoc:dead_heart:01148
+paddydoc:dead_heart:01150
+paddydoc:dead_heart:01153
+paddydoc:dead_heart:01155
+paddydoc:dead_heart:01156
+paddydoc:dead_heart:01163
+paddydoc:dead_heart:01165
+paddydoc:dead_heart:01173
+paddydoc:dead_heart:01176
+paddydoc:dead_heart:01181
+paddydoc:dead_heart:01197
+paddydoc:dead_heart:01198
+paddydoc:dead_heart:01208
+paddydoc:dead_heart:01218
+paddydoc:dead_heart:01219
+paddydoc:dead_heart:01232
+paddydoc:dead_heart:01238
+paddydoc:dead_heart:01242
+paddydoc:dead_heart:01250
+paddydoc:dead_heart:01263
+paddydoc:dead_heart:01272
+paddydoc:dead_heart:01273
+paddydoc:dead_heart:01278
+paddydoc:dead_heart:01284
+paddydoc:dead_heart:01287
+paddydoc:dead_heart:01294
+paddydoc:dead_heart:01295
+paddydoc:dead_heart:01296
+paddydoc:dead_heart:01297
+paddydoc:dead_heart:01301
+paddydoc:dead_heart:01316
+paddydoc:dead_heart:01319
+paddydoc:dead_heart:01347
+paddydoc:dead_heart:01349
+paddydoc:dead_heart:01356
+paddydoc:dead_heart:01362
+paddydoc:dead_heart:01371
+paddydoc:dead_heart:01373
+paddydoc:dead_heart:01380
+paddydoc:dead_heart:01381
+paddydoc:dead_heart:01385
+paddydoc:dead_heart:01387
+paddydoc:dead_heart:01406
+paddydoc:dead_heart:01411
+paddydoc:dead_heart:01412
+paddydoc:dead_heart:01421
+paddydoc:dead_heart:01428
+paddydoc:dead_heart:01431
+paddydoc:downy_mildew:04819
+paddydoc:downy_mildew:04822
+paddydoc:downy_mildew:04853
+paddydoc:downy_mildew:04856
+paddydoc:downy_mildew:04883
+paddydoc:downy_mildew:04886
+paddydoc:downy_mildew:04915
+paddydoc:downy_mildew:04917
+paddydoc:downy_mildew:04918
+paddydoc:downy_mildew:04921
+paddydoc:downy_mildew:04922
+paddydoc:downy_mildew:04926
+paddydoc:downy_mildew:04928
+paddydoc:downy_mildew:04935
+paddydoc:downy_mildew:04945
+paddydoc:downy_mildew:04950
+paddydoc:downy_mildew:04956
+paddydoc:downy_mildew:04958
+paddydoc:downy_mildew:04959
+paddydoc:downy_mildew:04960
+paddydoc:downy_mildew:04962
+paddydoc:downy_mildew:04968
+paddydoc:downy_mildew:04969
+paddydoc:downy_mildew:04971
+paddydoc:downy_mildew:04972
+paddydoc:downy_mildew:04975
+paddydoc:downy_mildew:04986
+paddydoc:downy_mildew:04997
+paddydoc:downy_mildew:04998
+paddydoc:downy_mildew:05001
+paddydoc:downy_mildew:05006
+paddydoc:downy_mildew:05020
+paddydoc:downy_mildew:05031
+paddydoc:downy_mildew:05033
+paddydoc:downy_mildew:05039
+paddydoc:downy_mildew:05053
+paddydoc:downy_mildew:05054
+paddydoc:downy_mildew:05055
+paddydoc:downy_mildew:05097
+paddydoc:downy_mildew:05109
+paddydoc:downy_mildew:05125
+paddydoc:downy_mildew:05128
+paddydoc:downy_mildew:05150
+paddydoc:downy_mildew:05153
+paddydoc:downy_mildew:05155
+paddydoc:downy_mildew:05161
+paddydoc:downy_mildew:05166
+paddydoc:downy_mildew:05169
+paddydoc:downy_mildew:05177
+paddydoc:downy_mildew:05182
+paddydoc:downy_mildew:05185
+paddydoc:downy_mildew:05191
+paddydoc:downy_mildew:05195
+paddydoc:downy_mildew:05198
+paddydoc:downy_mildew:05207
+paddydoc:downy_mildew:05209
+paddydoc:downy_mildew:05211
+paddydoc:downy_mildew:05220
+paddydoc:downy_mildew:05221
+paddydoc:downy_mildew:05222
+paddydoc:downy_mildew:05231
+paddydoc:downy_mildew:05241
+paddydoc:downy_mildew:05248
+paddydoc:downy_mildew:05249
+paddydoc:downy_mildew:05252
+paddydoc:downy_mildew:05273
+paddydoc:downy_mildew:05279
+paddydoc:downy_mildew:05282
+paddydoc:downy_mildew:05292
+paddydoc:downy_mildew:05293
+paddydoc:downy_mildew:05310
+paddydoc:downy_mildew:05323
+paddydoc:downy_mildew:05329
+paddydoc:downy_mildew:05335
+paddydoc:downy_mildew:05338
+paddydoc:downy_mildew:05341
+paddydoc:downy_mildew:05343
+paddydoc:downy_mildew:05347
+paddydoc:downy_mildew:05348
+paddydoc:downy_mildew:05350
+paddydoc:downy_mildew:05372
+paddydoc:downy_mildew:05383
+paddydoc:downy_mildew:05387
+paddydoc:downy_mildew:05402
+paddydoc:downy_mildew:05407
+paddydoc:downy_mildew:05412
+paddydoc:downy_mildew:05418
+paddydoc:hispa:03224
+paddydoc:hispa:03226
+paddydoc:hispa:03228
+paddydoc:hispa:03230
+paddydoc:hispa:03240
+paddydoc:hispa:03241
+paddydoc:hispa:03249
+paddydoc:hispa:03258
+paddydoc:hispa:03265
+paddydoc:hispa:03273
+paddydoc:hispa:03285
+paddydoc:hispa:03294
+paddydoc:hispa:03297
+paddydoc:hispa:03308
+paddydoc:hispa:03310
+paddydoc:hispa:03323
+paddydoc:hispa:03326
+paddydoc:hispa:03330
+paddydoc:hispa:03342
+paddydoc:hispa:03351
+paddydoc:hispa:03362
+paddydoc:hispa:03365
+paddydoc:hispa:03373
+paddydoc:hispa:03374
+paddydoc:hispa:03375
+paddydoc:hispa:03377
+paddydoc:hispa:03392
+paddydoc:hispa:03394
+paddydoc:hispa:03395
+paddydoc:hispa:03417
+paddydoc:hispa:03427
+paddydoc:hispa:03429
+paddydoc:hispa:03432
+paddydoc:hispa:03436
+paddydoc:hispa:03437
+paddydoc:hispa:03439
+paddydoc:hispa:03455
+paddydoc:hispa:03461
+paddydoc:hispa:03466
+paddydoc:hispa:03471
+paddydoc:hispa:03476
+paddydoc:hispa:03477
+paddydoc:hispa:03483
+paddydoc:hispa:03484
+paddydoc:hispa:03498
+paddydoc:hispa:03500
+paddydoc:hispa:03514
+paddydoc:hispa:03529
+paddydoc:hispa:03534
+paddydoc:hispa:03536
+paddydoc:hispa:03564
+paddydoc:hispa:03572
+paddydoc:hispa:03573
+paddydoc:hispa:03579
+paddydoc:hispa:03592
+paddydoc:hispa:03603
+paddydoc:hispa:03606
+paddydoc:hispa:03615
+paddydoc:hispa:03619
+paddydoc:hispa:03626
+paddydoc:hispa:03629
+paddydoc:hispa:03634
+paddydoc:hispa:03635
+paddydoc:hispa:03655
+paddydoc:hispa:03662
+paddydoc:hispa:03665
+paddydoc:hispa:03666
+paddydoc:hispa:03668
+paddydoc:hispa:03671
+paddydoc:hispa:03674
+paddydoc:hispa:03678
+paddydoc:hispa:03692
+paddydoc:hispa:03703
+paddydoc:hispa:03707
+paddydoc:hispa:03713
+paddydoc:hispa:03717
+paddydoc:hispa:03721
+paddydoc:hispa:03725
+paddydoc:hispa:03733
+paddydoc:hispa:03737
+paddydoc:hispa:03747
+paddydoc:hispa:03749
+paddydoc:hispa:03755
+paddydoc:hispa:03770
+paddydoc:hispa:03771
+paddydoc:hispa:03778
+paddydoc:hispa:03780
+paddydoc:hispa:03781
+paddydoc:hispa:03799
+paddydoc:hispa:03802
+paddydoc:hispa:03807
+paddydoc:hispa:03812
+paddydoc:hispa:03813
+paddydoc:hispa:03833
+paddydoc:hispa:03842
+paddydoc:hispa:03846
+paddydoc:hispa:03848
+paddydoc:hispa:03851
+paddydoc:hispa:03853
+paddydoc:hispa:03857
+paddydoc:hispa:03861
+paddydoc:hispa:03865
+paddydoc:hispa:03867
+paddydoc:hispa:03871
+paddydoc:hispa:03874
+paddydoc:hispa:03878
+paddydoc:hispa:03882
+paddydoc:hispa:03885
+paddydoc:hispa:03890
+paddydoc:hispa:03896
+paddydoc:hispa:03900
+paddydoc:hispa:03902
+paddydoc:hispa:03906
+paddydoc:hispa:03909
+paddydoc:hispa:03910
+paddydoc:hispa:03913
+paddydoc:hispa:03917
+paddydoc:hispa:03922
+paddydoc:hispa:03934
+paddydoc:hispa:03939
+paddydoc:hispa:03940
+paddydoc:hispa:03943
+paddydoc:hispa:03946
+paddydoc:hispa:03951
+paddydoc:hispa:03959
+paddydoc:hispa:03965
+paddydoc:hispa:03966
+paddydoc:hispa:03972
+paddydoc:hispa:03980
+paddydoc:hispa:03993
+paddydoc:hispa:04008
+paddydoc:hispa:04014
+paddydoc:hispa:04021
+paddydoc:hispa:04026
+paddydoc:hispa:04040
+paddydoc:hispa:04044
+paddydoc:hispa:04047
+paddydoc:hispa:04069
+paddydoc:hispa:04073
+paddydoc:hispa:04087
+paddydoc:hispa:04088
+paddydoc:hispa:04110
+paddydoc:hispa:04124
+paddydoc:hispa:04130
+paddydoc:hispa:04140
+paddydoc:hispa:04141
+paddydoc:hispa:04143
+paddydoc:hispa:04161
+paddydoc:hispa:04164
+paddydoc:hispa:04172
+paddydoc:hispa:04177
+paddydoc:hispa:04187
+paddydoc:hispa:04190
+paddydoc:hispa:04192
+paddydoc:hispa:04204
+paddydoc:hispa:04206
+paddydoc:hispa:04215
+paddydoc:hispa:04223
+paddydoc:hispa:04224
+paddydoc:hispa:04225
+paddydoc:hispa:04236
+paddydoc:hispa:04238
+paddydoc:hispa:04239
+paddydoc:hispa:04240
+paddydoc:hispa:04251
+paddydoc:hispa:04256
+paddydoc:hispa:04260
+paddydoc:hispa:04265
+paddydoc:hispa:04267
+paddydoc:hispa:04268
+paddydoc:hispa:04269
+paddydoc:hispa:04279
+paddydoc:hispa:04280
+paddydoc:hispa:04285
+paddydoc:hispa:04288
+paddydoc:hispa:04294
+paddydoc:hispa:04295
+paddydoc:hispa:04298
+paddydoc:hispa:04303
+paddydoc:hispa:04307
+paddydoc:hispa:04308
+paddydoc:hispa:04311
+paddydoc:hispa:04314
+paddydoc:hispa:04326
+paddydoc:hispa:04327
+paddydoc:hispa:04359
+paddydoc:hispa:04364
+paddydoc:hispa:04376
+paddydoc:hispa:04378
+paddydoc:hispa:04386
+paddydoc:hispa:04394
+paddydoc:hispa:04399
+paddydoc:hispa:04422
+paddydoc:hispa:04428
+paddydoc:hispa:04442
+paddydoc:hispa:04453
+paddydoc:hispa:04457
+paddydoc:hispa:04462
+paddydoc:hispa:04466
+paddydoc:hispa:04483
+paddydoc:hispa:04484
+paddydoc:hispa:04494
+paddydoc:hispa:04500
+paddydoc:hispa:04514
+paddydoc:hispa:04519
+paddydoc:hispa:04524
+paddydoc:hispa:04530
+paddydoc:hispa:04540
+paddydoc:hispa:04554
+paddydoc:hispa:04557
+paddydoc:hispa:04558
+paddydoc:hispa:04561
+paddydoc:hispa:04562
+paddydoc:hispa:04564
+paddydoc:hispa:04578
+paddydoc:hispa:04579
+paddydoc:hispa:04584
+paddydoc:hispa:04593
+paddydoc:hispa:04599
+paddydoc:hispa:04605
+paddydoc:hispa:04617
+paddydoc:hispa:04621
+paddydoc:hispa:04626
+paddydoc:hispa:04629
+paddydoc:hispa:04637
+paddydoc:hispa:04640
+paddydoc:hispa:04647
+paddydoc:hispa:04659
+paddydoc:hispa:04662
+paddydoc:hispa:04666
+paddydoc:hispa:04673
+paddydoc:hispa:04675
+paddydoc:hispa:04678
+paddydoc:hispa:04680
+paddydoc:hispa:04692
+paddydoc:hispa:04697
+paddydoc:hispa:04701
+paddydoc:hispa:04706
+paddydoc:hispa:04709
+paddydoc:hispa:04712
+paddydoc:hispa:04723
+paddydoc:hispa:04729
+paddydoc:hispa:04733
+paddydoc:hispa:04740
+paddydoc:hispa:04742
+paddydoc:hispa:04743
+paddydoc:hispa:04758
+paddydoc:hispa:04763
+paddydoc:hispa:04764
+paddydoc:hispa:04769
+paddydoc:hispa:04777
+paddydoc:hispa:04779
+paddydoc:hispa:04787
+paddydoc:hispa:04791
+paddydoc:hispa:04800
+paddydoc:hispa:04803
+paddydoc:hispa:04811
+paddydoc:hispa:04812
+paddydoc:hispa:04815
+paddydoc:hispa:04816
+paddydoc:normal:07184
+paddydoc:normal:07185
+paddydoc:normal:07186
+paddydoc:normal:07192
+paddydoc:normal:07201
+paddydoc:normal:07209
+paddydoc:normal:07214
+paddydoc:normal:07215
+paddydoc:normal:07217
+paddydoc:normal:07218
+paddydoc:normal:07222
+paddydoc:normal:07237
+paddydoc:normal:07250
+paddydoc:normal:07255
+paddydoc:normal:07257
+paddydoc:normal:07261
+paddydoc:normal:07266
+paddydoc:normal:07267
+paddydoc:normal:07280
+paddydoc:normal:07287
+paddydoc:normal:07323
+paddydoc:normal:07330
+paddydoc:normal:07348
+paddydoc:normal:07349
+paddydoc:normal:07350
+paddydoc:normal:07351
+paddydoc:normal:07355
+paddydoc:normal:07358
+paddydoc:normal:07365
+paddydoc:normal:07366
+paddydoc:normal:07373
+paddydoc:normal:07379
+paddydoc:normal:07392
+paddydoc:normal:07396
+paddydoc:normal:07400
+paddydoc:normal:07402
+paddydoc:normal:07426
+paddydoc:normal:07431
+paddydoc:normal:07453
+paddydoc:normal:07462
+paddydoc:normal:07463
+paddydoc:normal:07465
+paddydoc:normal:07467
+paddydoc:normal:07468
+paddydoc:normal:07477
+paddydoc:normal:07487
+paddydoc:normal:07489
+paddydoc:normal:07494
+paddydoc:normal:07498
+paddydoc:normal:07504
+paddydoc:normal:07505
+paddydoc:normal:07508
+paddydoc:normal:07511
+paddydoc:normal:07512
+paddydoc:normal:07533
+paddydoc:normal:07561
+paddydoc:normal:07569
+paddydoc:normal:07572
+paddydoc:normal:07578
+paddydoc:normal:07580
+paddydoc:normal:07601
+paddydoc:normal:07608
+paddydoc:normal:07609
+paddydoc:normal:07623
+paddydoc:normal:07625
+paddydoc:normal:07626
+paddydoc:normal:07629
+paddydoc:normal:07630
+paddydoc:normal:07632
+paddydoc:normal:07639
+paddydoc:normal:07649
+paddydoc:normal:07651
+paddydoc:normal:07653
+paddydoc:normal:07660
+paddydoc:normal:07662
+paddydoc:normal:07686
+paddydoc:normal:07693
+paddydoc:normal:07694
+paddydoc:normal:07701
+paddydoc:normal:07704
+paddydoc:normal:07708
+paddydoc:normal:07711
+paddydoc:normal:07712
+paddydoc:normal:07713
+paddydoc:normal:07716
+paddydoc:normal:07719
+paddydoc:normal:07732
+paddydoc:normal:07737
+paddydoc:normal:07740
+paddydoc:normal:07742
+paddydoc:normal:07748
+paddydoc:normal:07753
+paddydoc:normal:07756
+paddydoc:normal:07775
+paddydoc:normal:07788
+paddydoc:normal:07806
+paddydoc:normal:07828
+paddydoc:normal:07831
+paddydoc:normal:07834
+paddydoc:normal:07848
+paddydoc:normal:07850
+paddydoc:normal:07852
+paddydoc:normal:07853
+paddydoc:normal:07869
+paddydoc:normal:07871
+paddydoc:normal:07878
+paddydoc:normal:07897
+paddydoc:normal:07904
+paddydoc:normal:07905
+paddydoc:normal:07908
+paddydoc:normal:07920
+paddydoc:normal:07922
+paddydoc:normal:07926
+paddydoc:normal:07942
+paddydoc:normal:07943
+paddydoc:normal:07948
+paddydoc:normal:07950
+paddydoc:normal:07956
+paddydoc:normal:07960
+paddydoc:normal:07964
+paddydoc:normal:07965
+paddydoc:normal:07971
+paddydoc:normal:07974
+paddydoc:normal:07978
+paddydoc:normal:07981
+paddydoc:normal:07989
+paddydoc:normal:07992
+paddydoc:normal:07995
+paddydoc:normal:07996
+paddydoc:normal:07997
+paddydoc:normal:08003
+paddydoc:normal:08005
+paddydoc:normal:08017
+paddydoc:normal:08019
+paddydoc:normal:08022
+paddydoc:normal:08050
+paddydoc:normal:08071
+paddydoc:normal:08073
+paddydoc:normal:08080
+paddydoc:normal:08084
+paddydoc:normal:08087
+paddydoc:normal:08096
+paddydoc:normal:08099
+paddydoc:normal:08103
+paddydoc:normal:08104
+paddydoc:normal:08109
+paddydoc:normal:08116
+paddydoc:normal:08125
+paddydoc:normal:08139
+paddydoc:normal:08155
+paddydoc:normal:08158
+paddydoc:normal:08160
+paddydoc:normal:08161
+paddydoc:normal:08167
+paddydoc:normal:08170
+paddydoc:normal:08175
+paddydoc:normal:08178
+paddydoc:normal:08195
+paddydoc:normal:08200
+paddydoc:normal:08204
+paddydoc:normal:08206
+paddydoc:normal:08210
+paddydoc:normal:08214
+paddydoc:normal:08216
+paddydoc:normal:08222
+paddydoc:normal:08223
+paddydoc:normal:08230
+paddydoc:normal:08237
+paddydoc:normal:08241
+paddydoc:normal:08246
+paddydoc:normal:08247
+paddydoc:normal:08251
+paddydoc:normal:08265
+paddydoc:normal:08267
+paddydoc:normal:08275
+paddydoc:normal:08285
+paddydoc:normal:08295
+paddydoc:normal:08301
+paddydoc:normal:08309
+paddydoc:normal:08313
+paddydoc:normal:08323
+paddydoc:normal:08330
+paddydoc:normal:08334
+paddydoc:normal:08337
+paddydoc:normal:08342
+paddydoc:normal:08346
+paddydoc:normal:08354
+paddydoc:normal:08358
+paddydoc:normal:08383
+paddydoc:normal:08394
+paddydoc:normal:08399
+paddydoc:normal:08406
+paddydoc:normal:08414
+paddydoc:normal:08426
+paddydoc:normal:08428
+paddydoc:normal:08431
+paddydoc:normal:08440
+paddydoc:normal:08442
+paddydoc:normal:08469
+paddydoc:normal:08477
+paddydoc:normal:08480
+paddydoc:normal:08489
+paddydoc:normal:08494
+paddydoc:normal:08515
+paddydoc:normal:08535
+paddydoc:normal:08550
+paddydoc:normal:08552
+paddydoc:normal:08557
+paddydoc:normal:08560
+paddydoc:normal:08562
+paddydoc:normal:08568
+paddydoc:normal:08584
+paddydoc:normal:08587
+paddydoc:normal:08598
+paddydoc:normal:08605
+paddydoc:normal:08608
+paddydoc:normal:08626
+paddydoc:normal:08633
+paddydoc:normal:08634
+paddydoc:normal:08640
+paddydoc:normal:08648
+paddydoc:normal:08649
+paddydoc:normal:08663
+paddydoc:normal:08667
+paddydoc:normal:08669
+paddydoc:normal:08678
+paddydoc:normal:08679
+paddydoc:normal:08680
+paddydoc:normal:08681
+paddydoc:normal:08684
+paddydoc:normal:08686
+paddydoc:normal:08688
+paddydoc:normal:08692
+paddydoc:normal:08714
+paddydoc:normal:08715
+paddydoc:normal:08717
+paddydoc:normal:08719
+paddydoc:normal:08726
+paddydoc:normal:08731
+paddydoc:normal:08733
+paddydoc:normal:08740
+paddydoc:normal:08741
+paddydoc:normal:08751
+paddydoc:normal:08769
+paddydoc:normal:08771
+paddydoc:normal:08772
+paddydoc:normal:08774
+paddydoc:normal:08778
+paddydoc:normal:08793
+paddydoc:normal:08796
+paddydoc:normal:08818
+paddydoc:normal:08819
+paddydoc:normal:08820
+paddydoc:normal:08834
+paddydoc:normal:08835
+paddydoc:normal:08839
+paddydoc:normal:08842
+paddydoc:normal:08846
+paddydoc:normal:08853
+paddydoc:normal:08859
+paddydoc:normal:08868
+paddydoc:normal:08875
+paddydoc:normal:08876
+paddydoc:normal:08881
+paddydoc:normal:08894
+paddydoc:normal:08911
+paddydoc:normal:08916
+paddydoc:normal:08931
+paddydoc:tungro:09324
+paddydoc:tungro:09326
+paddydoc:tungro:09331
+paddydoc:tungro:09339
+paddydoc:tungro:09340
+paddydoc:tungro:09341
+paddydoc:tungro:09346
+paddydoc:tungro:09349
+paddydoc:tungro:09354
+paddydoc:tungro:09371
+paddydoc:tungro:09373
+paddydoc:tungro:09375
+paddydoc:tungro:09381
+paddydoc:tungro:09384
+paddydoc:tungro:09391
+paddydoc:tungro:09394
+paddydoc:tungro:09398
+paddydoc:tungro:09413
+paddydoc:tungro:09421
+paddydoc:tungro:09424
+paddydoc:tungro:09427
+paddydoc:tungro:09431
+paddydoc:tungro:09432
+paddydoc:tungro:09437
+paddydoc:tungro:09453
+paddydoc:tungro:09464
+paddydoc:tungro:09474
+paddydoc:tungro:09476
+paddydoc:tungro:09478
+paddydoc:tungro:09479
+paddydoc:tungro:09485
+paddydoc:tungro:09514
+paddydoc:tungro:09538
+paddydoc:tungro:09583
+paddydoc:tungro:09586
+paddydoc:tungro:09590
+paddydoc:tungro:09595
+paddydoc:tungro:09602
+paddydoc:tungro:09612
+paddydoc:tungro:09613
+paddydoc:tungro:09614
+paddydoc:tungro:09617
+paddydoc:tungro:09629
+paddydoc:tungro:09645
+paddydoc:tungro:09672
+paddydoc:tungro:09682
+paddydoc:tungro:09685
+paddydoc:tungro:09719
+paddydoc:tungro:09721
+paddydoc:tungro:09724
+paddydoc:tungro:09735
+paddydoc:tungro:09740
+paddydoc:tungro:09757
+paddydoc:tungro:09759
+paddydoc:tungro:09772
+paddydoc:tungro:09778
+paddydoc:tungro:09779
+paddydoc:tungro:09781
+paddydoc:tungro:09782
+paddydoc:tungro:09783
+paddydoc:tungro:09788
+paddydoc:tungro:09808
+paddydoc:tungro:09809
+paddydoc:tungro:09810
+paddydoc:tungro:09816
+paddydoc:tungro:09821
+paddydoc:tungro:09825
+paddydoc:tungro:09834
+paddydoc:tungro:09837
+paddydoc:tungro:09840
+paddydoc:tungro:09841
+paddydoc:tungro:09842
+paddydoc:tungro:09844
+paddydoc:tungro:09845
+paddydoc:tungro:09846
+paddydoc:tungro:09853
+paddydoc:tungro:09854
+paddydoc:tungro:09855
+paddydoc:tungro:09858
+paddydoc:tungro:09861
+paddydoc:tungro:09862
+paddydoc:tungro:09865
+paddydoc:tungro:09866
+paddydoc:tungro:09869
+paddydoc:tungro:09871
+paddydoc:tungro:09885
+paddydoc:tungro:09891
+paddydoc:tungro:09895
+paddydoc:tungro:09906
+paddydoc:tungro:09912
+paddydoc:tungro:09917
+paddydoc:tungro:09921
+paddydoc:tungro:09926
+paddydoc:tungro:09942
+paddydoc:tungro:09945
+paddydoc:tungro:09956
+paddydoc:tungro:09960
+paddydoc:tungro:09969
+paddydoc:tungro:09975
+paddydoc:tungro:09978
+paddydoc:tungro:09981
+paddydoc:tungro:09996
+paddydoc:tungro:10010
+paddydoc:tungro:10023
+paddydoc:tungro:10034
+paddydoc:tungro:10036
+paddydoc:tungro:10037
+paddydoc:tungro:10038
+paddydoc:tungro:10047
+paddydoc:tungro:10048
+paddydoc:tungro:10056
+paddydoc:tungro:10063
+paddydoc:tungro:10078
+paddydoc:tungro:10084
+paddydoc:tungro:10085
+paddydoc:tungro:10090
+paddydoc:tungro:10091
+paddydoc:tungro:10093
+paddydoc:tungro:10095
+paddydoc:tungro:10099
+paddydoc:tungro:10109
+paddydoc:tungro:10114
+paddydoc:tungro:10115
+paddydoc:tungro:10122
+paddydoc:tungro:10128
+paddydoc:tungro:10158
+paddydoc:tungro:10162
+paddydoc:tungro:10164
+paddydoc:tungro:10168
+paddydoc:tungro:10182
+paddydoc:tungro:10187
+paddydoc:tungro:10188
+paddydoc:tungro:10200
+paddydoc:tungro:10207
+paddydoc:tungro:10216
+paddydoc:tungro:10222
+paddydoc:tungro:10226
+paddydoc:tungro:10235
+paddydoc:tungro:10243
+paddydoc:tungro:10253
+paddydoc:tungro:10256
+paddydoc:tungro:10259
+paddydoc:tungro:10274
+paddydoc:tungro:10283
+paddydoc:tungro:10289
+paddydoc:tungro:10306
+paddydoc:tungro:10308
+paddydoc:tungro:10312
+paddydoc:tungro:10330
+paddydoc:tungro:10333
+paddydoc:tungro:10340
+paddydoc:tungro:10347
+paddydoc:tungro:10349
+paddydoc:tungro:10350
+paddydoc:tungro:10353
+paddydoc:tungro:10385
+paddydoc:tungro:10389
+paddydoc:tungro:10395
+ricebd:Blast:00013
+ricebd:Blast:00014
+ricebd:Blast:00020
+ricebd:Blast:00022
+ricebd:Blast:00031
+ricebd:Blast:00036
+ricebd:Blast:00051
+ricebd:Blast:00053
+ricebd:Blast:00054
+ricebd:Blast:00055
+ricebd:Blast:00063
+ricebd:Blast:00064
+ricebd:Blast:00069
+ricebd:Blast:00077
+ricebd:Blast:00078
+ricebd:Blast:00079
+ricebd:Blast:00084
+ricebd:Blast:00085
+ricebd:Blast:00088
+ricebd:Blast:00113
+ricebd:Blast:00114
+ricebd:Blast:00116
+ricebd:Blast:00118
+ricebd:Blast:00125
+ricebd:Blast:00147
+ricebd:Blast:00152
+ricebd:Blast:00156
+ricebd:Blast:00159
+ricebd:Blast:00160
+ricebd:Blast:00167
+ricebd:Blast:00170
+ricebd:Blast:00177
+ricebd:Blast:00179
+ricebd:Blast:00183
+ricebd:Blast:00188
+ricebd:Blast:00195
+ricebd:Blast:00196
+ricebd:Blast:00202
+ricebd:Blast:00212
+ricebd:Blast:00214
+ricebd:Blast:00232
+ricebd:Blast:00248
+ricebd:Blast:00267
+ricebd:Blast:00285
+ricebd:Blast:00287
+ricebd:Blast:00295
+ricebd:Blast:00298
+ricebd:Blast:00334
+ricebd:Blast:00339
+ricebd:Blast:00342
+ricebd:Blast:00351
+ricebd:Blast:00354
+ricebd:Blast:00369
+ricebd:Blast:00378
+ricebd:Blast:00380
+ricebd:Blast:00384
+ricebd:Blast:00387
+ricebd:Blast:00389
+ricebd:Blast:00397
+ricebd:Blast:00401
+ricebd:Blast:00402
+ricebd:Blast:00407
+ricebd:Blast:00410
+ricebd:Blast:00411
+ricebd:Blast:00422
+ricebd:Blast:00424
+ricebd:Blast:00425
+ricebd:Blast:00431
+ricebd:Blast:00447
+ricebd:Blast:00448
+ricebd:Blast:00451
+ricebd:Blast:00452
+ricebd:Blast:00460
+ricebd:Blast:00463
+ricebd:Blast:00470
+ricebd:Blast:00476
+ricebd:Blast:00479
+ricebd:Blast:00488
+ricebd:Blast:00489
+ricebd:Blast:00491
+ricebd:Blast:00493
+ricebd:Blast:00495
+ricebd:Blast:00501
+ricebd:Blast:00519
+ricebd:Blast:00542
+ricebd:Blast:00548
+ricebd:Blast:00551
+ricebd:Blast:00552
+ricebd:Blast:00567
+ricebd:Blast:00591
+ricebd:Blast:00597
+ricebd:Blast:00598
+ricebd:Blast:00601
+ricebd:Blast:00609
+ricebd:Blast:00611
+ricebd:Blast:00612
+ricebd:Blast:00614
+ricebd:Blast:00620
+ricebd:Blast:00628
+ricebd:Blast:00629
+ricebd:Blast:00644
+ricebd:Blast:00652
+ricebd:Blast:00657
+ricebd:Blast:00660
+ricebd:Blast:00663
+ricebd:Blast:00673
+ricebd:Blast:00682
+ricebd:Blast:00690
+ricebd:Blast:00691
+ricebd:Blast:00695
+ricebd:Blast:00699
+ricebd:Blast:00703
+ricebd:Blast:00719
+ricebd:Blast:00721
+ricebd:Blast:00725
+ricebd:Blast:00729
+ricebd:Blast:00736
+ricebd:Blast:00743
+ricebd:Blast:00773
+ricebd:Blast:00783
+ricebd:Blast:00810
+ricebd:Blast:00815
+ricebd:Blast:00825
+ricebd:Blast:00828
+ricebd:Blast:00829
+ricebd:Blast:00854
+ricebd:Blast:00859
+ricebd:Blast:00861
+ricebd:Blast:00871
+ricebd:Blast:00887
+ricebd:Blast:00890
+ricebd:Blast:00895
+ricebd:Blast:00916
+ricebd:Blast:00938
+ricebd:Blast:00941
+ricebd:Blast:00942
+ricebd:Blast:00943
+ricebd:Blast:00944
+ricebd:Blast:00945
+ricebd:Blast:00951
+ricebd:Blast:00956
+ricebd:Blast:00962
+ricebd:Blast:00967
+ricebd:Blast:00971
+ricebd:Blast:00974
+ricebd:Blast:00983
+ricebd:Blast:00985
+ricebd:Blast:00986
+ricebd:Blast:01006
+ricebd:Blast:01010
+ricebd:Blast:01025
+ricebd:Blast:01029
+ricebd:Blast:01042
+ricebd:Blast:01043
+ricebd:Blast:01045
+ricebd:Blast:01058
+ricebd:Blast:01063
+ricebd:Blast:01066
+ricebd:Blast:01069
+ricebd:Blast:01075
+ricebd:Blast:01076
+ricebd:Blast:01093
+ricebd:Blast:01097
+ricebd:Blast:01106
+ricebd:Blast:01120
+ricebd:Blast:01125
+ricebd:Blast:01128
+ricebd:Blast:01131
+ricebd:Blast:01134
+ricebd:Blast:01152
+ricebd:Blast:01157
+ricebd:Blast:01176
+ricebd:Blast:01178
+ricebd:Blast:01189
+ricebd:Blast:01193
+ricebd:Blast:01194
+ricebd:Blast:01199
+ricebd:Blast:01206
+ricebd:Blast:01220
+ricebd:Blast:01222
+ricebd:Blast:01230
+ricebd:Blast:01246
+ricebd:Blast:01247
+ricebd:Blast:01267
+ricebd:Blast:01275
+ricebd:Blast:01284
+ricebd:Blast:01286
+ricebd:Blast:01294
+ricebd:Blast:01299
+ricebd:Blast:01308
+ricebd:Blast:01309
+ricebd:Blast:01311
+ricebd:Blast:01313
+ricebd:Blast:01324
+ricebd:Blast:08208
+ricebd:Blast:08209
+ricebd:Blast:08220
+ricebd:Blast:08225
+ricebd:Blast:08228
+ricebd:Blast:08234
+ricebd:Blast:08235
+ricebd:Blast:08249
+ricebd:Blast:08267
+ricebd:Blast:08268
+ricebd:Blast:08272
+ricebd:Blast:08273
+ricebd:Blast:08282
+ricebd:Blast:08284
+ricebd:Blast:08300
+ricebd:Blast:08309
+ricebd:Blast:08331
+ricebd:Blast:08335
+ricebd:Blast:08336
+ricebd:Blast:08337
+ricebd:Blast:08344
+ricebd:Blast:08352
+ricebd:Blast:08356
+ricebd:Blast:08357
+ricebd:Blast:08365
+ricebd:Blast:08366
+ricebd:Blast:08373
+ricebd:Blast:08387
+ricebd:Blast:08389
+ricebd:Blast:08391
+ricebd:Blast:08409
+ricebd:Blast:08418
+ricebd:Blast:08419
+ricebd:Blast:08424
+ricebd:Blast:08439
+ricebd:Blast:08457
+ricebd:Blast:08463
+ricebd:Blast:08464
+ricebd:Blast:08469
+ricebd:Blast:08472
+ricebd:Blast:08481
+ricebd:Blast:08484
+ricebd:Blast:08487
+ricebd:Blast:08491
+ricebd:Blast:08493
+ricebd:Blast:08503
+ricebd:Blast:08508
+ricebd:Blast:08510
+ricebd:Blast:08511
+ricebd:Blast:08512
+ricebd:Blast:08513
+ricebd:Blast:08514
+ricebd:Blast:08515
+ricebd:Blast:08518
+ricebd:Blast:08523
+ricebd:Blast:08530
+ricebd:Blast:08531
+ricebd:Blast:08540
+ricebd:Blast:08545
+ricebd:Blast:08546
+ricebd:Blast:08549
+ricebd:Blast:08552
+ricebd:Blast:08559
+ricebd:Blast:08575
+ricebd:Blast:08585
+ricebd:Blast:08592
+ricebd:Blast:08604
+ricebd:Blast:08606
+ricebd:Blast:08612
+ricebd:Blast:08618
+ricebd:Blast:08627
+ricebd:Blast:08633
+ricebd:Blast:08636
+ricebd:Blast:08643
+ricebd:Blast:08651
+ricebd:Blast:08655
+ricebd:Blast:08668
+ricebd:Blast:08675
+ricebd:Blast:08676
+ricebd:Blast:08686
+ricebd:Blast:08702
+ricebd:Blast:08704
+ricebd:Blast:08705
+ricebd:Blast:08724
+ricebd:Blast:08732
+ricebd:Blast:08756
+ricebd:Blast:08759
+ricebd:Blast:08776
+ricebd:Blast:08778
+ricebd:Blast:08784
+ricebd:Blast:08785
+ricebd:Blast:08798
+ricebd:Blast:08810
+ricebd:Blast:08814
+ricebd:Blast:08819
+ricebd:Blast:08825
+ricebd:Blast:08826
+ricebd:Blast:08842
+ricebd:Blast:08844
+ricebd:Blast:08848
+ricebd:Blast:08853
+ricebd:Blast:08857
+ricebd:Blast:08861
+ricebd:Blast:08869
+ricebd:Blast:08872
+ricebd:Blast:08876
+ricebd:Blast:08885
+ricebd:Blast:08894
+ricebd:Blast:08910
+ricebd:Blast:08913
+ricebd:Blast:08916
+ricebd:Blast:08924
+ricebd:Blast:08926
+ricebd:Blast:08927
+ricebd:Blast:08931
+ricebd:Blast:08932
+ricebd:Blast:08938
+ricebd:Blast:08947
+ricebd:Blast:08956
+ricebd:Blast:08959
+ricebd:Blast:08984
+ricebd:Blast:09008
+ricebd:Blast:09010
+ricebd:Blast:09012
+ricebd:Blast:09018
+ricebd:Blast:09019
+ricebd:Blast:09020
+ricebd:Blast:09022
+ricebd:Blast:09028
+ricebd:Blast:09032
+ricebd:Blast:09042
+ricebd:Blast:09055
+ricebd:Blast:09062
+ricebd:Blast:09074
+ricebd:Blast:09079
+ricebd:Blast:09085
+ricebd:Blast:09089
+ricebd:Blast:09098
+ricebd:Blast:09104
+ricebd:Blast:09106
+ricebd:Blast:09109
+ricebd:Blast:09115
+ricebd:Blast:09116
+ricebd:Blast:09125
+ricebd:Blast:09133
+ricebd:Blast:09136
+ricebd:Blast:09137
+ricebd:Blast:09140
+ricebd:Blast:09142
+ricebd:Blast:09148
+ricebd:Blast:09153
+ricebd:Blast:09160
+ricebd:Blast:09163
+ricebd:Blast:09165
+ricebd:Blast:09170
+ricebd:Blast:09174
+ricebd:Blast:09182
+ricebd:Blast:09193
+ricebd:Blast:09194
+ricebd:Blast:09199
+ricebd:Blast:09204
+ricebd:Blast:09205
+ricebd:Blast:09206
+ricebd:Blast:09208
+ricebd:Blast:09213
+ricebd:Blast:09242
+ricebd:Blast:09249
+ricebd:Blast:09251
+ricebd:Blast:09263
+ricebd:Blast:09282
+ricebd:Blast:09285
+ricebd:Blast:09286
+ricebd:Blast:09292
+ricebd:Blast:09302
+ricebd:Blast:09305
+ricebd:Blast:09320
+ricebd:Blast:09322
+ricebd:Blast:09324
+ricebd:Blast:09330
+ricebd:Blast:09335
+ricebd:Blast:09338
+ricebd:Blast:09340
+ricebd:Blast:09363
+ricebd:Blast:09368
+ricebd:Blast:09378
+ricebd:Blast:09379
+ricebd:Blast:09383
+ricebd:Blast:09392
+ricebd:Blast:09393
+ricebd:Blast:09410
+ricebd:Blast:09414
+ricebd:Blast:09416
+ricebd:Blast:09419
+ricebd:Blast:09424
+ricebd:Blast:09425
+ricebd:Blast:09453
+ricebd:Blast:09468
+ricebd:Blast:09471
+ricebd:Blast:09478
+ricebd:Blast:09482
+ricebd:Blast:09493
+ricebd:Blast:09495
+ricebd:Blast:09505
+ricebd:Blast:09507
+ricebd:Blast:09508
+ricebd:Blast:09516
+ricebd:Blast:09519
+ricebd:Brown Spot:01330
+ricebd:Brown Spot:01331
+ricebd:Brown Spot:01334
+ricebd:Brown Spot:01335
+ricebd:Brown Spot:01352
+ricebd:Brown Spot:01356
+ricebd:Brown Spot:01363
+ricebd:Brown Spot:01371
+ricebd:Brown Spot:01385
+ricebd:Brown Spot:01387
+ricebd:Brown Spot:01388
+ricebd:Brown Spot:01413
+ricebd:Brown Spot:01415
+ricebd:Brown Spot:01418
+ricebd:Brown Spot:01426
+ricebd:Brown Spot:01429
+ricebd:Brown Spot:01435
+ricebd:Brown Spot:01440
+ricebd:Brown Spot:01445
+ricebd:Brown Spot:01448
+ricebd:Brown Spot:01453
+ricebd:Brown Spot:01454
+ricebd:Brown Spot:01456
+ricebd:Brown Spot:01459
+ricebd:Brown Spot:01460
+ricebd:Brown Spot:01464
+ricebd:Brown Spot:01470
+ricebd:Brown Spot:01471
+ricebd:Brown Spot:01480
+ricebd:Brown Spot:01484
+ricebd:Brown Spot:01497
+ricebd:Brown Spot:01504
+ricebd:Brown Spot:01510
+ricebd:Brown Spot:01514
+ricebd:Brown Spot:01522
+ricebd:Brown Spot:01523
+ricebd:Brown Spot:01526
+ricebd:Brown Spot:01531
+ricebd:Brown Spot:01533
+ricebd:Brown Spot:01535
+ricebd:Brown Spot:01536
+ricebd:Brown Spot:01544
+ricebd:Brown Spot:01561
+ricebd:Brown Spot:01587
+ricebd:Brown Spot:01589
+ricebd:Brown Spot:01605
+ricebd:Brown Spot:01618
+ricebd:Brown Spot:01628
+ricebd:Brown Spot:01631
+ricebd:Brown Spot:01637
+ricebd:Brown Spot:01652
+ricebd:Brown Spot:01653
+ricebd:Brown Spot:01669
+ricebd:Brown Spot:01683
+ricebd:Brown Spot:01698
+ricebd:Brown Spot:01699
+ricebd:Brown Spot:01704
+ricebd:Brown Spot:01709
+ricebd:Brown Spot:01710
+ricebd:Brown Spot:01715
+ricebd:Brown Spot:01716
+ricebd:Brown Spot:01727
+ricebd:Brown Spot:01734
+ricebd:Brown Spot:01742
+ricebd:Brown Spot:01745
+ricebd:Brown Spot:01749
+ricebd:Brown Spot:01754
+ricebd:Brown Spot:01755
+ricebd:Brown Spot:01756
+ricebd:Brown Spot:01757
+ricebd:Brown Spot:01761
+ricebd:Brown Spot:01765
+ricebd:Brown Spot:01783
+ricebd:Brown Spot:01786
+ricebd:Brown Spot:01789
+ricebd:Brown Spot:01804
+ricebd:Brown Spot:01824
+ricebd:Brown Spot:01836
+ricebd:Brown Spot:01841
+ricebd:Brown Spot:01843
+ricebd:Brown Spot:01844
+ricebd:Brown Spot:01847
+ricebd:Brown Spot:01851
+ricebd:Brown Spot:01855
+ricebd:Brown Spot:01864
+ricebd:Brown Spot:01875
+ricebd:Brown Spot:01880
+ricebd:Brown Spot:01881
+ricebd:Brown Spot:01882
+ricebd:Brown Spot:01893
+ricebd:Brown Spot:01902
+ricebd:Brown Spot:01904
+ricebd:Brown Spot:01916
+ricebd:Brown Spot:01921
+ricebd:Brown Spot:01924
+ricebd:Brown Spot:01926
+ricebd:Brown Spot:01927
+ricebd:Brown Spot:01938
+ricebd:Brown Spot:01950
+ricebd:Brown Spot:01954
+ricebd:Brown Spot:01959
+ricebd:Brown Spot:01968
+ricebd:Brown Spot:01971
+ricebd:Brown Spot:01991
+ricebd:Brown Spot:01996
+ricebd:Brown Spot:01999
+ricebd:Brown Spot:02001
+ricebd:Brown Spot:02007
+ricebd:Brown Spot:02012
+ricebd:Brown Spot:02015
+ricebd:Brown Spot:02022
+ricebd:Brown Spot:02027
+ricebd:Brown Spot:02029
+ricebd:Brown Spot:02032
+ricebd:Brown Spot:02035
+ricebd:Brown Spot:02040
+ricebd:Brown Spot:02050
+ricebd:Brown Spot:02052
+ricebd:Brown Spot:02065
+ricebd:Brown Spot:02080
+ricebd:Brown Spot:02084
+ricebd:Brown Spot:02085
+ricebd:Brown Spot:02101
+ricebd:Brown Spot:02105
+ricebd:Brown Spot:02113
+ricebd:Brown Spot:02122
+ricebd:Brown Spot:02131
+ricebd:Brown Spot:02139
+ricebd:Brown Spot:02144
+ricebd:Brown Spot:02149
+ricebd:Brown Spot:02154
+ricebd:Brown Spot:02155
+ricebd:Brown Spot:02163
+ricebd:Brown Spot:02168
+ricebd:Brown Spot:02173
+ricebd:Brown Spot:02175
+ricebd:Brown Spot:02183
+ricebd:Brown Spot:02185
+ricebd:Brown Spot:02187
+ricebd:Brown Spot:02204
+ricebd:Brown Spot:02212
+ricebd:Brown Spot:02219
+ricebd:Brown Spot:02223
+ricebd:Brown Spot:02224
+ricebd:Brown Spot:02245
+ricebd:Brown Spot:02253
+ricebd:Brown Spot:02263
+ricebd:Brown Spot:02271
+ricebd:Brown Spot:02279
+ricebd:Brown Spot:02289
+ricebd:Brown Spot:02290
+ricebd:Brown Spot:02299
+ricebd:Brown Spot:02308
+ricebd:Brown Spot:02315
+ricebd:Brown Spot:02317
+ricebd:Brown Spot:02322
+ricebd:Brown Spot:02325
+ricebd:Brown Spot:02326
+ricebd:Brown Spot:02328
+ricebd:Brown Spot:02331
+ricebd:Brown Spot:02333
+ricebd:Brown Spot:02339
+ricebd:Brown Spot:02341
+ricebd:Brown Spot:02342
+ricebd:Brown Spot:02358
+ricebd:Brown Spot:02363
+ricebd:Brown Spot:02368
+ricebd:Brown Spot:02369
+ricebd:Brown Spot:02372
+ricebd:Brown Spot:02385
+ricebd:Brown Spot:02393
+ricebd:Brown Spot:02397
+ricebd:Brown Spot:02404
+ricebd:Brown Spot:02405
+ricebd:Brown Spot:02423
+ricebd:Brown Spot:02431
+ricebd:Brown Spot:02442
+ricebd:Brown Spot:02448
+ricebd:Brown Spot:02462
+ricebd:Brown Spot:02471
+ricebd:Brown Spot:02474
+ricebd:Brown Spot:02488
+ricebd:Brown Spot:02490
+ricebd:Brown Spot:02492
+ricebd:Brown Spot:02495
+ricebd:Brown Spot:02509
+ricebd:Brown Spot:02511
+ricebd:Brown Spot:02515
+ricebd:Brown Spot:02517
+ricebd:Brown Spot:02522
+ricebd:Brown Spot:02527
+ricebd:Brown Spot:02532
+ricebd:Brown Spot:02533
+ricebd:Brown Spot:02546
+ricebd:Brown Spot:02550
+ricebd:Brown Spot:02560
+ricebd:Brown Spot:02563
+ricebd:Brown Spot:02565
+ricebd:Brown Spot:02568
+ricebd:Brown Spot:02571
+ricebd:Brown Spot:02572
+ricebd:Brown Spot:02576
+ricebd:Brown Spot:02587
+ricebd:Brown Spot:02589
+ricebd:Brown Spot:02593
+ricebd:Brown Spot:02595
+ricebd:Brown Spot:02597
+ricebd:Brown Spot:02607
+ricebd:Brown Spot:02609
+ricebd:Brown Spot:02611
+ricebd:Brown Spot:02628
+ricebd:Brown Spot:02631
+ricebd:Brown Spot:02639
+ricebd:Brown Spot:02642
+ricebd:Brown Spot:02647
+ricebd:Brown Spot:02655
+ricebd:Brown Spot:02659
+ricebd:Brown Spot:02668
+ricebd:Brown Spot:02676
+ricebd:Brown Spot:02681
+ricebd:Brown Spot:02685
+ricebd:Brown Spot:02689
+ricebd:Brown Spot:02713
+ricebd:Brown Spot:02722
+ricebd:Brown Spot:02731
+ricebd:Brown Spot:02734
+ricebd:Brown Spot:02737
+ricebd:Brown Spot:02751
+ricebd:Brown Spot:02758
+ricebd:Brown Spot:02760
+ricebd:Brown Spot:02761
+ricebd:Brown Spot:02763
+ricebd:Brown Spot:02764
+ricebd:Brown Spot:02789
+ricebd:Brown Spot:02796
+ricebd:Brown Spot:02800
+ricebd:Brown Spot:02810
+ricebd:Brown Spot:02815
+ricebd:Brown Spot:02817
+ricebd:Brown Spot:02820
+ricebd:Brown Spot:02821
+ricebd:Brown Spot:02823
+ricebd:Brown Spot:02837
+ricebd:Brown Spot:02843
+ricebd:Brown Spot:02846
+ricebd:Brown Spot:02853
+ricebd:Brown Spot:02859
+ricebd:Brown Spot:02863
+ricebd:Brown Spot:02870
+ricebd:Brown Spot:02873
+ricebd:Brown Spot:02881
+ricebd:Brown Spot:02886
+ricebd:Brown Spot:02890
+ricebd:Brown Spot:02898
+ricebd:Brown Spot:02911
+ricebd:Brown Spot:02927
+ricebd:Brown Spot:02928
+ricebd:Brown Spot:02931
+ricebd:Brown Spot:02937
+ricebd:Brown Spot:02940
+ricebd:Brown Spot:02943
+ricebd:Brown Spot:02944
+ricebd:Brown Spot:02950
+ricebd:Brown Spot:02951
+ricebd:Brown Spot:02963
+ricebd:Brown Spot:02971
+ricebd:Brown Spot:02972
+ricebd:Brown Spot:02977
+ricebd:Brown Spot:02978
+ricebd:Brown Spot:02981
+ricebd:Brown Spot:03001
+ricebd:Brown Spot:03010
+ricebd:Brown Spot:03019
+ricebd:Brown Spot:03025
+ricebd:Brown Spot:03027
+ricebd:Brown Spot:03028
+ricebd:Brown Spot:03029
+ricebd:Brown Spot:03045
+ricebd:Brown Spot:03046
+ricebd:Brown Spot:03050
+ricebd:Brown Spot:03052
+ricebd:Brown Spot:03069
+ricebd:Brown Spot:03071
+ricebd:Brown Spot:03072
+ricebd:Brown Spot:03075
+ricebd:Brown Spot:03077
+ricebd:Brown Spot:03094
+ricebd:Brown Spot:03101
+ricebd:Brown Spot:03106
+ricebd:Brown Spot:03107
+ricebd:Brown Spot:03109
+ricebd:Brown Spot:03110
+ricebd:Brown Spot:03111
+ricebd:Brown Spot:03126
+ricebd:Brown Spot:03127
+ricebd:Brown Spot:03132
+ricebd:Brown Spot:03149
+ricebd:Brown Spot:03164
+ricebd:Brown Spot:03168
+ricebd:Brown Spot:03177
+ricebd:Brown Spot:03178
+ricebd:Brown Spot:03179
+ricebd:Brown Spot:03185
+ricebd:Brown Spot:03197
+ricebd:Brown Spot:03198
+ricebd:Brown Spot:03203
+ricebd:Brown Spot:03210
+ricebd:Brown Spot:03211
+ricebd:Brown Spot:03229
+ricebd:Brown Spot:03240
+ricebd:Brown Spot:03243
+ricebd:Brown Spot:03252
+ricebd:Brown Spot:03253
+ricebd:Brown Spot:03263
+ricebd:Brown Spot:03269
+ricebd:Brown Spot:03281
+ricebd:Brown Spot:03282
+ricebd:Brown Spot:03294
+ricebd:Brown Spot:03328
+ricebd:Brown Spot:03334
+ricebd:Brown Spot:03337
+ricebd:Brown Spot:03340
+ricebd:Brown Spot:03351
+ricebd:Brown Spot:03353
+ricebd:Brown Spot:03356
+ricebd:Brown Spot:03371
+ricebd:Brown Spot:03401
+ricebd:Brown Spot:03409
+ricebd:Brown Spot:03420
+ricebd:Brown Spot:03424
+ricebd:Brown Spot:03432
+ricebd:Brown Spot:03434
+ricebd:Brown Spot:03442
+ricebd:Brown Spot:03468
+ricebd:Brown Spot:03470
+ricebd:Brown Spot:03472
+ricebd:Brown Spot:03476
+ricebd:Brown Spot:03483
+ricebd:Brown Spot:03486
+ricebd:Brown Spot:03492
+ricebd:Brown Spot:03493
+ricebd:Brown Spot:03498
+ricebd:Brown Spot:09521
+ricebd:Brown Spot:09525
+ricebd:Brown Spot:09546
+ricebd:Brown Spot:09547
+ricebd:Brown Spot:09549
+ricebd:Brown Spot:09557
+ricebd:Brown Spot:09561
+ricebd:Brown Spot:09562
+ricebd:Brown Spot:09568
+ricebd:Brown Spot:09571
+ricebd:Brown Spot:09573
+ricebd:Brown Spot:09576
+ricebd:Brown Spot:09578
+ricebd:Brown Spot:09584
+ricebd:Brown Spot:09598
+ricebd:Brown Spot:09610
+ricebd:Brown Spot:09612
+ricebd:Brown Spot:09618
+ricebd:Brown Spot:09620
+ricebd:Brown Spot:09621
+ricebd:Brown Spot:09622
+ricebd:Brown Spot:09625
+ricebd:Brown Spot:09635
+ricebd:Brown Spot:09646
+ricebd:Brown Spot:09650
+ricebd:Brown Spot:09656
+ricebd:Brown Spot:09665
+ricebd:Brown Spot:09669
+ricebd:Brown Spot:09676
+ricebd:Brown Spot:09680
+ricebd:Brown Spot:09699
+ricebd:Brown Spot:09700
+ricebd:Brown Spot:09705
+ricebd:Brown Spot:09714
+ricebd:Brown Spot:09716
+ricebd:Brown Spot:09718
+ricebd:Brown Spot:09731
+ricebd:Brown Spot:09735
+ricebd:Brown Spot:09736
+ricebd:Brown Spot:09741
+ricebd:Brown Spot:09742
+ricebd:Brown Spot:09746
+ricebd:Brown Spot:09748
+ricebd:Brown Spot:09752
+ricebd:Brown Spot:09754
+ricebd:Brown Spot:09755
+ricebd:Brown Spot:09775
+ricebd:Brown Spot:09782
+ricebd:Brown Spot:09797
+ricebd:Brown Spot:09807
+ricebd:Brown Spot:09816
+ricebd:Brown Spot:09822
+ricebd:Brown Spot:09824
+ricebd:Brown Spot:09848
+ricebd:Brown Spot:09853
+ricebd:Brown Spot:09867
+ricebd:Brown Spot:09870
+ricebd:Brown Spot:09876
+ricebd:Brown Spot:09877
+ricebd:Brown Spot:09878
+ricebd:Brown Spot:09890
+ricebd:Brown Spot:09892
+ricebd:Brown Spot:09894
+ricebd:Brown Spot:09899
+ricebd:Brown Spot:09901
+ricebd:Brown Spot:09902
+ricebd:Brown Spot:09907
+ricebd:Brown Spot:09913
+ricebd:Brown Spot:09915
+ricebd:Brown Spot:09933
+ricebd:Brown Spot:09937
+ricebd:Brown Spot:09939
+ricebd:Brown Spot:09940
+ricebd:Brown Spot:09942
+ricebd:Brown Spot:09949
+ricebd:Brown Spot:09954
+ricebd:Brown Spot:09955
+ricebd:Brown Spot:09963
+ricebd:Brown Spot:09980
+ricebd:Brown Spot:09981
+ricebd:Brown Spot:09983
+ricebd:Brown Spot:09994
+ricebd:Brown Spot:10004
+ricebd:Brown Spot:10007
+ricebd:Brown Spot:10012
+ricebd:Brown Spot:10033
+ricebd:Brown Spot:10037
+ricebd:Brown Spot:10042
+ricebd:Brown Spot:10046
+ricebd:Brown Spot:10053
+ricebd:Brown Spot:10055
+ricebd:Brown Spot:10056
+ricebd:Brown Spot:10060
+ricebd:Brown Spot:10067
+ricebd:Brown Spot:10072
+ricebd:Brown Spot:10074
+ricebd:Brown Spot:10080
+ricebd:Brown Spot:10082
+ricebd:Brown Spot:10092
+ricebd:Brown Spot:10102
+ricebd:Brown Spot:10105
+ricebd:Brown Spot:10114
+ricebd:Brown Spot:10115
+ricebd:Brown Spot:10116
+ricebd:Brown Spot:10119
+ricebd:Brown Spot:10120
+ricebd:Brown Spot:10124
+ricebd:Brown Spot:10127
+ricebd:Brown Spot:10130
+ricebd:Brown Spot:10135
+ricebd:Brown Spot:10142
+ricebd:Brown Spot:10143
+ricebd:Brown Spot:10149
+ricebd:Brown Spot:10151
+ricebd:Brown Spot:10155
+ricebd:Brown Spot:10159
+ricebd:Brown Spot:10160
+ricebd:Brown Spot:10166
+ricebd:Brown Spot:10186
+ricebd:Brown Spot:10188
+ricebd:Brown Spot:10190
+ricebd:Brown Spot:10192
+ricebd:Brown Spot:10193
+ricebd:Brown Spot:10213
+ricebd:Brown Spot:10217
+ricebd:Brown Spot:10226
+ricebd:Brown Spot:10227
+ricebd:Brown Spot:10239
+ricebd:Brown Spot:10240
+ricebd:Brown Spot:10241
+ricebd:Brown Spot:10245
+ricebd:Brown Spot:10247
+ricebd:Brown Spot:10252
+ricebd:Brown Spot:10265
+ricebd:Brown Spot:10282
+ricebd:Brown Spot:10290
+ricebd:Brown Spot:10301
+ricebd:Brown Spot:10306
+ricebd:Brown Spot:10307
+ricebd:Brown Spot:10308
+ricebd:Brown Spot:10319
+ricebd:Brown Spot:10326
+ricebd:Brown Spot:10331
+ricebd:Brown Spot:10338
+ricebd:Brown Spot:10350
+ricebd:Brown Spot:10353
+ricebd:Brown Spot:10360
+ricebd:Brown Spot:10361
+ricebd:Brown Spot:10363
+ricebd:Brown Spot:10368
+ricebd:Brown Spot:10381
+ricebd:Brown Spot:10386
+ricebd:Brown Spot:10407
+ricebd:Brown Spot:10434
+ricebd:Brown Spot:10444
+ricebd:Brown Spot:10446
+ricebd:Brown Spot:10463
+ricebd:Brown Spot:10485
+ricebd:Brown Spot:10504
+ricebd:Brown Spot:10512
+ricebd:Brown Spot:10518
+ricebd:Brown Spot:10524
+ricebd:Brown Spot:10526
+ricebd:Brown Spot:10536
+ricebd:Brown Spot:10538
+ricebd:Brown Spot:10540
+ricebd:Brown Spot:10549
+ricebd:Brown Spot:10554
+ricebd:Brown Spot:10564
+ricebd:Brown Spot:10565
+ricebd:Brown Spot:10572
+ricebd:Brown Spot:10574
+ricebd:Brown Spot:10583
+ricebd:Brown Spot:10584
+ricebd:Brown Spot:10596
+ricebd:Brown Spot:10598
+ricebd:Brown Spot:10608
+ricebd:Brown Spot:10609
+ricebd:Brown Spot:10611
+ricebd:Brown Spot:10621
+ricebd:Brown Spot:10623
+ricebd:Brown Spot:10624
+ricebd:Brown Spot:10628
+ricebd:Brown Spot:10646
+ricebd:Brown Spot:10660
+ricebd:Brown Spot:10665
+ricebd:Brown Spot:10670
+ricebd:Brown Spot:10671
+ricebd:Brown Spot:10678
+ricebd:Brown Spot:10681
+ricebd:Brown Spot:10687
+ricebd:Brown Spot:10692
+ricebd:Brown Spot:10693
+ricebd:Brown Spot:10709
+ricebd:Brown Spot:10711
+ricebd:Brown Spot:10714
+ricebd:Brown Spot:10736
+ricebd:Brown Spot:10741
+ricebd:Brown Spot:10747
+ricebd:Brown Spot:10758
+ricebd:Brown Spot:10771
+ricebd:Brown Spot:10776
+ricebd:Brown Spot:10778
+ricebd:Brown Spot:10779
+ricebd:Brown Spot:10783
+ricebd:Brown Spot:10784
+ricebd:Brown Spot:10790
+ricebd:Brown Spot:10793
+ricebd:Brown Spot:10799
+ricebd:Brown Spot:10806
+ricebd:Brown Spot:10820
+ricebd:Brown Spot:10824
+ricebd:Brown Spot:10828
+ricebd:Brown Spot:10830
+ricebd:Brown Spot:10835
+ricebd:Brown Spot:10837
+ricebd:Brown Spot:10839
+ricebd:Brown Spot:10842
+ricebd:Brown Spot:10864
+ricebd:Brown Spot:10877
+ricebd:Brown Spot:10878
+ricebd:Brown Spot:10890
+ricebd:Brown Spot:10892
+ricebd:Brown Spot:10895
+ricebd:Brown Spot:10902
+ricebd:Brown Spot:10905
+ricebd:Brown Spot:10911
+ricebd:Brown Spot:10914
+ricebd:Brown Spot:10920
+ricebd:Brown Spot:10921
+ricebd:Brown Spot:10924
+ricebd:Brown Spot:10926
+ricebd:Brown Spot:10927
+ricebd:Brown Spot:10931
+ricebd:Brown Spot:10934
+ricebd:Brown Spot:10944
+ricebd:Brown Spot:10946
+ricebd:Brown Spot:10948
+ricebd:Brown Spot:10949
+ricebd:Brown Spot:10952
+ricebd:Brown Spot:10955
+ricebd:Brown Spot:10958
+ricebd:Brown Spot:10969
+ricebd:Brown Spot:10973
+ricebd:Brown Spot:11021
+ricebd:Brown Spot:11024
+ricebd:Brown Spot:11035
+ricebd:Brown Spot:11040
+ricebd:Brown Spot:11047
+ricebd:Brown Spot:11066
+ricebd:Brown Spot:11069
+ricebd:Brown Spot:11072
+ricebd:Brown Spot:11081
+ricebd:Brown Spot:11083
+ricebd:Brown Spot:11112
+ricebd:Brown Spot:11118
+ricebd:Brown Spot:11121
+ricebd:Brown Spot:11128
+ricebd:Brown Spot:11129
+ricebd:Brown Spot:11143
+ricebd:Brown Spot:11144
+ricebd:Brown Spot:11156
+ricebd:Brown Spot:11169
+ricebd:Brown Spot:11170
+ricebd:Brown Spot:11188
+ricebd:Brown Spot:11201
+ricebd:Brown Spot:11206
+ricebd:Brown Spot:11218
+ricebd:Brown Spot:11240
+ricebd:Brown Spot:11244
+ricebd:Brown Spot:11246
+ricebd:Brown Spot:11250
+ricebd:Brown Spot:11259
+ricebd:Brown Spot:11260
+ricebd:Brown Spot:11262
+ricebd:Brown Spot:11263
+ricebd:Brown Spot:11264
+ricebd:Brown Spot:11268
+ricebd:Brown Spot:11277
+ricebd:Brown Spot:11286
+ricebd:Brown Spot:11295
+ricebd:Brown Spot:11298
+ricebd:Brown Spot:11312
+ricebd:Brown Spot:11314
+ricebd:Brown Spot:11317
+ricebd:Brown Spot:11323
+ricebd:Brown Spot:11334
+ricebd:Brown Spot:11338
+ricebd:Brown Spot:11342
+ricebd:Brown Spot:11350
+ricebd:Brown Spot:11376
+ricebd:Brown Spot:11379
+ricebd:Brown Spot:11388
+ricebd:Brown Spot:11390
+ricebd:Brown Spot:11396
+ricebd:Brown Spot:11401
+ricebd:Brown Spot:11410
+ricebd:Brown Spot:11415
+ricebd:Brown Spot:11422
+ricebd:Brown Spot:11435
+ricebd:Brown Spot:11437
+ricebd:Brown Spot:11466
+ricebd:Brown Spot:11469
+ricebd:Brown Spot:11474
+ricebd:Brown Spot:11478
+ricebd:Brown Spot:11491
+ricebd:Brown Spot:11493
+ricebd:Brown Spot:11497
+ricebd:Brown Spot:11513
+ricebd:Brown Spot:11514
+ricebd:Brown Spot:11522
+ricebd:Brown Spot:11535
+ricebd:Brown Spot:11537
+ricebd:Brown Spot:11549
+ricebd:Brown Spot:11555
+ricebd:Brown Spot:11561
+ricebd:Brown Spot:11565
+ricebd:Brown Spot:11586
+ricebd:Brown Spot:11599
+ricebd:Brown Spot:11606
+ricebd:Brown Spot:11610
+ricebd:Brown Spot:11613
+ricebd:Brown Spot:11626
+ricebd:Brown Spot:11631
+ricebd:Brown Spot:11633
+ricebd:Brown Spot:11640
+ricebd:Brown Spot:11641
+ricebd:Brown Spot:11646
+ricebd:Brown Spot:11650
+ricebd:Brown Spot:11656
+ricebd:Brown Spot:11666
+ricebd:Brown Spot:11672
+ricebd:Brown Spot:11688
+ricebd:Brown Spot:11689
+ricebd:Brown Spot:11696
+ricebd:Healthy:11705
+ricebd:Healthy:11722
+ricebd:Healthy:11723
+ricebd:Healthy:11726
+ricebd:Healthy:11731
+ricebd:Healthy:11741
+ricebd:Healthy:11745
+ricebd:Healthy:11747
+ricebd:Healthy:11748
+ricebd:Healthy:11750
+ricebd:Healthy:11764
+ricebd:Healthy:11766
+ricebd:Healthy:11769
+ricebd:Healthy:11772
+ricebd:Healthy:11781
+ricebd:Healthy:11786
+ricebd:Healthy:11792
+ricebd:Healthy:11794
+ricebd:Healthy:11796
+ricebd:Healthy:11802
+ricebd:Healthy:11822
+ricebd:Healthy:11825
+ricebd:Healthy:11839
+ricebd:Healthy:11842
+ricebd:Healthy:11845
+ricebd:Healthy:11852
+ricebd:Healthy:11870
+ricebd:Healthy:11880
+ricebd:Healthy:11900
+ricebd:Healthy:11901
+ricebd:Healthy:11912
+ricebd:Healthy:11914
+ricebd:Healthy:11920
+ricebd:Healthy:11925
+ricebd:Healthy:11931
+ricebd:Healthy:11943
+ricebd:Healthy:11946
+ricebd:Healthy:11950
+ricebd:Healthy:11989
+ricebd:Healthy:11997
+ricebd:Healthy:12001
+ricebd:Healthy:12010
+ricebd:Healthy:12031
+ricebd:Healthy:12037
+ricebd:Healthy:12041
+ricebd:Healthy:12053
+ricebd:Healthy:12074
+ricebd:Healthy:12088
+ricebd:Healthy:12094
+ricebd:Healthy:12104
+ricebd:Healthy:12105
+ricebd:Healthy:12116
+ricebd:Healthy:12123
+ricebd:Healthy:12127
+ricebd:Healthy:12130
+ricebd:Healthy:12139
+ricebd:Healthy:12146
+ricebd:Healthy:12149
+ricebd:Healthy:12152
+ricebd:Healthy:12163
+ricebd:Healthy:12164
+ricebd:Healthy:12173
+ricebd:Healthy:12182
+ricebd:Healthy:12186
+ricebd:Healthy:12191
+ricebd:Healthy:12194
+ricebd:Healthy:12205
+ricebd:Healthy:12216
+ricebd:Healthy:12221
+ricebd:Healthy:12231
+ricebd:Healthy:12232
+ricebd:Healthy:12234
+ricebd:Healthy:12237
+ricebd:Healthy:12248
+ricebd:Healthy:12270
+ricebd:Healthy:12278
+ricebd:Healthy:12286
+ricebd:Healthy:12295
+ricebd:Healthy:12301
+ricebd:Healthy:12312
+ricebd:Healthy:12323
+ricebd:Healthy:12336
+ricebd:Healthy:12366
+ricebd:Healthy:12367
+ricebd:Healthy:12370
+ricebd:Healthy:12381
+ricebd:Healthy:12390
+ricebd:Healthy:12400
+ricebd:Healthy:12413
+ricebd:Healthy:12415
+ricebd:Healthy:12416
+ricebd:Healthy:12431
+ricebd:Healthy:12439
+ricebd:Healthy:12440
+ricebd:Healthy:12462
+ricebd:Healthy:12468
+ricebd:Healthy:12470
+ricebd:Healthy:12471
+ricebd:Healthy:12473
+ricebd:Healthy:12482
+ricebd:Healthy:12485
+ricebd:Healthy:12518
+ricebd:Healthy:12520
+ricebd:Healthy:12522
+ricebd:Healthy:12524
+ricebd:Healthy:12536
+ricebd:Healthy:12543
+ricebd:Healthy:12545
+ricebd:Healthy:12565
+ricebd:Healthy:12593
+ricebd:Healthy:12596
+ricebd:Healthy:12617
+ricebd:Healthy:12636
+ricebd:Healthy:12637
+ricebd:Healthy:12638
+ricebd:Healthy:12646
+ricebd:Healthy:12658
+ricebd:Healthy:12660
+ricebd:Healthy:12667
+ricebd:Healthy:12675
+ricebd:Healthy:12685
+ricebd:Healthy:12690
+ricebd:Healthy:12695
+ricebd:Healthy:12696
+ricebd:Healthy:12698
+ricebd:Healthy:12704
+ricebd:Healthy:12705
+ricebd:Healthy:12711
+ricebd:Healthy:12712
+ricebd:Healthy:12713
+ricebd:Healthy:12714
+ricebd:Healthy:12725
+ricebd:Healthy:12733
+ricebd:Healthy:12736
+ricebd:Healthy:12738
+ricebd:Healthy:12741
+ricebd:Healthy:12769
+ricebd:Healthy:12772
+ricebd:Healthy:12781
+ricebd:Healthy:12783
+ricebd:Healthy:12788
+ricebd:Healthy:12791
+ricebd:Healthy:12795
+ricebd:Healthy:12797
+ricebd:Healthy:12802
+ricebd:Healthy:12811
+ricebd:Healthy:12816
+ricebd:Healthy:12818
+ricebd:Healthy:12821
+ricebd:Healthy:12822
+ricebd:Healthy:12831
+ricebd:Healthy:12833
+ricebd:Healthy:12836
+ricebd:Healthy:12841
+ricebd:Healthy:12858
+ricebd:Healthy:12864
+ricebd:Healthy:12897
+ricebd:Healthy:12898
+ricebd:Healthy:12903
+ricebd:Healthy:12907
+ricebd:Healthy:12908
+ricebd:Healthy:12912
+ricebd:Healthy:12916
+ricebd:Healthy:12928
+ricebd:Healthy:12930
+ricebd:Healthy:12932
+ricebd:Healthy:12938
+ricebd:Healthy:12940
+ricebd:Healthy:12945
+ricebd:Healthy:12967
+ricebd:Healthy:12969
+ricebd:Healthy:12972
+ricebd:Healthy:12982
+ricebd:Healthy:12987
+ricebd:Healthy:12989
+ricebd:Healthy:12997
+ricebd:Healthy:12999
+ricebd:Healthy:13011
+ricebd:Healthy:13016
+ricebd:Healthy:13032
+ricebd:Healthy:13035
+ricebd:Healthy:13045
+ricebd:Healthy:13047
+ricebd:Healthy:13060
+ricebd:Healthy:13062
+ricebd:Healthy:13067
+ricebd:Healthy:13069
+ricebd:Healthy:13077
+ricebd:Healthy:13078
+ricebd:Healthy:13079
+ricebd:Healthy:13080
+ricebd:Healthy:13087
+ricebd:Healthy:13099
+ricebd:Healthy:13108
+ricebd:Healthy:13113
+ricebd:Healthy:13114
+ricebd:Healthy:13122
+ricebd:Healthy:13131
+ricebd:Healthy:13135
+ricebd:Healthy:13138
+ricebd:Healthy:13142
+ricebd:Healthy:13145
+ricebd:Healthy:13150
+ricebd:Healthy:13162
+ricebd:Healthy:13167
+ricebd:Healthy:13168
+ricebd:Healthy:13170
+ricebd:Healthy:13178
+ricebd:Healthy:13184
+ricebd:Healthy:13186
+ricebd:Healthy:13188
+ricebd:Healthy:13191
+ricebd:Healthy:13217
+ricebd:Healthy:13224
+ricebd:Healthy:13228
+ricebd:Healthy:13234
+ricebd:Healthy:13242
+ricebd:Healthy:13245
+ricebd:Healthy:13254
+ricebd:Healthy:13256
+ricebd:Healthy:13258
+ricebd:Leaf Smut:03509
+ricebd:Leaf Smut:03510
+ricebd:Leaf Smut:03513
+ricebd:Leaf Smut:03525
+ricebd:Leaf Smut:03528
+ricebd:Leaf Smut:03542
+ricebd:Leaf Smut:03556
+ricebd:Leaf Smut:03574
+ricebd:Leaf Smut:03581
+ricebd:Leaf Smut:03597
+ricebd:Leaf Smut:03602
+ricebd:Leaf Smut:03605
+ricebd:Leaf Smut:03608
+ricebd:Leaf Smut:03613
+ricebd:Leaf Smut:03620
+ricebd:Leaf Smut:03626
+ricebd:Leaf Smut:03627
+ricebd:Leaf Smut:03637
+ricebd:Leaf Smut:03642
+ricebd:Leaf Smut:03644
+ricebd:Leaf Smut:03648
+ricebd:Leaf Smut:03652
+ricebd:Leaf Smut:03672
+ricebd:Leaf Smut:03680
+ricebd:Leaf Smut:03681
+ricebd:Leaf Smut:03697
+ricebd:Leaf Smut:03704
+ricebd:Leaf Smut:03742
+ricebd:Leaf Smut:03744
+ricebd:Leaf Smut:03749
+ricebd:Leaf Smut:03757
+ricebd:Leaf Smut:03772
+ricebd:Leaf Smut:03774
+ricebd:Leaf Smut:03779
+ricebd:Leaf Smut:03791
+ricebd:Leaf Smut:03808
+ricebd:Leaf Smut:03810
+ricebd:Leaf Smut:03812
+ricebd:Leaf Smut:03815
+ricebd:Leaf Smut:03825
+ricebd:Leaf Smut:03827
+ricebd:Leaf Smut:03830
+ricebd:Leaf Smut:03832
+ricebd:Leaf Smut:03838
+ricebd:Leaf Smut:03839
+ricebd:Leaf Smut:03854
+ricebd:Leaf Smut:03867
+ricebd:Leaf Smut:03874
+ricebd:Leaf Smut:03881
+ricebd:Leaf Smut:03900
+ricebd:Leaf Smut:03903
+ricebd:Leaf Smut:03940
+ricebd:Leaf Smut:03959
+ricebd:Leaf Smut:03962
+ricebd:Leaf Smut:03965
+ricebd:Leaf Smut:03966
+ricebd:Leaf Smut:03967
+ricebd:Leaf Smut:03968
+ricebd:Leaf Smut:03970
+ricebd:Leaf Smut:03979
+ricebd:Leaf Smut:03980
+ricebd:Leaf Smut:04000
+ricebd:Leaf Smut:04001
+ricebd:Leaf Smut:04009
+ricebd:Leaf Smut:04012
+ricebd:Leaf Smut:04015
+ricebd:Leaf Smut:04016
+ricebd:Leaf Smut:04018
+ricebd:Leaf Smut:04021
+ricebd:Leaf Smut:04027
+ricebd:Leaf Smut:04029
+ricebd:Leaf Smut:04040
+ricebd:Leaf Smut:04048
+ricebd:Leaf Smut:04050
+ricebd:Leaf Smut:04076
+ricebd:Leaf Smut:04083
+ricebd:Leaf Smut:04085
+ricebd:Leaf Smut:04086
+ricebd:Leaf Smut:04091
+ricebd:Leaf Smut:04108
+ricebd:Leaf Smut:04111
+ricebd:Leaf Smut:04112
+ricebd:Leaf Smut:04115
+ricebd:Leaf Smut:04119
+ricebd:Leaf Smut:04124
+ricebd:Leaf Smut:04128
+ricebd:Leaf Smut:04156
+ricebd:Leaf Smut:04166
+ricebd:Leaf Smut:04176
+ricebd:Leaf Smut:04178
+ricebd:Leaf Smut:04185
+ricebd:Leaf Smut:04188
+ricebd:Leaf Smut:04200
+ricebd:Leaf Smut:04205
+ricebd:Leaf Smut:04206
+ricebd:Leaf Smut:04220
+ricebd:Leaf Smut:13278
+ricebd:Leaf Smut:13280
+ricebd:Leaf Smut:13295
+ricebd:Leaf Smut:13300
+ricebd:Leaf Smut:13301
+ricebd:Leaf Smut:13305
+ricebd:Leaf Smut:13317
+ricebd:Leaf Smut:13334
+ricebd:Leaf Smut:13357
+ricebd:Leaf Smut:13361
+ricebd:Leaf Smut:13363
+ricebd:Leaf Smut:13367
+ricebd:Leaf Smut:13373
+ricebd:Leaf Smut:13381
+ricebd:Leaf Smut:13382
+ricebd:Leaf Smut:13388
+ricebd:Leaf Smut:13393
+ricebd:Leaf Smut:13398
+ricebd:Leaf Smut:13404
+ricebd:Leaf Smut:13411
+ricebd:Leaf Smut:13415
+ricebd:Leaf Smut:13419
+ricebd:Leaf Smut:13430
+ricebd:Leaf Smut:13431
+ricebd:Leaf Smut:13452
+ricebd:Leaf Smut:13456
+ricebd:Leaf Smut:13458
+ricebd:Leaf Smut:13468
+ricebd:Leaf Smut:13471
+ricebd:Leaf Smut:13487
+ricebd:Leaf Smut:13488
+ricebd:Leaf Smut:13489
+ricebd:Leaf Smut:13491
+ricebd:Leaf Smut:13493
+ricebd:Leaf Smut:13509
+ricebd:Leaf Smut:13513
+ricebd:Leaf Smut:13525
+ricebd:Leaf Smut:13544
+ricebd:Leaf Smut:13546
+ricebd:Leaf Smut:13548
+ricebd:Leaf Smut:13549
+ricebd:Leaf Smut:13558
+ricebd:Leaf Smut:13578
+ricebd:Leaf Smut:13580
+ricebd:Leaf Smut:13587
+ricebd:Leaf Smut:13596
+ricebd:Leaf Smut:13626
+ricebd:Leaf Smut:13627
+ricebd:Leaf Smut:13628
+ricebd:Leaf Smut:13630
+ricebd:Leaf Smut:13632
+ricebd:Leaf Smut:13639
+ricebd:Leaf Smut:13652
+ricebd:Leaf Smut:13663
+ricebd:Leaf Smut:13666
+ricebd:Leaf Smut:13667
+ricebd:Leaf Smut:13675
+ricebd:Leaf Smut:13682
+ricebd:Leaf Smut:13686
+ricebd:Leaf Smut:13689
+ricebd:Leaf Smut:13704
+ricebd:Leaf Smut:13712
+ricebd:Leaf Smut:13714
+ricebd:Leaf Smut:13716
+ricebd:Leaf Smut:13720
+ricebd:Leaf Smut:13741
+ricebd:Leaf Smut:13745
+ricebd:Leaf Smut:13751
+ricebd:Leaf Smut:13753
+ricebd:Leaf Smut:13756
+ricebd:Leaf Smut:13763
+ricebd:Leaf Smut:13769
+ricebd:Leaf Smut:13777
+ricebd:Leaf Smut:13778
+ricebd:Leaf Smut:13782
+ricebd:Leaf Smut:13794
+ricebd:Leaf Smut:13800
+ricebd:Leaf Smut:13801
+ricebd:Leaf Smut:13810
+ricebd:Leaf Smut:13813
+ricebd:Leaf Smut:13814
+ricebd:Leaf Smut:13815
+ricebd:Leaf Smut:13833
+ricebd:Leaf Smut:13842
+ricebd:Leaf Smut:13846
+ricebd:Leaf Smut:13847
+ricebd:Leaf Smut:13848
+ricebd:Leaf Smut:13854
+ricebd:Leaf Smut:13858
+ricebd:Leaf Smut:13859
+ricebd:Leaf Smut:13860
+ricebd:Leaf Smut:13867
+ricebd:Leaf Smut:13874
+ricebd:Leaf Smut:13878
+ricebd:Leaf Smut:13889
+ricebd:Leaf Smut:13907
+ricebd:Leaf Smut:13918
+ricebd:Leaf Smut:13919
+ricebd:Leaf Smut:13931
+ricebd:Leaf Smut:13939
+ricebd:Leaf Smut:13957
+ricebd:Leaf Smut:13961
+ricebd:Leaf Smut:13963
+ricebd:Leaf Smut:13976
+ricebd:Leaf Smut:13984
+ricebd:Leaf Smut:13987
+ricebd:Leaf Smut:13996
+ricebd:Rice Tungro:04241
+ricebd:Rice Tungro:04255
+ricebd:Rice Tungro:04259
+ricebd:Rice Tungro:04263
+ricebd:Rice Tungro:04271
+ricebd:Rice Tungro:04294
+ricebd:Rice Tungro:04301
+ricebd:Rice Tungro:04302
+ricebd:Rice Tungro:04304
+ricebd:Rice Tungro:04308
+ricebd:Rice Tungro:04318
+ricebd:Rice Tungro:04319
+ricebd:Rice Tungro:04320
+ricebd:Rice Tungro:04330
+ricebd:Rice Tungro:04338
+ricebd:Rice Tungro:04341
+ricebd:Rice Tungro:04342
+ricebd:Rice Tungro:04350
+ricebd:Rice Tungro:04358
+ricebd:Rice Tungro:04361
+ricebd:Rice Tungro:04373
+ricebd:Rice Tungro:04376
+ricebd:Rice Tungro:04379
+ricebd:Rice Tungro:04386
+ricebd:Rice Tungro:04390
+ricebd:Rice Tungro:04391
+ricebd:Rice Tungro:04394
+ricebd:Rice Tungro:04402
+ricebd:Rice Tungro:04406
+ricebd:Rice Tungro:04407
+ricebd:Rice Tungro:04409
+ricebd:Rice Tungro:04443
+ricebd:Rice Tungro:04470
+ricebd:Rice Tungro:04474
+ricebd:Rice Tungro:04479
+ricebd:Rice Tungro:04480
+ricebd:Rice Tungro:04481
+ricebd:Rice Tungro:04493
+ricebd:Rice Tungro:04494
+ricebd:Rice Tungro:04499
+ricebd:Rice Tungro:04500
+ricebd:Rice Tungro:04518
+ricebd:Rice Tungro:04537
+ricebd:Rice Tungro:04539
+ricebd:Rice Tungro:04550
+ricebd:Rice Tungro:04568
+ricebd:Rice Tungro:04571
+ricebd:Rice Tungro:04590
+ricebd:Rice Tungro:04595
+ricebd:Rice Tungro:04607
+ricebd:Rice Tungro:04621
+ricebd:Rice Tungro:04627
+ricebd:Rice Tungro:04636
+ricebd:Rice Tungro:04639
+ricebd:Rice Tungro:04646
+ricebd:Rice Tungro:04657
+ricebd:Rice Tungro:04671
+ricebd:Rice Tungro:04697
+ricebd:Rice Tungro:04709
+ricebd:Rice Tungro:04715
+ricebd:Rice Tungro:04717
+ricebd:Rice Tungro:04718
+ricebd:Rice Tungro:04719
+ricebd:Rice Tungro:04728
+ricebd:Rice Tungro:04731
+ricebd:Rice Tungro:04736
+ricebd:Rice Tungro:04742
+ricebd:Rice Tungro:04763
+ricebd:Rice Tungro:04769
+ricebd:Rice Tungro:04772
+ricebd:Rice Tungro:04779
+ricebd:Rice Tungro:04786
+ricebd:Rice Tungro:04796
+ricebd:Rice Tungro:04806
+ricebd:Rice Tungro:04807
+ricebd:Rice Tungro:04815
+ricebd:Rice Tungro:04823
+ricebd:Rice Tungro:04825
+ricebd:Rice Tungro:04832
+ricebd:Rice Tungro:04840
+ricebd:Rice Tungro:04843
+ricebd:Rice Tungro:04846
+ricebd:Rice Tungro:04851
+ricebd:Rice Tungro:04853
+ricebd:Rice Tungro:04862
+ricebd:Rice Tungro:04864
+ricebd:Rice Tungro:04868
+ricebd:Rice Tungro:04874
+ricebd:Rice Tungro:04882
+ricebd:Rice Tungro:04887
+ricebd:Rice Tungro:04888
+ricebd:Rice Tungro:04896
+ricebd:Rice Tungro:04900
+ricebd:Rice Tungro:04903
+ricebd:Rice Tungro:04906
+ricebd:Rice Tungro:04909
+ricebd:Rice Tungro:04913
+ricebd:Rice Tungro:04916
+ricebd:Rice Tungro:04932
+ricebd:Rice Tungro:04942
+ricebd:Rice Tungro:04944
+ricebd:Rice Tungro:04946
+ricebd:Rice Tungro:04951
+ricebd:Rice Tungro:04953
+ricebd:Rice Tungro:04957
+ricebd:Rice Tungro:04958
+ricebd:Rice Tungro:04964
+ricebd:Rice Tungro:04972
+ricebd:Rice Tungro:04982
+ricebd:Rice Tungro:04985
+ricebd:Rice Tungro:04996
+ricebd:Rice Tungro:04997
+ricebd:Rice Tungro:05000
+ricebd:Rice Tungro:05003
+ricebd:Rice Tungro:05015
+ricebd:Rice Tungro:05017
+ricebd:Rice Tungro:05020
+ricebd:Rice Tungro:05021
+ricebd:Rice Tungro:05022
+ricebd:Rice Tungro:05023
+ricebd:Rice Tungro:05026
+ricebd:Rice Tungro:05029
+ricebd:Rice Tungro:05032
+ricebd:Rice Tungro:05038
+ricebd:Rice Tungro:05046
+ricebd:Rice Tungro:05064
+ricebd:Rice Tungro:05075
+ricebd:Rice Tungro:05076
+ricebd:Rice Tungro:05080
+ricebd:Rice Tungro:05083
+ricebd:Rice Tungro:05087
+ricebd:Rice Tungro:05088
+ricebd:Rice Tungro:05095
+ricebd:Rice Tungro:05097
+ricebd:Rice Tungro:05101
+ricebd:Rice Tungro:05104
+ricebd:Rice Tungro:05107
+ricebd:Rice Tungro:05122
+ricebd:Rice Tungro:05123
+ricebd:Rice Tungro:05128
+ricebd:Rice Tungro:05134
+ricebd:Rice Tungro:05138
+ricebd:Rice Tungro:05142
+ricebd:Rice Tungro:05154
+ricebd:Rice Tungro:05158
+ricebd:Rice Tungro:05161
+ricebd:Rice Tungro:05166
+ricebd:Rice Tungro:05172
+ricebd:Rice Tungro:05187
+ricebd:Rice Tungro:05194
+ricebd:Rice Tungro:05203
+ricebd:Rice Tungro:05206
+ricebd:Rice Tungro:05208
+ricebd:Rice Tungro:05210
+ricebd:Rice Tungro:05221
+ricebd:Rice Tungro:05227
+ricebd:Rice Tungro:05233
+ricebd:Rice Tungro:05241
+ricebd:Rice Tungro:05246
+ricebd:Rice Tungro:05248
+ricebd:Rice Tungro:05269
+ricebd:Rice Tungro:05271
+ricebd:Rice Tungro:05280
+ricebd:Rice Tungro:05283
+ricebd:Rice Tungro:05286
+ricebd:Rice Tungro:05302
+ricebd:Rice Tungro:05320
+ricebd:Rice Tungro:05332
+ricebd:Rice Tungro:05368
+ricebd:Rice Tungro:05379
+ricebd:Rice Tungro:05382
+ricebd:Rice Tungro:05384
+ricebd:Rice Tungro:05385
+ricebd:Rice Tungro:05403
+ricebd:Rice Tungro:05411
+ricebd:Rice Tungro:05420
+ricebd:Rice Tungro:05433
+ricebd:Rice Tungro:05435
+ricebd:Rice Tungro:05453
+ricebd:Rice Tungro:05455
+ricebd:Rice Tungro:05461
+ricebd:Rice Tungro:05466
+ricebd:Rice Tungro:05472
+ricebd:Rice Tungro:05475
+ricebd:Rice Tungro:05485
+ricebd:Rice Tungro:05492
+ricebd:Rice Tungro:05501
+ricebd:Rice Tungro:05505
+ricebd:Rice Tungro:05508
+ricebd:Rice Tungro:05514
+ricebd:Rice Tungro:05517
+ricebd:Rice Tungro:05518
+ricebd:Rice Tungro:05520
+ricebd:Rice Tungro:05523
+ricebd:Rice Tungro:05527
+ricebd:Rice Tungro:05530
+ricebd:Rice Tungro:05541
+ricebd:Rice Tungro:05544
+ricebd:Rice Tungro:05550
+ricebd:Rice Tungro:05552
+ricebd:Rice Tungro:05558
+ricebd:Rice Tungro:05562
+ricebd:Rice Tungro:05569
+ricebd:Rice Tungro:05579
+ricebd:Rice Tungro:05584
+ricebd:Rice Tungro:05592
+ricebd:Rice Tungro:05611
+ricebd:Rice Tungro:05614
+ricebd:Rice Tungro:05620
+ricebd:Rice Tungro:05625
+ricebd:Rice Tungro:05629
+ricebd:Rice Tungro:05637
+ricebd:Rice Tungro:05645
+ricebd:Rice Tungro:05650
+ricebd:Rice Tungro:05655
+ricebd:Rice Tungro:05662
+ricebd:Rice Tungro:05671
+ricebd:Rice Tungro:05680
+ricebd:Rice Tungro:05689
+ricebd:Rice Tungro:05691
+ricebd:Rice Tungro:05708
+ricebd:Rice Tungro:05720
+ricebd:Rice Tungro:05722
+ricebd:Rice Tungro:05736
+ricebd:Rice Tungro:05744
+ricebd:Rice Tungro:05748
+ricebd:Rice Tungro:05749
+ricebd:Rice Tungro:05750
+ricebd:Rice Tungro:05755
+ricebd:Rice Tungro:05757
+ricebd:Rice Tungro:05758
+ricebd:Rice Tungro:05762
+ricebd:Rice Tungro:05764
+ricebd:Rice Tungro:05772
+ricebd:Rice Tungro:05783
+ricebd:Rice Tungro:05786
+ricebd:Rice Tungro:05790
+ricebd:Rice Tungro:05796
+ricebd:Rice Tungro:05801
+ricebd:Rice Tungro:05810
+ricebd:Rice Tungro:05811
+ricebd:Rice Tungro:05825
+ricebd:Rice Tungro:05828
+ricebd:Rice Tungro:05831
+ricebd:Rice Tungro:05839
+ricebd:Rice Tungro:05847
+ricebd:Rice Tungro:05851
+ricebd:Rice Tungro:05853
+ricebd:Rice Tungro:05869
+ricebd:Rice Tungro:05870
+ricebd:Rice Tungro:05876
+ricebd:Rice Tungro:05907
+ricebd:Rice Tungro:05917
+ricebd:Rice Tungro:05918
+ricebd:Rice Tungro:05934
+ricebd:Rice Tungro:05940
+ricebd:Rice Tungro:05944
+ricebd:Rice Tungro:05953
+ricebd:Rice Tungro:05956
+ricebd:Rice Tungro:05965
+ricebd:Rice Tungro:05973
+ricebd:Rice Tungro:05981
+ricebd:Rice Tungro:06007
+ricebd:Rice Tungro:06015
+ricebd:Rice Tungro:06021
+ricebd:Rice Tungro:06031
+ricebd:Rice Tungro:06032
+ricebd:Rice Tungro:06054
+ricebd:Rice Tungro:06055
+ricebd:Rice Tungro:06057
+ricebd:Rice Tungro:06059
+ricebd:Rice Tungro:06061
+ricebd:Rice Tungro:06062
+ricebd:Rice Tungro:06065
+ricebd:Rice Tungro:06077
+ricebd:Rice Tungro:06079
+ricebd:Rice Tungro:06094
+ricebd:Rice Tungro:06095
+ricebd:Rice Tungro:06099
+ricebd:Rice Tungro:06118
+ricebd:Rice Tungro:06142
+ricebd:Rice Tungro:06144
+ricebd:Rice Tungro:06157
+ricebd:Rice Tungro:06162
+ricebd:Rice Tungro:06164
+ricebd:Rice Tungro:06173
+ricebd:Rice Tungro:06175
+ricebd:Rice Tungro:06176
+ricebd:Rice Tungro:06193
+ricebd:Rice Tungro:06214
+ricebd:Rice Tungro:06219
+ricebd:Rice Tungro:06225
+ricebd:Rice Tungro:06230
+ricebd:Rice Tungro:06231
+ricebd:Rice Tungro:06234
+ricebd:Rice Tungro:06240
+ricebd:Rice Tungro:06241
+ricebd:Rice Tungro:06242
+ricebd:Rice Tungro:06245
+ricebd:Rice Tungro:06251
+ricebd:Rice Tungro:06253
+ricebd:Rice Tungro:06254
+ricebd:Rice Tungro:06263
+ricebd:Rice Tungro:06266
+ricebd:Rice Tungro:06268
+ricebd:Rice Tungro:06270
+ricebd:Rice Tungro:06276
+ricebd:Rice Tungro:06281
+ricebd:Rice Tungro:06289
+ricebd:Rice Tungro:06306
+ricebd:Rice Tungro:06315
+ricebd:Rice Tungro:06318
+ricebd:Rice Tungro:06342
+ricebd:Rice Tungro:06343
+ricebd:Rice Tungro:06349
+ricebd:Rice Tungro:06356
+ricebd:Rice Tungro:06357
+ricebd:Rice Tungro:06363
+ricebd:Rice Tungro:06368
+ricebd:Rice Tungro:06381
+ricebd:Rice Tungro:06382
+ricebd:Rice Tungro:06384
+ricebd:Rice Tungro:06390
+ricebd:Rice Tungro:06393
+ricebd:Rice Tungro:06399
+ricebd:Rice Tungro:06403
+ricebd:Rice Tungro:06432
+ricebd:Rice Tungro:06438
+ricebd:Rice Tungro:06446
+ricebd:Rice Tungro:06451
+ricebd:Rice Tungro:06454
+ricebd:Rice Tungro:06455
+ricebd:Rice Tungro:06464
+ricebd:Rice Tungro:14006
+ricebd:Rice Tungro:14021
+ricebd:Rice Tungro:14022
+ricebd:Rice Tungro:14023
+ricebd:Rice Tungro:14029
+ricebd:Rice Tungro:14032
+ricebd:Rice Tungro:14034
+ricebd:Rice Tungro:14035
+ricebd:Rice Tungro:14038
+ricebd:Rice Tungro:14050
+ricebd:Rice Tungro:14055
+ricebd:Rice Tungro:14059
+ricebd:Rice Tungro:14065
+ricebd:Rice Tungro:14067
+ricebd:Rice Tungro:14068
+ricebd:Rice Tungro:14071
+ricebd:Rice Tungro:14091
+ricebd:Rice Tungro:14105
+ricebd:Rice Tungro:14115
+ricebd:Rice Tungro:14131
+ricebd:Rice Tungro:14136
+ricebd:Rice Tungro:14145
+ricebd:Rice Tungro:14151
+ricebd:Rice Tungro:14167
+ricebd:Rice Tungro:14168
+ricebd:Rice Tungro:14169
+ricebd:Rice Tungro:14179
+ricebd:Rice Tungro:14183
+ricebd:Rice Tungro:14190
+ricebd:Rice Tungro:14205
+ricebd:Rice Tungro:14215
+ricebd:Rice Tungro:14225
+ricebd:Rice Tungro:14233
+ricebd:Rice Tungro:14242
+ricebd:Rice Tungro:14244
+ricebd:Rice Tungro:14252
+ricebd:Rice Tungro:14255
+ricebd:Rice Tungro:14259
+ricebd:Rice Tungro:14260
+ricebd:Rice Tungro:14279
+ricebd:Rice Tungro:14282
+ricebd:Rice Tungro:14291
+ricebd:Rice Tungro:14298
+ricebd:Rice Tungro:14302
+ricebd:Rice Tungro:14315
+ricebd:Rice Tungro:14316
+ricebd:Rice Tungro:14330
+ricebd:Rice Tungro:14331
+ricebd:Rice Tungro:14334
+ricebd:Rice Tungro:14342
+ricebd:Rice Tungro:14356
+ricebd:Rice Tungro:14383
+ricebd:Rice Tungro:14394
+ricebd:Rice Tungro:14408
+ricebd:Rice Tungro:14422
+ricebd:Rice Tungro:14423
+ricebd:Rice Tungro:14431
+ricebd:Rice Tungro:14433
+ricebd:Rice Tungro:14438
+ricebd:Rice Tungro:14440
+ricebd:Rice Tungro:14445
+ricebd:Rice Tungro:14454
+ricebd:Rice Tungro:14456
+ricebd:Rice Tungro:14465
+ricebd:Rice Tungro:14477
+ricebd:Rice Tungro:14478
+ricebd:Rice Tungro:14479
+ricebd:Rice Tungro:14481
+ricebd:Rice Tungro:14482
+ricebd:Rice Tungro:14483
+ricebd:Rice Tungro:14486
+ricebd:Rice Tungro:14508
+ricebd:Rice Tungro:14515
+ricebd:Rice Tungro:14521
+ricebd:Rice Tungro:14526
+ricebd:Rice Tungro:14530
+ricebd:Rice Tungro:14533
+ricebd:Rice Tungro:14550
+ricebd:Rice Tungro:14574
+ricebd:Rice Tungro:14577
+ricebd:Rice Tungro:14582
+ricebd:Rice Tungro:14583
+ricebd:Rice Tungro:14585
+ricebd:Rice Tungro:14598
+ricebd:Rice Tungro:14613
+ricebd:Rice Tungro:14615
+ricebd:Rice Tungro:14624
+ricebd:Rice Tungro:14635
+ricebd:Rice Tungro:14648
+ricebd:Rice Tungro:14671
+ricebd:Rice Tungro:14697
+ricebd:Rice Tungro:14701
+ricebd:Rice Tungro:14722
+ricebd:Rice Tungro:14723
+ricebd:Rice Tungro:14724
+ricebd:Rice Tungro:14732
+ricebd:Rice Tungro:14749
+ricebd:Rice Tungro:14761
+ricebd:Rice Tungro:14766
+ricebd:Rice Tungro:14779
+ricebd:Rice Tungro:14782
+ricebd:Rice Tungro:14786
+ricebd:Rice Tungro:14787
+ricebd:Rice Tungro:14789
+ricebd:Rice Tungro:14792
+ricebd:Rice Tungro:14795
+ricebd:Rice Tungro:14800
+ricebd:Rice Tungro:14810
+ricebd:Rice Tungro:14813
+ricebd:Rice Tungro:14823
+ricebd:Rice Tungro:14827
+ricebd:Rice Tungro:14829
+ricebd:Rice Tungro:14840
+ricebd:Rice Tungro:14851
+ricebd:Rice Tungro:14858
+ricebd:Rice Tungro:14863
+ricebd:Rice Tungro:14866
+ricebd:Rice Tungro:14881
+ricebd:Rice Tungro:14885
+ricebd:Rice Tungro:14891
+ricebd:Rice Tungro:14898
+ricebd:Rice Tungro:14899
+ricebd:Rice Tungro:14902
+ricebd:Rice Tungro:14912
+ricebd:Rice Tungro:14927
+ricebd:Rice Tungro:14945
+ricebd:Rice Tungro:14946
+ricebd:Rice Tungro:14949
+ricebd:Rice Tungro:14961
+ricebd:Rice Tungro:14970
+ricebd:Rice Tungro:14972
+ricebd:Rice Tungro:14976
+ricebd:Rice Tungro:14978
+ricebd:Rice Tungro:14995
+ricebd:Rice Tungro:15004
+ricebd:Rice Tungro:15005
+ricebd:Rice Tungro:15011
+ricebd:Rice Tungro:15014
+ricebd:Rice Tungro:15021
+ricebd:Rice Tungro:15023
+ricebd:Rice Tungro:15041
+ricebd:Rice Tungro:15045
+ricebd:Rice Tungro:15050
+ricebd:Rice Tungro:15055
+ricebd:Rice Tungro:15058
+ricebd:Rice Tungro:15059
+ricebd:Rice Tungro:15066
+ricebd:Rice Tungro:15067
+ricebd:Rice Tungro:15073
+ricebd:Rice Tungro:15075
+ricebd:Rice Tungro:15080
+ricebd:Rice Tungro:15091
+ricebd:Rice Tungro:15100
+ricebd:Rice Tungro:15106
+ricebd:Rice Tungro:15108
+ricebd:Rice Tungro:15112
+ricebd:Rice Tungro:15122
+ricebd:Rice Tungro:15132
+ricebd:Rice Tungro:15138
+ricebd:Rice Tungro:15139
+ricebd:Rice Tungro:15145
+ricebd:Rice Tungro:15153
+ricebd:Rice Tungro:15158
+ricebd:Rice Tungro:15174
+ricebd:Rice Tungro:15181
+ricebd:Rice Tungro:15191
+ricebd:Rice Tungro:15193
+ricebd:Rice Tungro:15203
+ricebd:Rice Tungro:15218
+ricebd:Rice Tungro:15227
+ricebd:Rice Tungro:15230
+ricebd:Rice Tungro:15231
+ricebd:Rice Tungro:15239
+ricebd:Rice Tungro:15243
+ricebd:Rice Tungro:15252
+ricebd:Rice Tungro:15257
+ricebd:Rice Tungro:15259
+ricebd:Rice Tungro:15265
+ricebd:Rice Tungro:15266
+ricebd:Rice Tungro:15269
+ricebd:Rice Tungro:15277
+ricebd:Rice Tungro:15284
+ricebd:Rice Tungro:15285
+ricebd:Rice Tungro:15288
+ricebd:Rice Tungro:15290
+ricebd:Rice Tungro:15312
+ricebd:Rice Tungro:15328
+ricebd:Rice Tungro:15334
+ricebd:Rice Tungro:15335
+ricebd:Rice Tungro:15343
+ricebd:Rice Tungro:15344
+ricebd:Rice Tungro:15351
+ricebd:Rice Tungro:15352
+ricebd:Rice Tungro:15372
+ricebd:Rice Tungro:15375
+ricebd:Rice Tungro:15376
+ricebd:Rice Tungro:15378
+ricebd:Rice Tungro:15391
+ricebd:Rice Tungro:15392
+ricebd:Rice Tungro:15395
+ricebd:Rice Tungro:15411
+ricebd:Rice Tungro:15414
+ricebd:Rice Tungro:15420
+ricebd:Rice Tungro:15421
+ricebd:Rice Tungro:15430
+ricebd:Rice Tungro:15435
+ricebd:Rice Tungro:15441
+ricebd:Rice Tungro:15446
+ricebd:Rice Tungro:15452
+ricebd:Rice Tungro:15456
+ricebd:Rice Tungro:15461
+ricebd:Rice Tungro:15470
+ricebd:Rice Tungro:15473
+ricebd:Rice Tungro:15488
+ricebd:Rice Tungro:15490
+ricebd:Rice Tungro:15497
+ricebd:Rice Tungro:15499
+ricebd:Rice Tungro:15507
+ricebd:Rice Tungro:15508
+ricebd:Rice Tungro:15510
+ricebd:Rice Tungro:15516
+ricebd:Rice Tungro:15525
+ricebd:Rice Tungro:15532
+ricebd:Rice Tungro:15535
+ricebd:Rice Tungro:15548
+ricebd:Rice Tungro:15552
+ricebd:Rice Tungro:15554
+ricebd:Rice Tungro:15557
+ricebd:Rice Tungro:15558
+ricebd:Rice Tungro:15560
+ricebd:Rice Tungro:15573
+ricebd:Rice Tungro:15579
+ricebd:Rice Tungro:15591
+ricebd:Rice Tungro:15602
+ricebd:Rice Tungro:15604
+ricebd:Rice Tungro:15609
+ricebd:Rice Tungro:15613
+ricebd:Rice Tungro:15617
+ricebd:Rice Tungro:15619
+ricebd:Rice Tungro:15625
+ricebd:Rice Tungro:15631
+ricebd:Rice Tungro:15644
+ricebd:Rice Tungro:15651
+ricebd:Rice Tungro:15666
+ricebd:Rice Tungro:15669
+ricebd:Rice Tungro:15670
+ricebd:Rice Tungro:15672
+ricebd:Rice Tungro:15688
+ricebd:Rice Tungro:15689
+ricebd:Rice Tungro:15693
+ricebd:Rice Tungro:15700
+ricebd:Rice Tungro:15704
+ricebd:Rice Tungro:15708
+ricebd:Rice Tungro:15712
+ricebd:Rice Tungro:15713
+ricebd:Rice Tungro:15720
+ricebd:Rice Tungro:15734
+ricebd:Rice Tungro:15739
+ricebd:Rice Tungro:15747
+ricebd:Rice Tungro:15751
+ricebd:Rice Tungro:15766
+ricebd:Rice Tungro:15777
+ricebd:Rice Tungro:15792
+ricebd:Rice Tungro:15793
+ricebd:Rice Tungro:15794
+ricebd:Rice Tungro:15799
+ricebd:Rice Tungro:15804
+ricebd:Rice Tungro:15838
+ricebd:Rice Tungro:15847
+ricebd:Rice Tungro:15848
+ricebd:Rice Tungro:15853
+ricebd:Rice Tungro:15857
+ricebd:Rice Tungro:15858
+ricebd:Rice Tungro:15866
+ricebd:Rice Tungro:15891
+ricebd:Rice Tungro:15895
+ricebd:Rice Tungro:15897
+ricebd:Rice Tungro:15902
+ricebd:Rice Tungro:15914
+ricebd:Rice Tungro:15916
+ricebd:Rice Tungro:15918
+ricebd:Rice Tungro:15925
+ricebd:Rice Tungro:15931
+ricebd:Rice Tungro:15935
+ricebd:Rice Tungro:15945
+ricebd:Rice Tungro:15949
+ricebd:Rice Tungro:15957
+ricebd:Rice Tungro:15962
+ricebd:Rice Tungro:15981
+ricebd:Rice Tungro:15985
+ricebd:Rice Tungro:15988
+ricebd:Rice Tungro:15994
+ricebd:Rice Tungro:16002
+ricebd:Rice Tungro:16005
+ricebd:Rice Tungro:16010
+ricebd:Rice Tungro:16014
+ricebd:Rice Tungro:16018
+ricebd:Rice Tungro:16019
+ricebd:Rice Tungro:16038
+ricebd:Rice Tungro:16044
+ricebd:Rice Tungro:16057
+ricebd:Rice Tungro:16058
+ricebd:Rice Tungro:16060
+ricebd:Rice Tungro:16062
+ricebd:Rice Tungro:16065
+ricebd:Rice Tungro:16072
+ricebd:Rice Tungro:16077
+ricebd:Rice Tungro:16087
+ricebd:Rice Tungro:16090
+ricebd:Rice Tungro:16091
+ricebd:Rice Tungro:16103
+ricebd:Rice Tungro:16104
+ricebd:Rice Tungro:16105
+ricebd:Rice Tungro:16106
+ricebd:Rice Tungro:16125
+ricebd:Rice Tungro:16150
+ricebd:Rice Tungro:16151
+ricebd:Rice Tungro:16161
+ricebd:Rice Tungro:16164
+ricebd:Rice Tungro:16175
+ricebd:Rice Tungro:16180
+ricebd:Rice Tungro:16189
+ricebd:Rice Tungro:16199
+ricebd:Rice Tungro:16203
+ricebd:Rice Tungro:16207
+ricebd:Rice Tungro:16220
+ricebd:Rice Tungro:16239
+ricebd:Sheath Blight:06474
+ricebd:Sheath Blight:06479
+ricebd:Sheath Blight:06480
+ricebd:Sheath Blight:06483
+ricebd:Sheath Blight:06491
+ricebd:Sheath Blight:06504
+ricebd:Sheath Blight:06507
+ricebd:Sheath Blight:06515
+ricebd:Sheath Blight:06532
+ricebd:Sheath Blight:06534
+ricebd:Sheath Blight:06536
+ricebd:Sheath Blight:06540
+ricebd:Sheath Blight:06545
+ricebd:Sheath Blight:06568
+ricebd:Sheath Blight:06572
+ricebd:Sheath Blight:06584
+ricebd:Sheath Blight:06591
+ricebd:Sheath Blight:06596
+ricebd:Sheath Blight:06598
+ricebd:Sheath Blight:06603
+ricebd:Sheath Blight:06625
+ricebd:Sheath Blight:06634
+ricebd:Sheath Blight:06637
+ricebd:Sheath Blight:06643
+ricebd:Sheath Blight:06656
+ricebd:Sheath Blight:06669
+ricebd:Sheath Blight:06671
+ricebd:Sheath Blight:06673
+ricebd:Sheath Blight:06690
+ricebd:Sheath Blight:06701
+ricebd:Sheath Blight:06705
+ricebd:Sheath Blight:06713
+ricebd:Sheath Blight:06716
+ricebd:Sheath Blight:06717
+ricebd:Sheath Blight:06724
+ricebd:Sheath Blight:06727
+ricebd:Sheath Blight:06737
+ricebd:Sheath Blight:06738
+ricebd:Sheath Blight:06741
+ricebd:Sheath Blight:06753
+ricebd:Sheath Blight:06769
+ricebd:Sheath Blight:06775
+ricebd:Sheath Blight:06787
+ricebd:Sheath Blight:06790
+ricebd:Sheath Blight:06792
+ricebd:Sheath Blight:06805
+ricebd:Sheath Blight:06808
+ricebd:Sheath Blight:06832
+ricebd:Sheath Blight:06834
+ricebd:Sheath Blight:06835
+ricebd:Sheath Blight:06837
+ricebd:Sheath Blight:06843
+ricebd:Sheath Blight:06851
+ricebd:Sheath Blight:06865
+ricebd:Sheath Blight:06887
+ricebd:Sheath Blight:06888
+ricebd:Sheath Blight:06889
+ricebd:Sheath Blight:06892
+ricebd:Sheath Blight:06905
+ricebd:Sheath Blight:06921
+ricebd:Sheath Blight:06924
+ricebd:Sheath Blight:06926
+ricebd:Sheath Blight:06928
+ricebd:Sheath Blight:06936
+ricebd:Sheath Blight:06938
+ricebd:Sheath Blight:06939
+ricebd:Sheath Blight:06943
+ricebd:Sheath Blight:06948
+ricebd:Sheath Blight:06966
+ricebd:Sheath Blight:06967
+ricebd:Sheath Blight:06968
+ricebd:Sheath Blight:06986
+ricebd:Sheath Blight:06987
+ricebd:Sheath Blight:07024
+ricebd:Sheath Blight:07030
+ricebd:Sheath Blight:07036
+ricebd:Sheath Blight:07041
+ricebd:Sheath Blight:07043
+ricebd:Sheath Blight:07046
+ricebd:Sheath Blight:07053
+ricebd:Sheath Blight:07065
+ricebd:Sheath Blight:07067
+ricebd:Sheath Blight:07077
+ricebd:Sheath Blight:07079
+ricebd:Sheath Blight:07082
+ricebd:Sheath Blight:07085
+ricebd:Sheath Blight:07090
+ricebd:Sheath Blight:07097
+ricebd:Sheath Blight:07105
+ricebd:Sheath Blight:07107
+ricebd:Sheath Blight:07108
+ricebd:Sheath Blight:07109
+ricebd:Sheath Blight:07115
+ricebd:Sheath Blight:07118
+ricebd:Sheath Blight:07127
+ricebd:Sheath Blight:07129
+ricebd:Sheath Blight:07134
+ricebd:Sheath Blight:07140
+ricebd:Sheath Blight:07141
+ricebd:Sheath Blight:07143
+ricebd:Sheath Blight:07149
+ricebd:Sheath Blight:07159
+ricebd:Sheath Blight:07171
+ricebd:Sheath Blight:07177
+ricebd:Sheath Blight:07183
+ricebd:Sheath Blight:07188
+ricebd:Sheath Blight:07190
+ricebd:Sheath Blight:07196
+ricebd:Sheath Blight:07199
+ricebd:Sheath Blight:07207
+ricebd:Sheath Blight:07208
+ricebd:Sheath Blight:07215
+ricebd:Sheath Blight:07222
+ricebd:Sheath Blight:07241
+ricebd:Sheath Blight:07244
+ricebd:Sheath Blight:07255
+ricebd:Sheath Blight:07266
+ricebd:Sheath Blight:07267
+ricebd:Sheath Blight:07272
+ricebd:Sheath Blight:07276
+ricebd:Sheath Blight:07278
+ricebd:Sheath Blight:07288
+ricebd:Sheath Blight:07291
+ricebd:Sheath Blight:07292
+ricebd:Sheath Blight:07297
+ricebd:Sheath Blight:07302
+ricebd:Sheath Blight:07311
+ricebd:Sheath Blight:07333
+ricebd:Sheath Blight:07334
+ricebd:Sheath Blight:07339
+ricebd:Sheath Blight:07357
+ricebd:Sheath Blight:07360
+ricebd:Sheath Blight:07370
+ricebd:Sheath Blight:07376
+ricebd:Sheath Blight:07379
+ricebd:Sheath Blight:07388
+ricebd:Sheath Blight:07401
+ricebd:Sheath Blight:07407
+ricebd:Sheath Blight:07410
+ricebd:Sheath Blight:07416
+ricebd:Sheath Blight:07419
+ricebd:Sheath Blight:07423
+ricebd:Sheath Blight:07431
+ricebd:Sheath Blight:07453
+ricebd:Sheath Blight:07455
+ricebd:Sheath Blight:07460
+ricebd:Sheath Blight:07462
+ricebd:Sheath Blight:07488
+ricebd:Sheath Blight:07491
+ricebd:Sheath Blight:07498
+ricebd:Sheath Blight:07521
+ricebd:Sheath Blight:07542
+ricebd:Sheath Blight:07545
+ricebd:Sheath Blight:07566
+ricebd:Sheath Blight:07576
+ricebd:Sheath Blight:07577
+ricebd:Sheath Blight:07582
+ricebd:Sheath Blight:07587
+ricebd:Sheath Blight:07604
+ricebd:Sheath Blight:07606
+ricebd:Sheath Blight:07609
+ricebd:Sheath Blight:07610
+ricebd:Sheath Blight:07615
+ricebd:Sheath Blight:07616
+ricebd:Sheath Blight:07645
+ricebd:Sheath Blight:07648
+ricebd:Sheath Blight:07653
+ricebd:Sheath Blight:07655
+ricebd:Sheath Blight:07695
+ricebd:Sheath Blight:07707
+ricebd:Sheath Blight:07709
+ricebd:Sheath Blight:07726
+ricebd:Sheath Blight:07727
+ricebd:Sheath Blight:07728
+ricebd:Sheath Blight:07734
+ricebd:Sheath Blight:07740
+ricebd:Sheath Blight:07744
+ricebd:Sheath Blight:07750
+ricebd:Sheath Blight:07751
+ricebd:Sheath Blight:07763
+ricebd:Sheath Blight:07766
+ricebd:Sheath Blight:07770
+ricebd:Sheath Blight:07789
+ricebd:Sheath Blight:07791
+ricebd:Sheath Blight:07802
+ricebd:Sheath Blight:07807
+ricebd:Sheath Blight:07812
+ricebd:Sheath Blight:07826
+ricebd:Sheath Blight:07827
+ricebd:Sheath Blight:07828
+ricebd:Sheath Blight:07834
+ricebd:Sheath Blight:07836
+ricebd:Sheath Blight:07842
+ricebd:Sheath Blight:07844
+ricebd:Sheath Blight:07845
+ricebd:Sheath Blight:07852
+ricebd:Sheath Blight:07856
+ricebd:Sheath Blight:07868
+ricebd:Sheath Blight:07872
+ricebd:Sheath Blight:07887
+ricebd:Sheath Blight:07889
+ricebd:Sheath Blight:07903
+ricebd:Sheath Blight:07910
+ricebd:Sheath Blight:07913
+ricebd:Sheath Blight:07915
+ricebd:Sheath Blight:07928
+ricebd:Sheath Blight:07929
+ricebd:Sheath Blight:07930
+ricebd:Sheath Blight:07942
+ricebd:Sheath Blight:07946
+ricebd:Sheath Blight:07949
+ricebd:Sheath Blight:07951
+ricebd:Sheath Blight:07960
+ricebd:Sheath Blight:07965
+ricebd:Sheath Blight:07969
+ricebd:Sheath Blight:07973
+ricebd:Sheath Blight:07974
+ricebd:Sheath Blight:07975
+ricebd:Sheath Blight:07979
+ricebd:Sheath Blight:07983
+ricebd:Sheath Blight:07992
+ricebd:Sheath Blight:07993
+ricebd:Sheath Blight:07997
+ricebd:Sheath Blight:08000
+ricebd:Sheath Blight:08001
+ricebd:Sheath Blight:08011
+ricebd:Sheath Blight:08026
+ricebd:Sheath Blight:08029
+ricebd:Sheath Blight:08030
+ricebd:Sheath Blight:08032
+ricebd:Sheath Blight:08039
+ricebd:Sheath Blight:08042
+ricebd:Sheath Blight:08046
+ricebd:Sheath Blight:08052
+ricebd:Sheath Blight:08054
+ricebd:Sheath Blight:08064
+ricebd:Sheath Blight:08068
+ricebd:Sheath Blight:08080
+ricebd:Sheath Blight:08089
+ricebd:Sheath Blight:08091
+ricebd:Sheath Blight:08100
+ricebd:Sheath Blight:08112
+ricebd:Sheath Blight:08118
+ricebd:Sheath Blight:08120
+ricebd:Sheath Blight:08133
+ricebd:Sheath Blight:08137
+ricebd:Sheath Blight:08138
+ricebd:Sheath Blight:08144
+ricebd:Sheath Blight:08146
+ricebd:Sheath Blight:08157
+ricebd:Sheath Blight:08158
+ricebd:Sheath Blight:08177
+ricebd:Sheath Blight:08186
+ricebd:Sheath Blight:08189
+ricebd:Sheath Blight:16243
+ricebd:Sheath Blight:16244
+ricebd:Sheath Blight:16252
+ricebd:Sheath Blight:16256
+ricebd:Sheath Blight:16260
+ricebd:Sheath Blight:16274
+ricebd:Sheath Blight:16277
+ricebd:Sheath Blight:16283
+ricebd:Sheath Blight:16293
+ricebd:Sheath Blight:16297
+ricebd:Sheath Blight:16319
+ricebd:Sheath Blight:16322
+ricebd:Sheath Blight:16336
+ricebd:Sheath Blight:16338
+ricebd:Sheath Blight:16343
+ricebd:Sheath Blight:16346
+ricebd:Sheath Blight:16349
+ricebd:Sheath Blight:16353
+ricebd:Sheath Blight:16364
+ricebd:Sheath Blight:16376
+ricebd:Sheath Blight:16378
+ricebd:Sheath Blight:16380
+ricebd:Sheath Blight:16387
+ricebd:Sheath Blight:16396
+ricebd:Sheath Blight:16408
+ricebd:Sheath Blight:16409
+ricebd:Sheath Blight:16412
+ricebd:Sheath Blight:16419
+ricebd:Sheath Blight:16435
+ricebd:Sheath Blight:16438
+ricebd:Sheath Blight:16440
+ricebd:Sheath Blight:16451
+ricebd:Sheath Blight:16453
+ricebd:Sheath Blight:16454
+ricebd:Sheath Blight:16467
+ricebd:Sheath Blight:16470
+ricebd:Sheath Blight:16480
+ricebd:Sheath Blight:16488
+ricebd:Sheath Blight:16497
+ricebd:Sheath Blight:16510
+ricebd:Sheath Blight:16515
+ricebd:Sheath Blight:16516
+ricebd:Sheath Blight:16522
+ricebd:Sheath Blight:16523
+ricebd:Sheath Blight:16536
+ricebd:Sheath Blight:16537
+ricebd:Sheath Blight:16543
+ricebd:Sheath Blight:16544
+ricebd:Sheath Blight:16566
+ricebd:Sheath Blight:16572
+ricebd:Sheath Blight:16580
+ricebd:Sheath Blight:16586
+ricebd:Sheath Blight:16593
+ricebd:Sheath Blight:16608
+ricebd:Sheath Blight:16609
+ricebd:Sheath Blight:16613
+ricebd:Sheath Blight:16646
+ricebd:Sheath Blight:16660
+ricebd:Sheath Blight:16665
+ricebd:Sheath Blight:16670
+ricebd:Sheath Blight:16679
+ricebd:Sheath Blight:16681
+ricebd:Sheath Blight:16693
+ricebd:Sheath Blight:16696
+ricebd:Sheath Blight:16697
+ricebd:Sheath Blight:16725
+ricebd:Sheath Blight:16729
+ricebd:Sheath Blight:16740
+ricebd:Sheath Blight:16742
+ricebd:Sheath Blight:16752
+ricebd:Sheath Blight:16756
+ricebd:Sheath Blight:16761
+ricebd:Sheath Blight:16763
+ricebd:Sheath Blight:16770
+ricebd:Sheath Blight:16784
+ricebd:Sheath Blight:16788
+ricebd:Sheath Blight:16793
+ricebd:Sheath Blight:16823
+ricebd:Sheath Blight:16826
+ricebd:Sheath Blight:16832
+ricebd:Sheath Blight:16834
+ricebd:Sheath Blight:16863
+ricebd:Sheath Blight:16872
+ricebd:Sheath Blight:16877
+ricebd:Sheath Blight:16878
+ricebd:Sheath Blight:16882
+ricebd:Sheath Blight:16885
+ricebd:Sheath Blight:16886
+ricebd:Sheath Blight:16889
+ricebd:Sheath Blight:16895
+ricebd:Sheath Blight:16897
+ricebd:Sheath Blight:16899
+ricebd:Sheath Blight:16900
+ricebd:Sheath Blight:16901
+ricebd:Sheath Blight:16915
+ricebd:Sheath Blight:16918
+ricebd:Sheath Blight:16919
+ricebd:Sheath Blight:16926
+ricebd:Sheath Blight:16927
+ricebd:Sheath Blight:16931
+ricebd:Sheath Blight:16934
+ricebd:Sheath Blight:16943
+ricebd:Sheath Blight:16946
+ricebd:Sheath Blight:16954
+ricebd:Sheath Blight:16959
+ricebd:Sheath Blight:16962
+ricebd:Sheath Blight:16964
+ricebd:Sheath Blight:16965
+ricebd:Sheath Blight:16978
+ricebd:Sheath Blight:16979
+ricebd:Sheath Blight:16989
+ricebd:Sheath Blight:16997
+ricebd:Sheath Blight:17006
+ricebd:Sheath Blight:17016
+ricebd:Sheath Blight:17023
+ricebd:Sheath Blight:17026
+ricebd:Sheath Blight:17047
+ricebd:Sheath Blight:17065
+ricebd:Sheath Blight:17066
+ricebd:Sheath Blight:17068
+ricebd:Sheath Blight:17069
+ricebd:Sheath Blight:17082
+ricebd:Sheath Blight:17086
+ricebd:Sheath Blight:17092
+ricebd:Sheath Blight:17095
+ricebd:Sheath Blight:17119
+ricebd:Sheath Blight:17121
+ricebd:Sheath Blight:17123
+ricebd:Sheath Blight:17132
+ricebd:Sheath Blight:17133
+ricebd:Sheath Blight:17135
+ricebd:Sheath Blight:17145
+ricebd:Sheath Blight:17151
+ricebd:Sheath Blight:17153
+ricebd:Sheath Blight:17157
+ricebd:Sheath Blight:17161
+ricebd:Sheath Blight:17167
+ricebd:Sheath Blight:17171
+ricebd:Sheath Blight:17211
+ricebd:Sheath Blight:17214
+ricebd:Sheath Blight:17215
+ricebd:Sheath Blight:17217
+ricebd:Sheath Blight:17223
+ricebd:Sheath Blight:17224
+ricebd:Sheath Blight:17227
+ricebd:Sheath Blight:17231
+ricebd:Sheath Blight:17236
+ricebd:Sheath Blight:17239
+ricebd:Sheath Blight:17249
+ricebd:Sheath Blight:17250
+ricebd:Sheath Blight:17253
+ricebd:Sheath Blight:17254
+ricebd:Sheath Blight:17256
+ricebd:Sheath Blight:17268
+ricebd:Sheath Blight:17280
+ricebd:Sheath Blight:17282
+ricebd:Sheath Blight:17297
+ricebd:Sheath Blight:17321
+ricebd:Sheath Blight:17325
+ricebd:Sheath Blight:17344
+ricebd:Sheath Blight:17353
+ricebd:Sheath Blight:17360
+ricebd:Sheath Blight:17365
+ricebd:Sheath Blight:17367
+ricebd:Sheath Blight:17371
+ricebd:Sheath Blight:17373
+ricebd:Sheath Blight:17381
+ricebd:Sheath Blight:17386
+ricebd:Sheath Blight:17407
+ricebd:Sheath Blight:17419
+ricebd:Sheath Blight:17436
+ricebd:Sheath Blight:17444
+ricebd:Sheath Blight:17471
+ricebd:Sheath Blight:17473
+ricebd:Sheath Blight:17483
+ricebd:Sheath Blight:17485
+ricebd:Sheath Blight:17510
+ricebd:Sheath Blight:17515
+ricebd:Sheath Blight:17523
+ricebd:Sheath Blight:17525
+ricebd:Sheath Blight:17526
+ricebd:Sheath Blight:17531
+ricebd:Sheath Blight:17540
+ricebd:Sheath Blight:17543
+ricebd:Sheath Blight:17544
+ricebd:Sheath Blight:17552
+ricebd:Sheath Blight:17554
+ricebd:Sheath Blight:17555
+ricebd:Sheath Blight:17559
+ricebd:Sheath Blight:17584
+ricebd:Sheath Blight:17595
+ricebd:Sheath Blight:17610
+ricebd:Sheath Blight:17613
+ricebd:Sheath Blight:17624
+ricebd:Sheath Blight:17635
+ricebd:Sheath Blight:17640
+ricebd:Sheath Blight:17642
+ricebd:Sheath Blight:17643
+ricebd:Sheath Blight:17648
+ricebd:Sheath Blight:17663
+ricebd:Sheath Blight:17672
+ricebd:Sheath Blight:17680
+ricebd:Sheath Blight:17688
+ricebd:Sheath Blight:17695
+ricebd:Sheath Blight:17698
+ricebd:Sheath Blight:17699
+ricebd:Sheath Blight:17701
+ricebd:Sheath Blight:17709
+ricebd:Sheath Blight:17726
+ricebd:Sheath Blight:17730
+ricebd:Sheath Blight:17731
+ricebd:Sheath Blight:17732
+ricebd:Sheath Blight:17736
+ricebd:Sheath Blight:17739
+ricebd:Sheath Blight:17750
+ricebd:Sheath Blight:17756
+ricebd:Sheath Blight:17757
+ricebd:Sheath Blight:17777
+ricebd:Sheath Blight:17798
+ricebd:Sheath Blight:17812
+ricebd:Sheath Blight:17814
+ricebd:Sheath Blight:17819
+ricebd:Sheath Blight:17820
+ricebd:Sheath Blight:17827
+ricebd:Sheath Blight:17841
+ricebd:Sheath Blight:17897
+ricebd:Sheath Blight:17899
+ricebd:Sheath Blight:17901
+ricebd:Sheath Blight:17911
+ricebd:Sheath Blight:17934
+ricebd:Sheath Blight:17936
+ricebd:Sheath Blight:17937
+ricebd:Sheath Blight:17943
+ricebd:Sheath Blight:17955
+ricebd:Sheath Blight:17957
+ricebd:Sheath Blight:17958
+riceleafbd:Bacterial Leaf Blight:306768571
+riceleafbd:Bacterial Leaf Blight:309887257
+riceleafbd:Bacterial Leaf Blight:309889467
+riceleafbd:Bacterial Leaf Blight:309930035
+riceleafbd:Bacterial Leaf Blight:310006532
+riceleafbd:Bacterial Leaf Blight:310103066
+riceleafbd:Bacterial Leaf Blight:310116581
+riceleafbd:Bacterial Leaf Blight:310206284
+riceleafbd:Bacterial Leaf Blight:310242655
+riceleafbd:Bacterial Leaf Blight:310298902
+riceleafbd:Bacterial Leaf Blight:310301288
+riceleafbd:Bacterial Leaf Blight:310398982
+riceleafbd:Bacterial Leaf Blight:310559329
+riceleafbd:Bacterial Leaf Blight:310618161
+riceleafbd:Bacterial Leaf Blight:310644021
+riceleafbd:Bacterial Leaf Blight:310674255
+riceleafbd:Bacterial Leaf Blight:310816588
+riceleafbd:Bacterial Leaf Blight:310959560
+riceleafbd:Bacterial Leaf Blight:311039233
+riceleafbd:Bacterial Leaf Blight:311279607
+riceleafbd:Bacterial Leaf Blight:311296765
+riceleafbd:Bacterial Leaf Blight:311311853
+riceleafbd:Bacterial Leaf Blight:311316953
+riceleafbd:Bacterial Leaf Blight:311442085
+riceleafbd:Bacterial Leaf Blight:311903426
+riceleafbd:Bacterial Leaf Blight:311922711
+riceleafbd:Bacterial Leaf Blight:311994481
+riceleafbd:Bacterial Leaf Blight:312124793
+riceleafbd:Bacterial Leaf Blight:312203280
+riceleafbd:Bacterial Leaf Blight:312376726
+riceleafbd:Bacterial Leaf Blight:312460599
+riceleafbd:Bacterial Leaf Blight:312472792
+riceleafbd:Bacterial Leaf Blight:312501455
+riceleafbd:Bacterial Leaf Blight:312533724
+riceleafbd:Bacterial Leaf Blight:312562418
+riceleafbd:Bacterial Leaf Blight:312567234
+riceleafbd:Bacterial Leaf Blight:312814140
+riceleafbd:Bacterial Leaf Blight:312825899
+riceleafbd:Bacterial Leaf Blight:312964669
+riceleafbd:Bacterial Leaf Blight:312978871
+riceleafbd:Bacterial Leaf Blight:312990018
+riceleafbd:Bacterial Leaf Blight:313364190
+riceleafbd:Bacterial Leaf Blight:314028895
+riceleafbd:Bacterial Leaf Blight:314072790
+riceleafbd:Bacterial Leaf Blight:314357746
+riceleafbd:Bacterial Leaf Blight:314376862
+riceleafbd:Bacterial Leaf Blight:314409345
+riceleafbd:Bacterial Leaf Blight:314410853
+riceleafbd:Bacterial Leaf Blight:314429060
+riceleafbd:Bacterial Leaf Blight:314439181
+riceleafbd:Bacterial Leaf Blight:314472624
+riceleafbd:Bacterial Leaf Blight:314477102
+riceleafbd:Bacterial Leaf Blight:314496509
+riceleafbd:Bacterial Leaf Blight:314598396
+riceleafbd:Bacterial Leaf Blight:314678583
+riceleafbd:Bacterial Leaf Blight:314923345
+riceleafbd:Bacterial Leaf Blight:315112603
+riceleafbd:Bacterial Leaf Blight:315183999
+riceleafbd:Brown Spot:309914653
+riceleafbd:Brown Spot:310068201
+riceleafbd:Brown Spot:310071915
+riceleafbd:Brown Spot:310091333
+riceleafbd:Brown Spot:310138548
+riceleafbd:Brown Spot:310227896
+riceleafbd:Brown Spot:310279124
+riceleafbd:Brown Spot:310413706
+riceleafbd:Brown Spot:310448023
+riceleafbd:Brown Spot:310448892
+riceleafbd:Brown Spot:310549204
+riceleafbd:Brown Spot:310600434
+riceleafbd:Brown Spot:310618169
+riceleafbd:Brown Spot:310644021
+riceleafbd:Brown Spot:310646878
+riceleafbd:Brown Spot:310824212
+riceleafbd:Brown Spot:310958148
+riceleafbd:Brown Spot:310968022
+riceleafbd:Brown Spot:311043994
+riceleafbd:Brown Spot:311052757
+riceleafbd:Brown Spot:311124288
+riceleafbd:Brown Spot:311238271
+riceleafbd:Brown Spot:311330755
+riceleafbd:Brown Spot:311453915
+riceleafbd:Brown Spot:311462290
+riceleafbd:Brown Spot:311869507
+riceleafbd:Brown Spot:311873170
+riceleafbd:Brown Spot:311977195
+riceleafbd:Brown Spot:312109407
+riceleafbd:Brown Spot:312250047
+riceleafbd:Brown Spot:312468370
+riceleafbd:Brown Spot:312491989
+riceleafbd:Brown Spot:312493995
+riceleafbd:Brown Spot:312543158
+riceleafbd:Brown Spot:312650022
+riceleafbd:Brown Spot:312814751
+riceleafbd:Brown Spot:312837208
+riceleafbd:Brown Spot:312894972
+riceleafbd:Brown Spot:312915611
+riceleafbd:Brown Spot:313137344
+riceleafbd:Brown Spot:313343929
+riceleafbd:Brown Spot:313367123
+riceleafbd:Brown Spot:313781090
+riceleafbd:Brown Spot:313843566
+riceleafbd:Brown Spot:313905884
+riceleafbd:Brown Spot:314002624
+riceleafbd:Brown Spot:314078646
+riceleafbd:Brown Spot:314080532
+riceleafbd:Brown Spot:314382668
+riceleafbd:Brown Spot:314441577
+riceleafbd:Brown Spot:314441983
+riceleafbd:Brown Spot:314928674
+riceleafbd:Brown Spot:315258105
+riceleafbd:Brown Spot:315310250
+riceleafbd:Brown Spot:315441571
+riceleafbd:Brown Spot:315528173
+riceleafbd:Healthy Leaf:IMG20231027083007
+riceleafbd:Healthy Leaf:IMG20231027083100
+riceleafbd:Healthy Leaf:IMG20231027083121
+riceleafbd:Healthy Leaf:IMG20231027083123
+riceleafbd:Healthy Leaf:IMG20231027083504
+riceleafbd:Healthy Leaf:IMG20231027083607
+riceleafbd:Healthy Leaf:IMG20231027083711
+riceleafbd:Healthy Leaf:IMG20231027083727
+riceleafbd:Healthy Leaf:IMG20231027083843
+riceleafbd:Healthy Leaf:IMG20231027084115
+riceleafbd:Healthy Leaf:IMG20231027084226
+riceleafbd:Healthy Leaf:IMG20231027084332
+riceleafbd:Healthy Leaf:IMG20231027084350
+riceleafbd:Healthy Leaf:IMG20231027084408
+riceleafbd:Healthy Leaf:IMG20231027084637
+riceleafbd:Healthy Leaf:IMG20231027084732
+riceleafbd:Healthy Leaf:IMG20231027085837
+riceleafbd:Healthy Leaf:IMG20231027085904
+riceleafbd:Healthy Leaf:IMG20231027090224
+riceleafbd:Healthy Leaf:IMG20231027090239
+riceleafbd:Healthy Leaf:IMG20231027090315
+riceleafbd:Healthy Leaf:IMG20231027090321
+riceleafbd:Healthy Leaf:IMG20231027090355
+riceleafbd:Healthy Leaf:IMG20231027090402
+riceleafbd:Healthy Leaf:IMG20231027090419
+riceleafbd:Healthy Leaf:IMG20231027090452
+riceleafbd:Healthy Leaf:IMG20231027090500
+riceleafbd:Healthy Leaf:IMG20231027091201
+riceleafbd:Healthy Leaf:IMG20231027091217
+riceleafbd:Healthy Leaf:IMG20231027091247
+riceleafbd:Healthy Leaf:IMG20231027091628
+riceleafbd:Healthy Leaf:IMG20231027091846
+riceleafbd:Healthy Leaf:IMG20231027091956
+riceleafbd:Healthy Leaf:IMG20231027092637
+riceleafbd:Healthy Leaf:IMG20231027092648
+riceleafbd:Healthy Leaf:IMG20231027092721
+riceleafbd:Healthy Leaf:IMG20231027092919
+riceleafbd:Healthy Leaf:IMG20231027092937
+riceleafbd:Healthy Leaf:IMG20231027093116
+riceleafbd:Healthy Leaf:IMG20231027093521
+riceleafbd:Healthy Leaf:IMG20231027093532
+riceleafbd:Tungro Virus:307087578
+riceleafbd:Tungro Virus:307724583
+riceleafbd:Tungro Virus:309480331
+riceleafbd:Tungro Virus:309950782
+riceleafbd:Tungro Virus:309987036
+riceleafbd:Tungro Virus:310104735
+riceleafbd:Tungro Virus:310304355
+riceleafbd:Tungro Virus:310386967
+riceleafbd:Tungro Virus:310405604
+riceleafbd:Tungro Virus:310414448
+riceleafbd:Tungro Virus:310503754
+riceleafbd:Tungro Virus:310754268
+riceleafbd:Tungro Virus:310832534
+riceleafbd:Tungro Virus:310842908
+riceleafbd:Tungro Virus:310905712
+riceleafbd:Tungro Virus:310949137
+riceleafbd:Tungro Virus:310997509
+riceleafbd:Tungro Virus:311156425
+riceleafbd:Tungro Virus:311328303
+riceleafbd:Tungro Virus:311421857
+riceleafbd:Tungro Virus:311945743
+riceleafbd:Tungro Virus:311982774
+riceleafbd:Tungro Virus:312011898
+riceleafbd:Tungro Virus:312133344
+riceleafbd:Tungro Virus:312193568
+riceleafbd:Tungro Virus:312551832
+riceleafbd:Tungro Virus:312665146
+riceleafbd:Tungro Virus:313085369
+riceleafbd:Tungro Virus:313105712
+riceleafbd:Tungro Virus:313291681
+riceleafbd:Tungro Virus:313351797
+riceleafbd:Tungro Virus:313495486
+riceleafbd:Tungro Virus:314201050
+riceleafbd:Tungro Virus:314392161
+riceleafbd:Tungro Virus:314411318
+riceleafbd:Tungro Virus:314412150
+riceleafbd:Tungro Virus:314995769
+riceleafbd:Tungro Virus:7a04390e-76de-41e5-a98d-bb53c22061f0

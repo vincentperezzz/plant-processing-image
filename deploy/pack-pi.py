@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
-VERSION = "2026.08.22"
+VERSION = "2026.08.23"
 NAME = "plant-health-kiosk"
 STAGE = DIST / ".pack-stage"
 ZIP_NAME = f"{NAME}-{VERSION}.zip"
