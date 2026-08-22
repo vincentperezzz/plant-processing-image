@@ -1,0 +1,5 @@
+torch
+torchvision
+pillow
+pyyaml
+opencv-python>=4.8,<5

@@ -1,0 +1,13 @@
+torch
+torchvision
+pillow
+pyyaml
+tqdm
+pandas
+requests
+huggingface_hub
+datasets
+transformers
+tkinterdnd2
+opencv-python>=4.8,<5
+ultralytics

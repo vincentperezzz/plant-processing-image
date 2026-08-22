@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Plant Health
+Comment=Farm crop kiosk
+Exec=__EXEC__
+Path=__ROOT__
+Terminal=false
+X-GNOME-Autostart-enabled=true

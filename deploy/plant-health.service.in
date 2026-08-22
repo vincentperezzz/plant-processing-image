@@ -1,0 +1,16 @@
+[Unit]
+Description=Plant Health kiosk
+After=graphical.target
+
+[Service]
+Type=simple
+User=__USER__
+Environment=DISPLAY=:0
+Environment=XDG_RUNTIME_DIR=/run/user/__UID__
+WorkingDirectory=__ROOT__
+ExecStart=__EXEC__
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=graphical.target

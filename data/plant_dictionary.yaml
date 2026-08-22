@@ -1,0 +1,375 @@
+version: 1
+clip_model: openai/clip-vit-base-patch32
+min_score: 0.22
+top_k: 3
+health_phrases:
+  - level: healthy
+    crop: ""
+    text: a healthy vigorous green crop plant
+  - level: mild
+    crop: ""
+    text: a crop plant with some yellowing spotted or damaged leaves
+  - level: critical
+    crop: ""
+    text: a severely diseased wilted crop plant in serious trouble
+  - level: dead
+    crop: ""
+    text: a dead dried brown crop plant beyond recovery
+  - level: healthy
+    crop: tomato
+    text: a healthy tomato plant with green vines and ripening red and green tomatoes
+  - level: mild
+    crop: tomato
+    text: a tomato plant with some yellow or spotted leaves but still bearing fruit
+  - level: critical
+    crop: tomato
+    text: a wilted diseased tomato plant with dying canopy
+  - level: dead
+    crop: tomato
+    text: a dead dried tomato plant with no living leaves
+  - level: healthy
+    crop: palay
+    text: a healthy green rice paddy
+  - level: mild
+    crop: palay
+    text: a rice field with some brown or spotted leaves
+  - level: critical
+    crop: palay
+    text: a rice field with severe disease spreading through the stand
+  - level: dead
+    crop: palay
+    text: a dead dried rice hill
+  - level: healthy
+    crop: sili
+    text: a healthy chili pepper plant
+  - level: mild
+    crop: sili
+    text: a chili plant with some curled or spotted leaves
+  - level: critical
+    crop: sili
+    text: a chili plant with heavy curling or mosaic damage
+  - level: dead
+    crop: sili
+    text: a dead dried chili plant
+  - level: healthy
+    crop: eggplant
+    text: a healthy eggplant plant with green leaves
+  - level: mild
+    crop: eggplant
+    text: an eggplant plant with some spotted or damaged leaves
+  - level: critical
+    crop: eggplant
+    text: a wilted or mosaic-damaged eggplant plant
+  - level: dead
+    crop: eggplant
+    text: a dead dried eggplant plant
+  - level: healthy
+    crop: lettuce
+    text: a healthy lettuce plant or head
+  - level: mild
+    crop: lettuce
+    text: lettuce with some spots or edge damage
+  - level: critical
+    crop: lettuce
+    text: lettuce that is rotting slimy or heavily diseased
+  - level: dead
+    crop: lettuce
+    text: dead collapsed lettuce
+entries:
+  - id: palay
+    kind: plant
+    name: rice
+    local: palay
+    phrases:
+      - a close-up of a rice leaf
+      - a palay leaf from a paddy
+      - a rice plant leaf
+      - a rice paddy field
+      - palay plants in a field
+  - id: sili
+    kind: plant
+    name: chili pepper
+    local: sili
+    phrases:
+      - a close-up of a chili pepper leaf
+      - a sili leaf
+      - a bird's eye chili leaf
+      - a chili pepper plant with peppers
+      - long skinny red and green chili peppers on a sili plant
+      - a sili plant in a garden bed
+  - id: tomato
+    kind: plant
+    name: tomato
+    local: kamatis
+    phrases:
+      - a close-up of a tomato leaf
+      - a kamatis leaf
+      - a tomato plant with red and green tomatoes
+      - round green and orange tomatoes on the vine
+      - a tomato plant with round fruit turning from green to orange
+      - clusters of round tomatoes hanging in grass
+      - tomato vines in a greenhouse
+      - hydroponic tomato plants on the vine
+      - clusters of tomatoes hanging from vines
+  - id: eggplant
+    kind: plant
+    name: eggplant
+    local: talong
+    phrases:
+      - a close-up of an eggplant leaf
+      - a talong leaf
+      - a brinjal leaf
+      - an eggplant plant with fruit
+      - purple oblong eggplant fruit hanging on the plant
+      - a talong plant in a garden
+  - id: lettuce
+    kind: plant
+    name: lettuce
+    local: letsugas
+    phrases:
+      - a close-up of a lettuce leaf
+      - a letsugas leaf
+      - a lettuce plant or head in a bed
+  - id: corn
+    kind: plant
+    name: corn
+    local: mais
+    phrases:
+      - a close-up of a corn leaf
+      - a mais leaf
+      - a maize leaf
+      - a corn plant in a field
+      - mais plants with ears
+  - id: potato
+    kind: plant
+    name: potato
+    local: patatas
+    phrases:
+      - a close-up of a potato leaf
+      - a patatas leaf
+  - id: squash
+    kind: plant
+    name: squash
+    local: kalabasa
+    phrases:
+      - a close-up of a squash leaf
+      - a kalabasa leaf
+      - a pumpkin leaf
+  - id: cassava
+    kind: plant
+    name: cassava
+    local: kamoteng kahoy
+    phrases:
+      - a close-up of a cassava leaf
+      - a kamoteng kahoy leaf
+      - a manioc leaf
+  - id: sweet_potato
+    kind: plant
+    name: sweet potato
+    local: kamote
+    phrases:
+      - a close-up of a sweet potato leaf
+      - a kamote leaf
+  - id: cabbage
+    kind: plant
+    name: cabbage
+    local: repolyo
+    phrases:
+      - a close-up of a cabbage leaf
+      - a repolyo leaf
+  - id: onion
+    kind: plant
+    name: onion
+    local: sibuyas
+    phrases:
+      - a close-up of an onion leaf
+      - a sibuyas leaf
+  - id: garlic
+    kind: plant
+    name: garlic
+    local: bawang
+    phrases:
+      - a close-up of a garlic leaf
+      - a bawang leaf
+  - id: bitter_gourd
+    kind: plant
+    name: bitter gourd
+    local: ampalaya
+    phrases:
+      - a close-up of a bitter gourd leaf
+      - an ampalaya leaf
+  - id: okra
+    kind: plant
+    name: okra
+    local: okra
+    phrases:
+      - a close-up of an okra leaf
+  - id: beans
+    kind: plant
+    name: beans
+    local: sitaw
+    phrases:
+      - a close-up of a bean leaf
+      - a sitaw leaf
+      - a string bean leaf
+  - id: peanut
+    kind: plant
+    name: peanut
+    local: mani
+    phrases:
+      - a close-up of a peanut leaf
+      - a mani leaf
+  - id: cucumber
+    kind: plant
+    name: cucumber
+    local: pipino
+    phrases:
+      - a close-up of a cucumber leaf
+      - a pipino leaf
+  - id: banana
+    kind: plant
+    name: banana
+    local: saging
+    phrases:
+      - a close-up of a banana leaf
+      - a saging leaf
+      - a large banana leaf with parallel veins
+  - id: mango
+    kind: plant
+    name: mango
+    local: mangga
+    phrases:
+      - a close-up of a mango leaf
+      - a mangga leaf
+  - id: coconut
+    kind: plant
+    name: coconut
+    local: niyog
+    phrases:
+      - a close-up of a coconut leaflet
+      - a niyog leaf
+  - id: papaya
+    kind: plant
+    name: papaya
+    local: papaya
+    phrases:
+      - a close-up of a papaya leaf
+  - id: pineapple
+    kind: plant
+    name: pineapple
+    local: pinya
+    phrases:
+      - a close-up of a pineapple leaf
+      - a pinya leaf
+  - id: coffee
+    kind: plant
+    name: coffee
+    local: kape
+    phrases:
+      - a close-up of a coffee leaf
+      - a kape leaf
+  - id: cacao
+    kind: plant
+    name: cacao
+    local: kakaw
+    phrases:
+      - a close-up of a cacao leaf
+      - a kakaw leaf
+  - id: malunggay
+    kind: plant
+    name: moringa
+    local: malunggay
+    phrases:
+      - a close-up of a moringa leaf
+      - a malunggay leaf
+  - id: lagundi
+    kind: plant
+    name: lagundi
+    local: lagundi
+    phrases:
+      - a close-up of a lagundi leaf
+      - a vitex negundo leaf
+  - id: guava
+    kind: plant
+    name: guava
+    local: bayabas
+    phrases:
+      - a close-up of a guava leaf
+      - a bayabas leaf
+  - id: calamansi
+    kind: plant
+    name: calamansi
+    local: kalamansi
+    phrases:
+      - a close-up of a calamansi leaf
+      - a kalamansi leaf
+  - id: kangkong
+    kind: plant
+    name: water spinach
+    local: kangkong
+    phrases:
+      - a close-up of a kangkong leaf
+      - a water spinach leaf
+  - id: pechay
+    kind: plant
+    name: bok choy
+    local: pechay
+    phrases:
+      - a close-up of a pechay leaf
+      - a bok choy leaf
+  - id: taro
+    kind: plant
+    name: taro
+    local: gabi
+    phrases:
+      - a close-up of a taro leaf
+      - a gabi leaf
+  - id: person
+    kind: junk
+    name: person
+    local: tao
+    phrases:
+      - a photo of a person
+      - a human face
+      - a graduation portrait
+      - a person wearing a t-shirt
+      - a person in a green shirt
+  - id: animal
+    kind: junk
+    name: animal
+    local: hayop
+    phrases:
+      - a toad in grass
+      - a frog
+      - a lizard
+      - an insect on the ground
+  - id: object
+    kind: junk
+    name: object
+    local: bagay
+    phrases:
+      - indoor furniture
+      - a vehicle
+      - a building
+      - a shoe
+      - a random household object
+  - id: curtain
+    kind: junk
+    name: curtain
+    local: kurtina
+    phrases:
+      - a window curtain
+      - pleated drapes
+      - a fabric curtain hanging on a wall
+      - teal curtains in a room
+      - indoor drapes
+  - id: clothing
+    kind: junk
+    name: clothing
+    local: damit
+    phrases:
+      - a t-shirt
+      - a person wearing a green t-shirt
+      - folded clothes
+      - fabric clothing
+      - a sweatshirt

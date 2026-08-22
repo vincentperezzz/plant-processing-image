@@ -1,0 +1,20 @@
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+DATA = ROOT / "data"
+RAW = DATA / "raw"
+LABEL_MAP = DATA / "label_map.yaml"
+MANIFEST = DATA / "manifest.csv"
+SOURCES = DATA / "SOURCES.md"
+MODELS = ROOT / "models"
+OLD_MODELS = MODELS / "old models"
+CKPT = MODELS / "best.pt"
+META = MODELS / "meta.json"
+DICTIONARY = DATA / "plant_dictionary.yaml"
+DICTIONARY_CACHE = MODELS / "dictionary_clip.pt"
+SCANS_DIR = DATA / "scans"
+SCANS_DB = SCANS_DIR / "scans.db"
+SCANS_CSV = SCANS_DIR / "scans_export.csv"
+EXTERNAL = DATA / "external"
+HOLDOUT_MANIFEST = DATA / "holdout_manifest.csv"
+HOLDOUT_RESULTS = DATA / "holdout_results.csv"

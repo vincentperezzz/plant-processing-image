@@ -1,0 +1,632 @@
+version: 1
+crops:
+  - palay
+  - eggplant
+  - lettuce
+  - tomato
+  - sili
+health:
+  - healthy
+  - mild
+  - critical
+  - dead
+crop_unknown_threshold: 0.80
+crop_margin_threshold: 0.18
+other_threshold: 0.35
+in_list_threshold: 0.40
+dictionary_min_score: 0.22
+leaf_min_score: 0.10
+skin_max_score: 0.14
+health_unknown_threshold: 0.45
+skip_path_substrings:
+  - augmented
+mapping_rule: >
+  Public sets name the disease, not how far gone this leaf is.
+  We map by typical field outcome in extension and IRRI literature:
+  healthy = no disease label;
+  mild = localized foliar spots, early-stage necrotrophs, pests, nutrient lack
+  (plant usually still standing and productive);
+  critical = systemic virus, vascular wilt, late blight, tungro, blast,
+  sheath blight, bacterial leaf blight (crop-threatening);
+  dead = fully necrotic / beyond recovery. No public class uses that name,
+  so dead has ~0 train images until robot photos exist.
+maps:
+  - match:
+      - tomato healthy
+      - tomato___healthy
+    crop: tomato
+    health: healthy
+    basis: No disease label. PlantVillage healthy class.
+    refs:
+      - https://github.com/spMohanty/PlantVillage-Dataset
+  - match:
+      - tomato bacterial spot
+      - tomato___bacterial_spot
+      - tomato leaf bacterial spot
+      - tomato bacterial leaf spot
+    crop: tomato
+    health: mild
+    basis: Xanthomonas leaf and fruit spots; plants usually survive with quality and yield loss, not systemic collapse.
+    refs:
+      - https://content.ces.ncsu.edu/bacterial-spot-of-pepper-and-tomato
+  - match:
+      - tomato early blight
+      - tomato___early_blight
+      - tomato early blight leaf
+    crop: tomato
+    health: mild
+    basis: Alternaria starts on older lower leaves; common defoliation and yield reduction, plant typically remains alive.
+    refs:
+      - https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/
+      - http://extension.umd.edu/resource/key-common-problems-tomatoes
+  - match:
+      - tomato late blight
+      - tomato___late_blight
+      - tomato leaf late blight
+    crop: tomato
+    health: critical
+    basis: Phytophthora infestans can defoliate and kill stems and fruit within about 14 days in cool wet weather.
+    refs:
+      - https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/
+  - match:
+      - tomato leaf mold
+      - tomato___leaf_mold
+      - tomato mold leaf
+    crop: tomato
+    health: mild
+    basis: Foliar mold, mainly greenhouse; lesions on leaves, plant usually remains productive if managed.
+    refs:
+      - https://extension.msstate.edu/sites/default/files/publications/publications/P3175_web.pdf
+  - match:
+      - tomato septoria leaf spot
+      - tomato___septoria_leaf_spot
+      - tomato septoria leaf spot
+    crop: tomato
+    health: mild
+    basis: Small foliar spots that coalesce and drop leaves from the bottom up; classic foliar, not vascular wilt.
+    refs:
+      - http://extension.umd.edu/resource/key-common-problems-tomatoes
+  - match:
+      - tomato spider mites two spotted spider mite
+      - tomato___spider_mites two-spotted_spider_mite
+      - tomato two spotted spider mites leaf
+    crop: tomato
+    health: mild
+    basis: Pest stippling on leaves; damage is foliar unless infestation is extreme. Public photos are leaf close-ups.
+    refs:
+      - https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/
+  - match:
+      - tomato target spot
+      - tomato___target_spot
+    crop: tomato
+    health: mild
+    basis: Corynespora foliar lesions with target-like rings; leaf disease, not a rapid plant killer.
+    refs:
+      - https://edis.ifas.ufl.edu/publication/PP121
+  - match:
+      - tomato tomato yellow leaf curl virus
+      - tomato___tomato_yellow_leaf_curl_virus
+      - tomato leaf yellow virus
+      - tomato yellow leaf curl
+      - tomato leaf curl virus
+      - tomato leaf curl
+      - tomato yellow leaf curl virus
+    crop: tomato
+    health: critical
+    basis: Whitefly-borne begomovirus; severe stunting, flower drop; total yield loss reported with early infection and high vector pressure.
+    refs:
+      - https://extension.msstate.edu/sites/default/files/publications/publications/P3175_web.pdf
+      - https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/
+  - match:
+      - tomato tomato mosaic virus
+      - tomato___tomato_mosaic_virus
+      - tomato leaf mosaic virus
+      - tomato mosaic
+      - tomato mosaic virus
+    crop: tomato
+    health: critical
+    basis: Systemic tobamovirus; mottling, distortion, stunting. No cure; plant remains a virus source.
+    refs:
+      - https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/
+  - match:
+      - tomato leaf
+    crop: tomato
+    health: healthy
+    basis: PlantDoc healthy tomato leaf class.
+    refs:
+      - https://github.com/pratikkayal/PlantDoc-Dataset
+  - match:
+      - pepper bell healthy
+      - pepper,_bell___healthy
+      - bell pepper leaf
+      - bell_pepper leaf
+    crop: sili
+    health: healthy
+    basis: PlantVillage / PlantDoc healthy bell pepper. Bell is a stand-in for sili until chili photos dominate.
+    refs:
+      - https://github.com/spMohanty/PlantVillage-Dataset
+  - match:
+      - pepper bell bacterial spot
+      - pepper,_bell___bacterial_spot
+      - bell pepper leaf spot
+      - bell_pepper leaf spot
+    crop: sili
+    health: mild
+    basis: Xanthomonas spots on pepper leaves and fruit; defoliation and sunscald, plant usually lives. Up to ~66% marketable-fruit loss in severe BLS, still a foliar/fruit-spot disease not a wilt.
+    refs:
+      - https://content.ces.ncsu.edu/bacterial-spot-of-pepper-and-tomato
+      - https://pmc.ncbi.nlm.nih.gov/articles/PMC9460788/
+  - match:
+      - bacterial spot
+      - chili bacterial spot
+    crop: sili
+    health: mild
+    basis: Chili original set class Bacterial Spot. Same Xanthomonas foliar/fruit spot group as bell pepper.
+    refs:
+      - https://data.mendeley.com/datasets/w9mr3vf56s/1
+      - https://pmc.ncbi.nlm.nih.gov/articles/PMC9460788/
+  - match:
+      - curl virus
+      - chili curl virus
+      - chilli leaf curl
+    crop: sili
+    health: critical
+    basis: Chili leaf curl (begomoviruses, whitefly). Reviews report severe to 100% loss of marketable fruit; stunting and leaf distortion.
+    refs:
+      - https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2022.899512/full
+      - https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2023.1223982/full
+  - match:
+      - cercospora leaf spot
+      - cercospora
+      - chili cercospora leaf spot
+    crop: sili
+    health: mild
+    basis: Cercospora capsici leaf spots reduce photosynthetic area and cause defoliation; foliar, plant typically survives.
+    refs:
+      - https://data.mendeley.com/datasets/w9mr3vf56s/1
+  - match:
+      - nutrition deficiency
+      - chili nutrition deficiency
+    crop: sili
+    health: mild
+    basis: Abiotic nutrient stress, not a pathogen. Leaves look off; plant can recover if fertility is fixed.
+    refs:
+      - https://data.mendeley.com/datasets/w9mr3vf56s/1
+  - match:
+      - white spot
+      - chili white spot
+    crop: sili
+    health: mild
+    basis: Foliar white/pale spot class in the Bangladesh chili set; treated as localized leaf spotting.
+    refs:
+      - https://data.mendeley.com/datasets/w9mr3vf56s/1
+  - match:
+      - healthy leaves
+      - chili healthy
+      - chili healthy leaf
+      - healthy
+      - healthy leaf
+    crop: sili
+    health: healthy
+    basis: Chili original healthy class.
+    refs:
+      - https://data.mendeley.com/datasets/w9mr3vf56s/1
+  - match:
+      - eggplant healthy
+      - eggplant healthy leaf
+      - healthy
+      - healthy leaf
+    crop: eggplant
+    health: healthy
+    basis: Eggplant set healthy class (1451 images).
+    refs:
+      - https://data.mendeley.com/datasets/d3ypkphghb/2
+      - https://doi.org/10.1016/j.dib.2025.111353
+  - match:
+      - insect pest disease
+      - insect pest
+      - eggplant insect pest
+    crop: eggplant
+    health: mild
+    basis: Chewing/sucking damage on leaves. Foliar injury; plant usually survives unless defoliation is extreme.
+    refs:
+      - https://data.mendeley.com/datasets/d3ypkphghb/2
+  - match:
+      - leaf spot disease
+      - eggplant leaf spot
+    crop: eggplant
+    health: mild
+    basis: Foliar leaf-spot class (Alternaria/Cercospora-type). Localized lesions.
+    refs:
+      - https://plantpathologyquarantine.org/pdf/PPQ_14_1_9.pdf
+  - match:
+      - mosaic virus disease
+      - eggplant mosaic
+      - eggplant mosaic virus
+    crop: eggplant
+    health: critical
+    basis: Systemic viruses (CMV, ToMV, PVY and others on eggplant). Mottling and stunting; no field cure.
+    refs:
+      - https://plantpathologyquarantine.org/pdf/PPQ_14_1_9.pdf
+  - match:
+      - white mold disease
+      - white mold
+      - eggplant white mold
+    crop: eggplant
+    health: critical
+    basis: Sclerotinia sclerotiorum; cottony stem/leaf mold, can kill tissue at any stage; reported losses up to ~50% on hosts.
+    refs:
+      - https://doi.org/10.21608/ejss.2024.221538.1746
+  - match:
+      - wilt disease
+      - eggplant wilt
+    crop: eggplant
+    health: critical
+    basis: Fusarium / Ralstonia wilt complex. Vascular; plants collapse. Literature reports ~20–50% yield loss, up to 80–90% on susceptible crops; bacterial wilt can take 100% of affected plants.
+    refs:
+      - https://link.springer.com/article/10.1007/s44372-025-00331-z
+      - https://www.scirp.net/journal/paperinformation?paperid=110959
+      - https://plantpathologyquarantine.org/pdf/PPQ_14_1_9.pdf
+  - match:
+      - rice healthy
+      - palay healthy
+      - healthy
+      - healthy leaf
+      - normal
+      - rice normal
+      - palay normal
+    crop: palay
+    health: healthy
+    basis: RiceLeafBD / BanglaRiceLeaf healthy class. Generic "healthy" is disambiguated by source folder (rice vs chili vs eggplant).
+    refs:
+      - https://data.mendeley.com/datasets/kx9rx8p2mz/1
+  - match:
+      - bacterial leaf blight
+      - bacterial blight
+      - rice bacterial leaf blight
+      - rice blight
+    crop: palay
+    health: critical
+    basis: Xanthomonas oryzae pv. oryzae. IRRI - typically low loss on resistant varieties, but over 70% on susceptible rice in favorable weather. Major breeding target in Asia.
+    refs:
+      - https://www.irri.org/disease-and-pest-resistant-rice
+      - https://doi.org/10.26832/24566632.2026.1102017
+  - match:
+      - brown spot
+      - rice brown spot
+    crop: palay
+    health: mild
+    basis: Bipolaris oryzae foliar lesions. Regionally important (Savary ~1–10% tropical Asia) but public photos are spotted standing leaves, not crop wipeout. Locked plan maps limited brown spot to mild. Epidemics can be worse historically; revisit if local photos show blasted canopies.
+    refs:
+      - https://apsjournals.apsnet.org/doi/10.1094/PDIS.2000.84.3.357
+      - https://www.irri.org/disease-and-pest-resistant-rice
+  - match:
+      - tungro virus
+      - tungro
+      - rice tungro
+    crop: palay
+    health: critical
+    basis: Rice tungro disease. Savary ranks it extremely harmful among tropical rice injuries; reviews cite up to ~80% yield loss.
+    refs:
+      - https://apsjournals.apsnet.org/doi/10.1094/PDIS.2000.84.3.357
+      - https://doi.org/10.26832/24566632.2026.1102017
+  - match:
+      - blast
+      - leaf blast
+      - rice blast
+    crop: palay
+    health: critical
+    basis: Magnaporthe oryzae. IRRI calls blast a major disease; Philippine losses of 50–85% reported under favorable conditions; reviews cite up to ~70%.
+    refs:
+      - https://www.irri.org/disease-and-pest-resistant-rice
+      - https://doi.org/10.26832/24566632.2026.1102017
+  - match:
+      - sheath blight
+      - rice sheath blight
+    crop: palay
+    health: critical
+    basis: Rhizoctonia solani. Found in all rice areas; can cut yield ~50% in severe cases. IRRI ~6% mean tropical lowland loss, still a major intensified-system disease.
+    refs:
+      - https://www.irri.org/disease-and-pest-resistant-rice
+      - https://doi.org/10.26832/24566632.2026.1102017
+  - match:
+      - streak
+      - bacterial leaf streak
+      - rice streak
+    crop: palay
+    health: mild
+    basis: Xanthomonas oryzae pv. oryzicola. Foliar streaking; typically less yield-destroying than bacterial leaf blight.
+    refs:
+      - https://doi.org/10.7910/DVN/XAOBYW
+  - match:
+      - dead heart
+      - deadheart
+      - rice dead heart
+      - palay dead heart
+    crop: palay
+    health: dead
+    basis: Paddy Doctor dead_heart. Stem-borer killed tiller. Closest public dead-like rice class; plant may still have live tillers.
+    refs:
+      - https://huggingface.co/datasets/Project-AgML/paddy_disease_classification
+      - https://paddydoc.github.io/dataset/
+  - match:
+      - bacterial panicle blight
+      - rice bacterial panicle blight
+      - palay bacterial panicle blight
+      - panicle blight
+    crop: palay
+    health: critical
+    basis: Burkholderia glumae panicle blight. Grain sterility and rotting panicles; crop-threatening.
+    refs:
+      - https://huggingface.co/datasets/Project-AgML/paddy_disease_classification
+  - match:
+      - hispa
+      - rice hispa
+      - palay hispa
+    crop: palay
+    health: mild
+    basis: Rice hispa (Dicladispa armigera) scrapes leaf green. Foliar pest; plant usually standing.
+    refs:
+      - https://huggingface.co/datasets/Project-AgML/paddy_disease_classification
+  - match:
+      - rice downy mildew
+      - palay downy mildew
+      - downy mildew
+    crop: palay
+    health: mild
+    basis: Paddy Doctor downy mildew class. Foliar; standing leaves in the public photos.
+    refs:
+      - https://huggingface.co/datasets/Project-AgML/paddy_disease_classification
+  - match:
+      - lettuce bacterial
+      - bacterial
+    crop: lettuce
+    health: mild
+    basis: Kaggle lettuce Bacterial class is leaf-disease photos, not a named vascular wilt.
+    refs:
+      - https://www.kaggle.com/datasets/santoshshaha/lettuce-plant-disease-dataset
+  - match:
+      - lettuce healthy
+      - healthy
+    crop: lettuce
+    health: healthy
+    basis: Lettuce dataset healthy class.
+    refs:
+      - https://www.kaggle.com/datasets/santoshshaha/lettuce-plant-disease-dataset
+  - match:
+      - lettuce fungal
+      - fungal
+    crop: lettuce
+    health: mild
+    basis: Broad fungal class (downy mildew / leaf mold type photos). Foliar; heads often still harvestable in public images.
+    refs:
+      - https://www.kaggle.com/datasets/santoshshaha/lettuce-plant-disease-dataset
+      - https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2025.1704647/full
+  - match:
+      - tomato spotted wilt
+      - tomato spotted wilt virus
+    crop: tomato
+    health: critical
+    basis: TSWV is systemic; stunting, bronzing, and yield collapse. No field cure.
+    refs:
+      - https://hgic.clemson.edu/factsheet/tomato-diseases-disorders/
+  - match:
+      - tomato fresh leaf
+    crop: tomato
+    health: healthy
+    basis: Bangladesh field-set healthy tomato class. Not PlantVillage.
+    refs:
+      - https://doi.org/10.1016/j.dib.2024.110775
+  - match:
+      - eggplant fresh leaf
+    crop: eggplant
+    health: healthy
+    basis: Bangladesh field-set healthy eggplant class. Not the white-background training set.
+    refs:
+      - https://doi.org/10.1016/j.dib.2024.110775
+  - match:
+      - eggplant cercopora leaf spot
+      - eggplant cercospora leaf spot
+    crop: eggplant
+    health: mild
+    basis: Cercospora foliar spots on eggplant. Localized leaf disease.
+    refs:
+      - https://plantpathologyquarantine.org/pdf/PPQ_14_1_9.pdf
+  - match:
+      - eggplant begomovirus
+    crop: eggplant
+    health: critical
+    basis: Whitefly-borne begomovirus on eggplant. Systemic; no field cure.
+    refs:
+      - https://doi.org/10.1016/j.dib.2024.110775
+  - match:
+      - eggplant verticillium wilt
+    crop: eggplant
+    health: critical
+    basis: Vascular wilt. Plants collapse; not a leaf-spot disease.
+    refs:
+      - https://link.springer.com/article/10.1007/s44372-025-00331-z
+  - match:
+      - leaf smut
+      - rice leaf smut
+      - palay leaf smut
+    crop: palay
+    health: mild
+    basis: Entyloma oryzae leaf smut. Foliar spots on standing leaves. RiceLeafDiseaseBD field set, not the UCI 120-image holdout.
+    refs:
+      - https://archive.ics.uci.edu/dataset/486/rice+leaf+diseases
+      - https://data.mendeley.com/datasets/86s4jzj2m4/2
+  - match:
+      - healthy rice leaf
+    crop: palay
+    health: healthy
+    basis: Alternate rice-set healthy class name.
+    refs:
+      - https://huggingface.co/datasets/Project-AgML/rice_leaf_disease_classification
+  - match:
+      - rice leaf
+    crop: palay
+    health: healthy
+    basis: PlantWild healthy rice class.
+    refs:
+      - https://huggingface.co/datasets/uqtwei2/PlantWild
+  - match:
+      - eggplant leaf
+    crop: eggplant
+    health: healthy
+    basis: PlantWild healthy eggplant class.
+    refs:
+      - https://huggingface.co/datasets/uqtwei2/PlantWild
+  - match:
+      - lettuce leaf
+    crop: lettuce
+    health: healthy
+    basis: PlantWild healthy lettuce class. No lettuce in training.
+    refs:
+      - https://huggingface.co/datasets/uqtwei2/PlantWild
+  - match:
+      - lettuce downy mildew
+    crop: lettuce
+    health: mild
+    basis: Foliar downy mildew; heads often still standing in public photos.
+    refs:
+      - https://huggingface.co/datasets/uqtwei2/PlantWild
+  - match:
+      - lettuce mosaic
+      - lettuce mosaic virus
+    crop: lettuce
+    health: critical
+    basis: Lettuce mosaic virus is systemic; stunting and unmarketable heads.
+    refs:
+      - https://huggingface.co/datasets/uqtwei2/PlantWild
+  - match:
+      - green chili
+      - red chili
+      - chili flower
+      - sili flower
+      - flower
+      - rotten chili
+      - dry chili
+    crop: sili
+    crop_only: true
+    basis: Chili growth-stage originals. Fruit/flower on the plant, no leaf-disease grade.
+    refs:
+      - https://data.mendeley.com/datasets/w9mr3vf56s/1
+  - match:
+      - tomato robot
+      - tomato_robot
+    crop: tomato
+    crop_only: true
+    basis: Rob2Pheno greenhouse whole-plant side views. Crop name only.
+    refs:
+      - https://doi.org/10.4121/13173422
+  - match:
+      - tomato
+    crop: tomato
+    crop_only: true
+    basis: iNaturalist whole-plant folder. Crop name only.
+    refs:
+      - https://www.inaturalist.org/
+  - match:
+      - sili
+    crop: sili
+    crop_only: true
+    basis: iNaturalist Capsicum folder. Crop name only.
+    refs:
+      - https://www.inaturalist.org/
+  - match:
+      - eggplant
+    crop: eggplant
+    crop_only: true
+    basis: iNaturalist eggplant folder. Crop name only.
+    refs:
+      - https://www.inaturalist.org/
+  - match:
+      - palay
+    crop: palay
+    crop_only: true
+    basis: iNaturalist rice folder. Crop name only.
+    refs:
+      - https://www.inaturalist.org/
+  - match:
+      - lettuce
+    crop: lettuce
+    crop_only: true
+    basis: iNaturalist lettuce folder. Crop name only.
+    refs:
+      - https://www.inaturalist.org/
+  - match:
+      - tomato leaf miner
+      - tomato lm
+      - tomato leafminer
+    crop: tomato
+    health: mild
+    basis: OLID-I tomato leaf miner. Foliar pest damage, plant usually standing.
+    refs:
+      - https://zenodo.org/records/8105154
+  - match:
+      - tomato mite
+      - tomato mit
+      - tomato jassid and mite
+      - tomato jas mit
+    crop: tomato
+    health: mild
+    basis: OLID-I tomato mite / jassid. Foliar pest.
+    refs:
+      - https://zenodo.org/records/8105154
+  - match:
+      - tomato potassium deficiency
+      - tomato k
+      - tomato nitrogen deficiency
+      - tomato n
+      - tomato nitrogen and potassium deficiency
+      - tomato n k
+    crop: tomato
+    health: mild
+    basis: OLID-I tomato nutrient stress. Abiotic; plant can recover.
+    refs:
+      - https://zenodo.org/records/8105154
+  - match:
+      - eggplant epilachna beetle
+      - eggplant eb
+      - eggplant flea beetle
+      - eggplant fb
+      - eggplant jassid
+      - eggplant jas
+      - eggplant mite
+      - eggplant mit
+      - eggplant mite and epilachna beetle
+      - eggplant mit eb
+    crop: eggplant
+    health: mild
+    basis: OLID-I eggplant foliar pests.
+    refs:
+      - https://zenodo.org/records/8105154
+  - match:
+      - eggplant potassium deficiency
+      - eggplant k
+      - eggplant nitrogen deficiency
+      - eggplant n
+      - eggplant nitrogen and potassium deficiency
+      - eggplant n k
+    crop: eggplant
+    health: mild
+    basis: OLID-I eggplant nutrient stress.
+    refs:
+      - https://zenodo.org/records/8105154
+source_crop_hints:
+  plantvillage: null
+  chili: sili
+  chili_growth: sili
+  eggplant: eggplant
+  riceleafbd: palay
+  banglarice: palay
+  ricebd: palay
+  paddydoc: palay
+  rice: palay
+  lettuce: lettuce
+  plantdoc: null
+  bdveg: null
+  olid: null
+  rob2pheno: tomato
+  inat: null
