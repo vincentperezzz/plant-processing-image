@@ -33,7 +33,7 @@ class _PiCam:
             return True, cv2.cvtColor(arr, cv2.COLOR_GRAY2BGR)
         if arr.shape[2] == 4:
             arr = arr[:, :, :3]
-        return True, np.ascontiguousarray(arr)
+        return True, np.ascontiguousarray(arr[:, :, ::-1])
 
     def release(self) -> None:
         for fn in (self._cam.stop, self._cam.close):
