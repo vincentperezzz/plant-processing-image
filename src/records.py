@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-import csv
 import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
 from PIL import Image
 
-from src.paths import SCANS_CSV, SCANS_DB, SCANS_DIR
+from src.paths import SCANS_DB, SCANS_DIR
 
 
 def _connect() -> sqlite3.Connection:
@@ -31,17 +30,12 @@ def _connect() -> sqlite3.Connection:
     return con
 
 
-def write_jpeg(img: Image.Image) -> str:
+def write_png(img: Image.Image) -> str:
     SCANS_DIR.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%f")
-    path = SCANS_DIR / f"{stamp}.jpg"
-    img.convert("RGB").save(path, quality=85)
+    path = SCANS_DIR / f"{stamp}.png"
+    img.convert("RGB").save(path, format="PNG", optimize=True)
     return str(path)
-
-
-def save_snapshot(img: Image.Image) -> int:
-    path = write_jpeg(img)
-    return add_scan(crop=None, health=None, named_plant=None, tip="", image_path=path)
 
 
 def add_scan(
@@ -68,15 +62,12 @@ def list_scans(limit: int = 200) -> list[dict]:
     return [dict(r) for r in rows]
 
 
-def export_csv(dest: Path | None = None) -> Path:
-    path = dest or SCANS_CSV
-    rows = list_scans(limit=10000)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(
-            fh,
-            fieldnames=["id", "created_at", "crop", "health", "named_plant", "tip", "image_path"],
-        )
-        writer.writeheader()
-        writer.writerows(rows)
-    return path
+def list_photos(limit: int = 200) -> list[Path]:
+    SCANS_DIR.mkdir(parents=True, exist_ok=True)
+    files = [
+        p
+        for p in SCANS_DIR.iterdir()
+        if p.is_file() and p.suffix.lower() in {".png", ".jpg", ".jpeg"}
+    ]
+    files.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+    return files[:limit]

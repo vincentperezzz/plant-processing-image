@@ -24,7 +24,7 @@ powershell -ExecutionPolicy Bypass -File .\deploy\run-kiosk.ps1
 
 Or double-click `deploy\run-kiosk.bat`.
 
-This release runs **lite** (green boxes + MobileNet). That matches the Pi. Snap saves to `data\scans\`. **LOG** is the photo album. **EXPORT CSV** writes `data\scans\scans_export.csv`.
+This release runs **lite** (green boxes + MobileNet). That matches the Pi. Shutter saves a PNG of the live view to `data\scans\`. **GALLERY** is the photo album.
 
 | Flag | Meaning |
 | --- | --- |

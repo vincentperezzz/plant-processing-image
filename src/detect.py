@@ -464,7 +464,13 @@ def _outline_rect(draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int], col
         draw.rectangle([px - r, py - r, px + r, py + r], fill=color)
 
 
-def draw_boxes(img: Image.Image, tracks: list[dict], selected_tid: int | None = None) -> Image.Image:
+def draw_boxes(
+    img: Image.Image,
+    tracks: list[dict],
+    selected_tid: int | None = None,
+    *,
+    captions: bool = True,
+) -> Image.Image:
     out = img.copy()
     draw = ImageDraw.Draw(out)
     font = _font(16)
@@ -481,6 +487,8 @@ def draw_boxes(img: Image.Image, tracks: list[dict], selected_tid: int | None = 
         picked = tid == focus
         color = _health_rgb(track)
         _outline_rect(draw, (x1, y1, x2, y2), color, 5 if picked else 2, dashed=not picked)
+        if not captions:
+            continue
         n = numbers.get(tid, 1)
         label = str(track.get("label") or "plant")
         tag = f"{n}  {label}" if len(tracks) > 1 else label

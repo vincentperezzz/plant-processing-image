@@ -33,7 +33,7 @@ The CNN also has an `other` class: “not one of those five.” Extra Philippine
 
 | Mode | Now | Later |
 | --- | --- | --- |
-| Manual | Operator aims, Live names, Snap freezes | Same UI on the 7 inch panel |
+| Manual | Operator aims, Live names, shutter saves a PNG | Same UI on the 7 inch panel |
 | Auto-pause | Not built | Other team: detect plant → pause motors → scan → resume |
 
 ### 1.3 Non-goals (v1)
@@ -76,32 +76,33 @@ Pi default: **`--lite`** — ExG boxes + MobileNet. No YOLO-World, no CLIP. That
 
 | Piece | Behavior |
 | --- | --- |
-| Title bar | “Plant Health” · **LOG** |
-| LIVE / FROZEN badge | Live camera vs Snap freeze |
-| Stage | Webcam, letterboxed into the 1024×600 view |
+| Title bar | “Plant Health” · **GALLERY** |
+| LIVE badge | Camera is always live |
+| Stage | Webcam fills the panel under the title bar |
 | Colored boxes | Up to **5** plants. Focus box is thick; others dashed |
-| DETECTION chips | Crop name + health color (green / amber / red / dark) |
-| Hint line | Short instruction or tip |
-| Shutter | Big camera button. Live → Snap. Frozen → retake (back to Live) |
+| HUD cards | **Plant type** and **Plant health** on the left of the photo, rounded glass cards |
+| Notes | Rounded card along the bottom of the photo |
+| Shutter | iPhone-style ring + disk. Tap saves a PNG of the view (photo + HUD, no shutter) with a flash. Live never pauses |
 | Tap a box | Inspect that plant when several are boxed |
-| LOG | Saved snapshots. EXPORT CSV on that page |
+| GALLERY | Saved PNGs. No CSV |
 
 Empty camera: “No camera. Check the ribbon or plug in a USB webcam.”
 
-### 3.2 Live vs Snap
+### 3.2 Live vs capture
 
 ```text
 LIVE  →  YOLO (or ExG) draws boxes every frame
       →  CNN names the biggest / tapped box (detail=False, assume_plant)
       →  if CNN shrugs, a second pass may use the dictionary (detail=True)
+      →  HUD floats on the photo
+      →  never writes a file until shutter
 
-SNAP  →  freeze the frame
-      →  keep grading boxes on the still
-      →  dictionary extra names allowed
-      →  shutter becomes retake
+CAPTURE  →  flash + shutter punch
+         →  write PNG of the viewfinder (boxes + plant type + health + notes)
+         →  camera stays live
 ```
 
-Live is the walk-the-row view. Snap is “hold still and read the grade.” That split is the Pi diet: Live must stay cheap; Snap can think longer.
+Live is the walk-the-row view. Capture is a photo of what you see, not a freeze. PNGs land on the microSD: `~/Pictures/plant-health` on the Pi (the 118 GB Linux partition), `data/scans/` on a PC.
 
 ### 3.3 Sister apps (same brains, not the kiosk)
 
@@ -400,7 +401,7 @@ docs/
   initial-plan/           # original story, v0 writeup, 7 inch notes
   research/               # YOLO/CLIP/Pi numbers, VGG19, donor-brain
 data/
-  scans/                  # sqlite + snap jpegs + csv export
+  scans/                  # PC photos (PNG). Pi uses ~/Pictures/plant-health
   label_map.yaml          # folder → crop + health + thresholds
   plant_dictionary.yaml   # PH phrases + junk phrases
   SOURCES.md
@@ -463,7 +464,7 @@ Full walkthrough: [install.md](install.md).
 - YOLO-World is a PC bouncer with a junk word list. We do not retrain it. Pi gets a closed nano distilled from its boxes.
 - MobileNet: ImageNet weights, then our crop/health/gate training on `best.pt`. VGG19 not used.
 - CLIP: recache YAML text only. YOLO-World: download + prompts. Neither was trained by us.
-- Snap saves a JPEG + SQLite row immediately (`data/scans/`). Crop/health on that row is later. LOG browses photos. EXPORT CSV writes `data/scans/scans_export.csv`.
+- Capture writes a PNG of the live view (photo + boxes + HUD cards, no shutter) onto the microSD. Pi: `~/Pictures/plant-health`. PC: `data/scans/`. Live never writes. GALLERY browses those PNGs. No CSV export.
 - LLM / templates see facts only.
 - Cloud models are forbidden at scan time.
 - `training/train.py` is legacy 5-crop. Shipped weights come from `finetune_other.py`.

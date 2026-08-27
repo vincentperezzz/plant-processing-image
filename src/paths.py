@@ -1,3 +1,5 @@
+import os
+import platform
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -12,9 +14,22 @@ CKPT = MODELS / "best.pt"
 META = MODELS / "meta.json"
 DICTIONARY = DATA / "plant_dictionary.yaml"
 DICTIONARY_CACHE = MODELS / "dictionary_clip.pt"
-SCANS_DIR = DATA / "scans"
+
+
+def scans_dir() -> Path:
+    raw = os.environ.get("PLANT_SCANS_DIR")
+    if raw:
+        path = Path(raw)
+    elif platform.machine().lower() in ("aarch64", "armv7l", "armv8l"):
+        path = Path.home() / "Pictures" / "plant-health"
+    else:
+        path = DATA / "scans"
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
+
+SCANS_DIR = scans_dir()
 SCANS_DB = SCANS_DIR / "scans.db"
-SCANS_CSV = SCANS_DIR / "scans_export.csv"
 EXTERNAL = DATA / "external"
 HOLDOUT_MANIFEST = DATA / "holdout_manifest.csv"
 HOLDOUT_RESULTS = DATA / "holdout_results.csv"

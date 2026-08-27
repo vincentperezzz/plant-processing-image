@@ -57,8 +57,17 @@ def _open_csi():
             cam = Picamera2(tuning=tuning)
         except Exception:
             cam = Picamera2()
-        cfg = cam.create_preview_configuration(main={"size": (1640, 1232), "format": "BGR888"})
-        cam.configure(cfg)
+        cfg = None
+        for size in ((1920, 1080), (1640, 1232), (1280, 720)):
+            try:
+                cfg = cam.create_preview_configuration(main={"size": size, "format": "BGR888"})
+                cam.configure(cfg)
+                break
+            except Exception:
+                cfg = None
+        if cfg is None:
+            cam.close()
+            return None
         cam.start()
         try:
             from libcamera import controls
@@ -107,8 +116,11 @@ def _open_usb(index: int | None = None):
             continue
         cap.set(cv2.CAP_PROP_CONVERT_RGB, 1)
         cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+        for width, height in ((1280, 720), (1920, 1080), (1024, 576), (640, 480)):
+            cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+            if int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)) >= 640:
+                break
         if fourcc:
             cap.set(cv2.CAP_PROP_FOURCC, _fourcc(fourcc))
         ok = False

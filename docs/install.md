@@ -44,7 +44,7 @@ First-time venv (once):
 | `.\deploy\run-kiosk.ps1 -Fullscreen` | No window chrome |
 | `python src\pi_sim.py` | Same app (old name still works) |
 
-On screen: Live grades as you aim. Shutter **Snap** freezes, saves a JPEG to `data/scans/`, then grades. **LOG** is the photo album. **EXPORT CSV** writes `data/scans/scans_export.csv`.
+On screen: Live grades as you aim and never saves. The shutter flashes, writes a PNG of the whole view (photo + plant type + health + notes) and stays live. **GALLERY** is the photo album. Pi photos: `/home/admin/Pictures/plant-health` on the microSD. PC photos: `data/scans/`.
 
 Lab extras (not the kiosk):
 
@@ -158,4 +158,4 @@ After install, scan time does **not** need the internet.
 | Autostart missing | Re-run `bash deploy/install-pi.sh` as the **desktop user**, not root |
 | Touch does nothing | USB from the panel must be in the Pi; HDMI alone is picture only |
 
-Snaps live in `data/scans/` on whichever machine took them.
+Snaps live in `~/Pictures/plant-health` on the Pi (microSD root partition) or `data/scans/` on a PC.
