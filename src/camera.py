@@ -33,7 +33,7 @@ class _PiCam:
             return True, cv2.cvtColor(arr, cv2.COLOR_GRAY2BGR)
         if arr.shape[2] == 4:
             arr = arr[:, :, :3]
-        return True, np.ascontiguousarray(arr[:, :, ::-1])
+        return True, np.ascontiguousarray(arr)
 
     def release(self) -> None:
         for fn in (self._cam.stop, self._cam.close):
@@ -52,10 +52,20 @@ def _open_csi():
     except Exception:
         return None
     try:
-        cam = Picamera2()
+        try:
+            tuning = Picamera2.load_tuning_file("imx219_noir.json")
+            cam = Picamera2(tuning=tuning)
+        except Exception:
+            cam = Picamera2()
         cfg = cam.create_preview_configuration(main={"size": (1640, 1232), "format": "BGR888"})
         cam.configure(cfg)
         cam.start()
+        try:
+            from libcamera import controls
+
+            cam.set_controls({"AwbEnable": True, "AwbMode": controls.AwbModeEnum.Indoor})
+        except Exception:
+            pass
         probe = cam.capture_array()
         if not _ok_frame(probe):
             cam.stop()
