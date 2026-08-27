@@ -134,6 +134,7 @@ class PiSim:
             if platform.machine().lower() in ("aarch64", "armv7l", "armv8l"):
                 self.root.config(cursor="none")
         self.root.protocol("WM_DELETE_WINDOW", self._close)
+        self.root.bind("<Escape>", lambda _e: self._close())
         self.scanner = None
         self.finder = None
         self.photo = None
@@ -198,6 +199,17 @@ class PiSim:
             fg=TEXT,
             font=(self._face, 16, "bold"),
         ).pack(side="left", padx=16)
+        self._exit_btn = tk.Label(
+            top,
+            text="EXIT",
+            bg=CRIT,
+            fg="#ffffff",
+            font=(self._face, 11, "bold"),
+            padx=14,
+            pady=6,
+        )
+        self._exit_btn.pack(side="right", padx=(0, 12))
+        self._exit_btn.bind("<Button-1>", lambda _e: self._close())
         self._log_btn = tk.Label(
             top,
             text="LOG",
@@ -286,6 +298,17 @@ class PiSim:
             fg=TEXT,
             font=(self._face, 16, "bold"),
         ).pack(side="left", padx=8)
+        bye = tk.Label(
+            top,
+            text="EXIT",
+            bg=CRIT,
+            fg="#ffffff",
+            font=(self._face, 11, "bold"),
+            padx=14,
+            pady=6,
+        )
+        bye.pack(side="right", padx=12)
+        bye.bind("<Button-1>", lambda _e: self._close())
         exp = tk.Label(
             top,
             text="EXPORT CSV",
@@ -295,7 +318,7 @@ class PiSim:
             padx=14,
             pady=6,
         )
-        exp.pack(side="right", padx=12)
+        exp.pack(side="right", padx=(0, 8))
         exp.bind("<Button-1>", lambda _e: self._export_csv())
         body = tk.Frame(self._log, bg=BG)
         body.pack(fill="both", expand=True)

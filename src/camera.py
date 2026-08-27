@@ -53,7 +53,7 @@ def _open_csi():
         return None
     try:
         cam = Picamera2()
-        cfg = cam.create_preview_configuration(main={"size": (640, 480), "format": "RGB888"})
+        cfg = cam.create_preview_configuration(main={"size": (1640, 1232), "format": "BGR888"})
         cam.configure(cfg)
         cam.start()
         probe = cam.capture_array()

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Plant Health
+Comment=Farm crop health kiosk
+Exec=/home/admin/plant-health-kiosk/deploy/run-kiosk.sh
+Path=/home/admin/plant-health-kiosk
+Icon=camera-photo
+Terminal=false
+Categories=Utility;
+StartupNotify=true
