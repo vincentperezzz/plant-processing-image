@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/organic-25a80d1a-efdb-4f51-a4de-69c29a67e5bb/styles.css">
+</helmet>
+<div style="width:1024px;height:600px;background:var(--color-bg);color:var(--color-text);display:flex;flex-direction:column;overflow:hidden;position:relative;font-family:var(--font-body)">
+  <div class="nav" style="background:var(--color-surface);flex:0 0 64px;padding:0 20px;border-bottom:1px solid var(--color-divider)">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="oklch(45% 0.14 145)" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-right:10px">
+      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+      <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+    </svg>
+    <span class="nav-brand" style="white-space:nowrap;flex:none">Plant Health</span>
+    <div style="display:flex;gap:8px">
+      <button class="{{ scanTabClass }}" onClick="{{ goScan }}" style="min-height:44px;padding-inline:22px;font-size:15px">Scan</button>
+      <button class="{{ galleryTabClass }}" onClick="{{ goGallery }}" style="min-height:44px;padding-inline:22px;font-size:15px">Gallery</button>
+    </div>
+    <button class="btn btn-secondary" style="min-height:44px;padding-inline:20px;font-size:15px;margin-left:16px;color:oklch(48% 0.16 25);border-color:oklch(48% 0.16 25 / 0.5)">Exit</button>
+  </div>
+
+  <sc-if value="{{ isScan }}" hint-placeholder-val="{{ true }}">
+  <div style="flex:1;position:relative;background:var(--color-neutral-900);overflow:hidden">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg, var(--color-neutral-800) 0 14px, var(--color-neutral-900) 14px 28px);display:flex;align-items:center;justify-content:center">
+      <span style="font-family:monospace;color:var(--color-neutral-500);font-size:14px;letter-spacing:0.03em">live camera feed — held over leaf</span>
+    </div>
+
+    <div style="position:absolute;top:16px;left:16px;display:flex;align-items:center;gap:6px;background:oklch(48% 0.16 25);color:#fff;font-weight:700;padding:7px 14px;border-radius:999px;font-size:12px;letter-spacing:0.04em">
+      <span style="width:7px;height:7px;border-radius:50%;background:#fff"></span>LIVE
+    </div>
+
+    <div style="position:absolute;left:300px;top:130px;width:260px;height:280px;border:3px solid var(--color-accent-2-400);border-radius:var(--radius-sm)"></div>
+    <sc-if value="{{ multiPlant }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;left:620px;top:190px;width:200px;height:200px;border:3px dashed var(--color-neutral-400);border-radius:var(--radius-sm)"></div>
+      <div style="position:absolute;top:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px">
+<button class="{{ box1Class }}" onClick="{{ pickBox1 }}" style="{{ box1Style }}">1</button>
+        <button class="{{ box2Class }}" onClick="{{ pickBox2 }}" style="{{ box2Style }}">2</button>
+      </div>
+    </sc-if>
+
+    <div style="position:absolute;top:72px;left:16px;width:236px;display:flex;flex-direction:column;gap:10px">
+      <div class="card elev-md" style="background:var(--color-surface);padding:14px 16px;gap:2px">
+        <div class="card-kicker">Plant type</div>
+        <div style="font-family:var(--font-heading);font-size:26px">Chili</div>
+      </div>
+
+      <sc-if value="{{ isHealthy }}" hint-placeholder-val="{{ true }}">
+        <div class="card elev-md" style="background:oklch(92% 0.06 145);padding:14px 16px;border:2px solid oklch(55% 0.14 145);gap:6px">
+          <div class="card-kicker" style="color:oklch(38% 0.12 145)">Plant health</div>
+          <div style="font-family:var(--font-heading);font-size:26px;color:oklch(35% 0.12 145)">Healthy</div>
+          <sc-if value="{{ showConfidence }}" hint-placeholder-val="{{ true }}">
+            <span class="tag tag-outline" style="border-color:oklch(38% 0.12 145);color:oklch(35% 0.12 145);align-self:flex-start;white-space:nowrap">{{ confidence }}% confident</span>
+          </sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isMild }}" hint-placeholder-val="{{ false }}">
+        <div class="card elev-md" style="background:oklch(92% 0.07 85);padding:14px 16px;border:2px solid oklch(68% 0.14 80);gap:6px">
+          <div class="card-kicker" style="color:oklch(42% 0.1 75)">Plant health</div>
+          <div style="font-family:var(--font-heading);font-size:26px;color:oklch(40% 0.13 75)">Mild stress</div>
+          <sc-if value="{{ showConfidence }}" hint-placeholder-val="{{ true }}">
+            <span class="tag tag-outline" style="border-color:oklch(42% 0.1 75);color:oklch(40% 0.13 75);align-self:flex-start;white-space:nowrap">{{ confidence }}% confident</span>
+          </sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isCritical }}" hint-placeholder-val="{{ false }}">
+        <div class="card elev-md" style="background:oklch(94% 0.03 25);padding:14px 16px;border:2px solid oklch(58% 0.16 25);gap:6px">
+          <div class="card-kicker" style="color:oklch(42% 0.16 25)">Plant health</div>
+          <div style="font-family:var(--font-heading);font-size:26px;color:oklch(38% 0.16 25)">Critical</div>
+          <sc-if value="{{ showConfidence }}" hint-placeholder-val="{{ true }}">
+            <span class="tag tag-outline" style="border-color:oklch(42% 0.16 25);color:oklch(38% 0.16 25);align-self:flex-start;white-space:nowrap">{{ confidence }}% confident</span>
+          </sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isDead }}" hint-placeholder-val="{{ false }}">
+        <div class="card elev-md" style="background:var(--color-neutral-300);padding:14px 16px;border:2px solid var(--color-neutral-800);gap:6px">
+          <div class="card-kicker" style="color:var(--color-neutral-800)">Plant health</div>
+          <div style="font-family:var(--font-heading);font-size:26px;color:var(--color-neutral-900)">Dead</div>
+          <sc-if value="{{ showConfidence }}" hint-placeholder-val="{{ true }}">
+            <span class="tag tag-outline" style="border-color:var(--color-neutral-800);color:var(--color-neutral-900);align-self:flex-start;white-space:nowrap">{{ confidence }}% confident</span>
+          </sc-if>
+        </div>
+      </sc-if>
+    </div>
+
+    <div class="card elev-lg" style="position:absolute;left:16px;bottom:16px;width:560px;max-height:110px;background:var(--color-surface);padding:12px 16px;gap:4px;overflow:hidden">
+      <div class="card-kicker">Notes</div>
+      <p style="margin:0;font-size:14px;line-height:1.35">{{ tipText }}<sc-if value="{{ multiPlant }}" hint-placeholder-val="{{ true }}"><span style="opacity:0.65"> {{ boxNote }}</span></sc-if></p>
+    </div>
+
+    <button onClick="{{ snap }}" style="position:absolute;right:24px;top:50%;transform:translateY(-50%);width:88px;height:88px;border-radius:999px;background:transparent;border:5px solid rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer">
+      <span style="width:70px;height:70px;border-radius:999px;background:#fff"></span>
+    </button>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isGallery }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1;display:flex;overflow:hidden">
+    <div style="width:260px;flex:none;background:var(--color-surface);overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;border-right:1px solid var(--color-divider)">
+      <sc-for list="{{ shots }}" as="s" hint-placeholder-count="5">
+        <button class="{{ s.rowClass }}" onClick="{{ s.select }}" style="text-align:left;border:none;cursor:pointer;width:100%;min-height:68px;display:flex;flex-direction:column;gap:5px;padding:12px 14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <span class="card-title" style="font-size:16px">{{ s.crop }}</span>
+            <span class="tag" style="{{ s.tagStyle }}">{{ s.healthLabel }}</span>
+          </div>
+          <span class="card-meta">{{ s.time }} · {{ s.confidence }}% confidence</span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="flex:1;position:relative;background:var(--color-neutral-900);display:flex;align-items:center;justify-content:center">
+      <div style="position:absolute;inset:24px;border-radius:var(--radius-lg);background:repeating-linear-gradient(135deg, var(--color-neutral-800) 0 14px, var(--color-neutral-900) 14px 28px);display:flex;align-items:center;justify-content:center">
+        <span style="font-family:monospace;color:var(--color-neutral-500);font-size:13px">captured photo — {{ selected.crop }}</span>
+      </div>
+      <div class="card elev-lg" style="position:absolute;left:44px;bottom:44px;width:420px;background:var(--color-surface);padding:14px 18px;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-family:var(--font-heading);font-size:20px">{{ selected.crop }}</span>
+          <span class="tag" style="{{ selected.tagStyle }}">{{ selected.healthLabel }}</span>
+          <span class="card-meta">{{ selected.time }}</span>
+        </div>
+        <p style="margin:0;font-size:13px;line-height:1.35;opacity:0.85">{{ selected.tip }}</p>
+      </div>
+      <div style="position:absolute;right:44px;bottom:44px;display:flex;gap:10px">
+        <button class="btn btn-secondary btn-icon" style="width:48px;height:48px;color:oklch(48% 0.16 25)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="oklch(48% 0.16 25)" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"></path>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {&quot;width&quot;: 1024, &quot;height&quot;: 600},
+  &quot;healthDemo&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;healthy&quot;, &quot;options&quot;: [&quot;healthy&quot;, &quot;mild&quot;, &quot;critical&quot;, &quot;dead&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Scan demo&quot;},
+  &quot;multiPlant&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Scan demo&quot;},
+  &quot;showConfidence&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Scan demo&quot;}
+}">
+const HEALTH_TIPS = {
+  healthy: 'Leaf color and texture look normal. No treatment needed — keep up the watering schedule.',
+  mild: 'Early sign of nutrient stress on the lower leaves. Add compost or a balanced fertilizer this week.',
+  critical: 'Leaf spot has spread across most of the plant. Isolate it and apply a copper-based fungicide today.',
+  dead: 'No living tissue detected. Remove the plant to stop spread to its neighbors.',
+};
+const HEALTH_CONF = { healthy: 96, mild: 84, critical: 91, dead: 80 };
+
+function healthStyle(h) {
+  if (h === 'healthy') return { background: 'oklch(92% 0.06 145)', color: 'oklch(35% 0.12 145)' };
+  if (h === 'mild') return { background: 'oklch(92% 0.07 85)', color: 'oklch(40% 0.13 75)' };
+  if (h === 'critical') return { background: 'oklch(94% 0.03 25)', color: 'oklch(38% 0.16 25)' };
+  return { background: 'var(--color-neutral-300)', color: 'var(--color-neutral-900)' };
+}
+
+const SHOTS = [
+  { crop: 'Chili', health: 'healthy', confidence: 96, time: '2 min ago', tip: HEALTH_TIPS.healthy },
+  { crop: 'Eggplant', health: 'mild', confidence: 84, time: '18 min ago', tip: HEALTH_TIPS.mild },
+  { crop: 'Rice', health: 'critical', confidence: 91, time: '1 hr ago', tip: HEALTH_TIPS.critical },
+  { crop: 'Chili', health: 'healthy', confidence: 93, time: '2 hr ago', tip: HEALTH_TIPS.healthy },
+  { crop: 'Eggplant', health: 'dead', confidence: 88, time: 'Yesterday', tip: HEALTH_TIPS.dead },
+];
+
+class Component extends DCLogic {
+  state = { screen: 'scan', activeBox: 1, selectedIndex: 0 };
+
+  renderVals() {
+    const isScan = this.state.screen === 'scan';
+    const health = this.props.healthDemo ?? 'healthy';
+    const multiPlant = this.props.multiPlant ?? true;
+    const showConfidence = this.props.showConfidence ?? true;
+
+    const shots = SHOTS.map((s, i) => ({
+      ...s,
+      healthLabel: s.health.charAt(0).toUpperCase() + s.health.slice(1),
+      tagStyle: healthStyle(s.health),
+      rowClass: i === this.state.selectedIndex ? 'card elev-md' : 'card',
+      select: () => this.setState({ selectedIndex: i }),
+    }));
+
+    return {
+      isScan,
+      isGallery: !isScan,
+      scanTabClass: isScan ? 'btn btn-primary' : 'btn btn-secondary',
+      galleryTabClass: !isScan ? 'btn btn-primary' : 'btn btn-secondary',
+      goScan: () => this.setState({ screen: 'scan' }),
+      goGallery: () => this.setState({ screen: 'gallery' }),
+      isHealthy: health === 'healthy',
+      isMild: health === 'mild',
+      isCritical: health === 'critical',
+      isDead: health === 'dead',
+      confidence: HEALTH_CONF[health] ?? 90,
+      showConfidence,
+      tipText: HEALTH_TIPS[health] ?? HEALTH_TIPS.healthy,
+      multiPlant,
+      box1Class: this.state.activeBox === 1 ? 'btn btn-primary' : 'btn',
+      box2Class: this.state.activeBox === 2 ? 'btn btn-primary' : 'btn',
+      box1Style: { width: 40, height: 40, borderRadius: 999, fontSize: 15, fontWeight: 700, ...(this.state.activeBox === 1 ? {} : { background: 'rgba(20,20,20,0.55)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.6)' }) },
+      box2Style: { width: 40, height: 40, borderRadius: 999, fontSize: 15, fontWeight: 700, ...(this.state.activeBox === 2 ? {} : { background: 'rgba(20,20,20,0.55)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.6)' }) },
+      pickBox1: () => this.setState({ activeBox: 1 }),
+      pickBox2: () => this.setState({ activeBox: 2 }),
+      boxNote: this.state.activeBox === 1 ? ' Box 1 of 2 — tap the other box to inspect it.' : ' Box 2 of 2 — tap the other box to inspect it.',
+      snap: () => {},
+      shots,
+      selected: shots[this.state.selectedIndex] || shots[0],
+    };
+  }
+}
+
+</script>
+</body>
+</html>

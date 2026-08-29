@@ -16,24 +16,79 @@ def _ok_frame(frame) -> bool:
     return frame is not None and getattr(frame, "size", 0) > 0
 
 
+def _cover_np(arr, tw: int, th: int):
+    h, w = arr.shape[:2]
+    if w == tw and h == th:
+        return arr
+    import cv2
+
+    scale = max(tw / w, th / h)
+    nw = max(1, int(round(w * scale)))
+    nh = max(1, int(round(h * scale)))
+    small = cv2.resize(arr, (nw, nh), interpolation=cv2.INTER_AREA)
+    x = max(0, (nw - tw) // 2)
+    y = max(0, (nh - th) // 2)
+    return np.ascontiguousarray(small[y : y + th, x : x + tw])
+
+
 class _PiCam:
-    def __init__(self, picam2):
+    def __init__(self, picam2, rgb=True, stream="main", view=(1024, 576), yuv=False):
         self._cam = picam2
+        self.rgb = rgb
+        self._stream = stream
+        self._view = view
+        self._yuv = yuv
+        self._timeout_kw: dict | None = None
+
+    def _grab(self):
+        """capture_request, with a timeout when this picamera2 supports one.
+
+        Older builds have no `timeout` kwarg, and probing for it by catching
+        TypeError on every frame costs an exception per frame. Decide once.
+        """
+        if self._timeout_kw is None:
+            import inspect
+
+            try:
+                params = inspect.signature(self._cam.capture_request).parameters
+            except (TypeError, ValueError):
+                params = {}
+            self._timeout_kw = {"timeout": _CAPTURE_TIMEOUT} if "timeout" in params else {}
+        return self._cam.capture_request(**self._timeout_kw)
 
     def read(self):
+        arr = None
         try:
-            arr = self._cam.capture_array()
+            req = self._grab()
         except Exception:
             return False, None
+        try:
+            try:
+                arr = req.make_array(self._stream)
+            except Exception:
+                arr = req.make_array("main")
+        finally:
+            req.release()
         if not _ok_frame(arr):
             return False, None
+        tw, th = self._view
         if arr.ndim == 2:
             import cv2
 
-            return True, cv2.cvtColor(arr, cv2.COLOR_GRAY2BGR)
-        if arr.shape[2] == 4:
+            # I420/YUV420 arrives as a single plane of height 1.5x the image.
+            if self._yuv or arr.shape[0] == th * 3 // 2 or arr.shape[0] == arr.shape[1] * 3 // 2:
+                arr = cv2.cvtColor(arr, cv2.COLOR_YUV2RGB_I420)
+                self.rgb = True
+            else:
+                arr = cv2.cvtColor(arr, cv2.COLOR_GRAY2BGR)
+                self.rgb = False
+        elif arr.shape[2] == 4:
             arr = arr[:, :, :3]
-        return True, np.ascontiguousarray(arr[:, :, ::-1])
+        if arr.shape[1] != tw or arr.shape[0] != th:
+            arr = _cover_np(arr, tw, th)
+        elif not arr.flags["C_CONTIGUOUS"]:
+            arr = np.ascontiguousarray(arr)
+        return True, arr
 
     def release(self) -> None:
         for fn in (self._cam.stop, self._cam.close):
@@ -46,42 +101,131 @@ class _PiCam:
         return True
 
 
+CSI_VIEW = (1024, 576)
+_CAPTURE_TIMEOUT = 2.0
+_OPEN_TIMEOUT = float(os.environ.get("PLANT_CAMERA_TIMEOUT", "8"))
+
+
+def _csi_plans(view):
+    """Configs to try, cheapest and least exotic first.
+
+    A single small `main` stream is the whole point: the ISP scales on-chip, so
+    the CPU never touches a 2MP buffer. `lores` is only a fallback for stacks
+    that refuse an RGB main at this size.
+    """
+    w, h = view
+    return (
+        ({"main": {"size": (w, h), "format": "RGB888"}}, "main", True, False),
+        ({"main": {"size": (w, h), "format": "BGR888"}}, "main", False, False),
+        (
+            {
+                "main": {"size": (1640, 1232), "format": "RGB888"},
+                "lores": {"size": (w, h), "format": "YUV420"},
+            },
+            "lores",
+            True,
+            True,
+        ),
+        ({"main": {"size": (1280, 720), "format": "RGB888"}}, "main", True, False),
+    )
+
+
+def _probe_frame(cam, stream: str, seconds: float):
+    """capture_array with a hard wall-clock cap.
+
+    picamera2 blocks forever when the pipeline never delivers, which froze the
+    kiosk before it ever painted. A dead camera has to look like `None`, not a
+    hang.
+    """
+    import threading
+
+    out = {}
+
+    def work():
+        try:
+            out["arr"] = cam.capture_array(stream)
+        except Exception as exc:
+            out["err"] = exc
+
+    worker = threading.Thread(target=work, daemon=True)
+    worker.start()
+    worker.join(seconds)
+    if worker.is_alive():
+        return None, TimeoutError(f"no frame within {seconds:.0f}s")
+    return out.get("arr"), out.get("err")
+
+
 def _open_csi():
     try:
         from picamera2 import Picamera2
-    except Exception:
+    except Exception as exc:
+        print(f"csi unavailable: {exc}", flush=True)
         return None
+    view = CSI_VIEW
+    cam = None
     try:
         try:
             tuning = Picamera2.load_tuning_file("imx219_noir.json")
             cam = Picamera2(tuning=tuning)
         except Exception:
             cam = Picamera2()
-        cfg = None
-        for size in ((1920, 1080), (1640, 1232), (1280, 720)):
+
+        picked = None
+        for main_kwargs, stream, rgb, yuv in _csi_plans(view):
+            kwargs = dict(main_kwargs)
+            kwargs["buffer_count"] = 4
             try:
-                cfg = cam.create_preview_configuration(main={"size": size, "format": "BGR888"})
-                cam.configure(cfg)
-                break
-            except Exception:
-                cfg = None
-        if cfg is None:
+                cam.configure(cam.create_preview_configuration(**kwargs))
+            except Exception as exc:
+                print(f"csi config rejected ({stream}): {exc}", flush=True)
+                continue
+            picked = (kwargs, stream, rgb, yuv)
+            break
+        if picked is None:
             cam.close()
+            print("csi: no usable configuration", flush=True)
             return None
+
         cam.start()
         try:
             from libcamera import controls
 
-            cam.set_controls({"AwbEnable": True, "AwbMode": controls.AwbModeEnum.Indoor})
+            cam.set_controls(
+                {
+                    "AwbEnable": True,
+                    "AwbMode": controls.AwbModeEnum.Indoor,
+                    "FrameDurationLimits": (16666, 33333),
+                }
+            )
         except Exception:
             pass
-        probe = cam.capture_array()
+
+        kwargs, stream, rgb, yuv = picked
+        probe, err = _probe_frame(cam, stream, _OPEN_TIMEOUT)
         if not _ok_frame(probe):
-            cam.stop()
-            cam.close()
+            print(f"csi probe failed: {err}", flush=True)
+            for fn in (cam.stop, cam.close):
+                try:
+                    fn()
+                except Exception:
+                    pass
             return None
-        return _PiCam(cam)
-    except Exception:
+        size = kwargs["main"]["size"]
+        fmt = kwargs["main"]["format"]
+        print(
+            f"csi {size[0]}x{size[1]}-{fmt} stream={stream} view={view[0]}x{view[1]} "
+            f"shape={getattr(probe, 'shape', None)}",
+            flush=True,
+        )
+        return _PiCam(cam, rgb=rgb, stream=stream, view=view, yuv=yuv)
+    except Exception as exc:
+        print(f"csi open failed: {exc}", flush=True)
+        if cam is not None:
+            for fn in (cam.stop, cam.close):
+                try:
+                    fn()
+                except Exception:
+                    pass
         return None
 
 
@@ -116,11 +260,8 @@ def _open_usb(index: int | None = None):
             continue
         cap.set(cv2.CAP_PROP_CONVERT_RGB, 1)
         cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
-        for width, height in ((1280, 720), (1920, 1080), (1024, 576), (640, 480)):
-            cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
-            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
-            if int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)) >= 640:
-                break
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         if fourcc:
             cap.set(cv2.CAP_PROP_FOURCC, _fourcc(fourcc))
         ok = False

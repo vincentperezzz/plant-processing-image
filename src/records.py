@@ -26,6 +26,9 @@ def _connect() -> sqlite3.Connection:
         )
         """
     )
+    cols = {row["name"] for row in con.execute("PRAGMA table_info(scans)")}
+    if "confidence" not in cols:
+        con.execute("ALTER TABLE scans ADD COLUMN confidence REAL")
     con.commit()
     return con
 
@@ -45,12 +48,14 @@ def add_scan(
     named_plant: str | None,
     tip: str,
     image_path: str,
+    confidence: float | None = None,
 ) -> int:
     created = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     with _connect() as con:
         cur = con.execute(
-            "INSERT INTO scans (created_at, crop, health, named_plant, tip, image_path) VALUES (?, ?, ?, ?, ?, ?)",
-            (created, crop or "", health or "", named_plant or "", tip or "", image_path),
+            "INSERT INTO scans (created_at, crop, health, named_plant, tip, image_path, confidence) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (created, crop or "", health or "", named_plant or "", tip or "", image_path, confidence),
         )
         con.commit()
         return int(cur.lastrowid)
@@ -71,3 +76,13 @@ def list_photos(limit: int = 200) -> list[Path]:
     ]
     files.sort(key=lambda p: p.stat().st_mtime, reverse=True)
     return files[:limit]
+
+
+def delete_scan(scan_id: int, image_path: str) -> None:
+    with _connect() as con:
+        con.execute("DELETE FROM scans WHERE id = ?", (scan_id,))
+        con.commit()
+    try:
+        Path(image_path).unlink(missing_ok=True)
+    except OSError:
+        pass

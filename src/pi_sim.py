@@ -1,7 +1,10 @@
+import math
 import platform
 import sys
 import threading
 import time
+import traceback
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,49 +16,91 @@ import tkinter.font as tkfont
 from PIL import Image, ImageDraw, ImageFont, ImageTk
 
 from src.camera import open_capture
-from src.detect import PlantFinder, _iou, crop_xyxy, draw_boxes, match_tracks
+from src.detect import PlantFinder, _iou, crop_xyxy, match_tracks
 from src.infer import FARM_CROPS, Scanner
-from src.paths import CKPT, SCANS_DIR
-from src.scan_drop import MUTED, TEXT, _box_area, _frame_to_pil, _track_label
+from src.paths import CKPT
+from src.scan_drop import _box_area, _frame_to_pil, _track_label
+
+FONTS_DIR = ROOT / "vendor" / "fonts"
 
 W = 1024
 H = 600
-BG = "#0c0e0d"
-PANEL = "#141816"
-VIEW = "#050505"
-CARD = "#121614"
-CHIP = "#1c221e"
-CRIT = "#ff453a"
-LIVE_BG = "#2c2c2e"
-LABEL = "#8a9a8e"
+
+# — design tokens (exact hex, from docs/UI-modernization/README.md) —
+CREAM = "#f5ead8"
+SURFACE = "#ebddc5"
+TEXT = "#201e1d"
+ACCENT = "#c67139"
+ACCENT_2_400 = "#aebf92"
+ALERT = "#a52929"
+NEUTRAL_400 = "#c0b6a5"
+NEUTRAL_900 = "#2e2b25"
+DIVIDER = "#ded2ba"
+LEAF_GREEN = "#036819"
+MUTED = "#6d6559"
+
+BG = CREAM
+VIEW = NEUTRAL_900
 DASH = "—"
 LOOKING = "Looking for plant"
-HEALTH_RGB = {
-    "healthy": (52, 199, 89),
-    "mild": (255, 214, 10),
-    "critical": (255, 69, 58),
-    "dead": (142, 142, 147),
+NO_CAMERA = "No camera. Check the ribbon or plug in a USB webcam."
+
+# Frame pacing. The floor is what buys Tk the idle time it needs to
+# actually blit the canvas; without it the screen stops updating.
+TICK_BUDGET_MS = 33
+TICK_FLOOR_MS = 8
+
+# health-grade tokens: (background, text/value, border/accent) — all RGB(A)
+HEALTH_TOKENS = {
+    "healthy": ((205, 240, 205), (0, 73, 6), (63, 174, 74)),
+    "mild": ((250, 226, 176), (110, 56, 0), (197, 141, 4)),
+    "critical": ((255, 228, 225), (131, 0, 13), (199, 75, 71)),
+    "dead": ((220, 211, 196), (46, 43, 37), (71, 66, 56)),
 }
-SHUTTER_R = 36
+HEALTH_DISPLAY = {
+    "healthy": "Healthy",
+    "mild": "Mild stress",
+    "critical": "Critical",
+    "dead": "Dead",
+}
+
+
+def _hex_rgb(value: str) -> tuple[int, int, int]:
+    h = value.lstrip("#")
+    return (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16))
+
+
+def _display_name(value: str) -> str:
+    text = (value or "").strip()
+    if not text or text == DASH:
+        return text or DASH
+    lower = text.lower()
+    if lower in HEALTH_DISPLAY:
+        return HEALTH_DISPLAY[lower]
+    return text[:1].upper() + text[1:]
+
+SHUTTER_R = 44
 SHUTTER_RING = 5
+SHUTTER_EDGE_INSET = 24
 HUD_W = 236
-HUD_R = 18
-VIEW_RGB = (5, 5, 5)
-TEXT_RGB = (241, 248, 233)
-LABEL_RGB = (220, 228, 222)
-WARN_RGB = (255, 168, 162)
-CARD_FILL = (12, 16, 14, 230)
-CARD_LINE = (200, 212, 204, 140)
-HEALTH_FILL = {
-    "healthy": (16, 64, 32, 235),
-    "mild": (72, 58, 6, 235),
-    "critical": (82, 18, 18, 238),
-    "dead": (42, 42, 46, 235),
-}
+HUD_R = 16
+VIEW_RGB = (46, 43, 37)
+TEXT_RGB = (32, 30, 29)
+LABEL_RGB = (198, 113, 57)
+WARN_RGB = (165, 41, 41)
+CARD_FILL = (235, 221, 197, 255)
+CARD_LINE = (32, 30, 29, 40)
+CARD_FILL_RGB = CARD_FILL[:3]
+# CARD_LINE pre-blended over CARD_FILL_RGB (its usual background), for cheap opaque drawing.
+CARD_LINE_RGB = (203, 191, 171)
 
 
-def _pick_font(root: tk.Tk) -> str:
-    want = ("Segoe UI", "DejaVu Sans", "Piboto", "Liberation Sans", "FreeSans")
+def _pick_font(root: tk.Tk, *, heading: bool = False) -> str:
+    want = (
+        ("Caprasimo", "Segoe UI", "DejaVu Sans", "Piboto", "Liberation Sans", "FreeSans")
+        if heading
+        else ("Figtree", "Segoe UI", "DejaVu Sans", "Piboto", "Liberation Sans", "FreeSans")
+    )
     have = set(tkfont.families(root))
     for name in want:
         if name in have:
@@ -63,8 +108,18 @@ def _pick_font(root: tk.Tk) -> str:
     return "TkDefaultFont"
 
 
-def _load_font(size: int, bold: bool = False) -> ImageFont.ImageFont:
-    names = []
+def _load_font(size: int, *, heading: bool = False, weight: str = "regular") -> ImageFont.ImageFont:
+    names: list[Path] = []
+    if heading:
+        names.append(FONTS_DIR / "Caprasimo-Regular.ttf")
+    else:
+        vendored = {
+            "regular": "Figtree-Regular.ttf",
+            "semibold": "Figtree-SemiBold.ttf",
+            "bold": "Figtree-Bold.ttf",
+        }[weight]
+        names.append(FONTS_DIR / vendored)
+    bold = weight in ("semibold", "bold")
     if sys.platform == "win32":
         wind = Path(r"C:\Windows\Fonts")
         names += [wind / ("segoeuib.ttf" if bold else "segoeui.ttf")]
@@ -80,6 +135,41 @@ def _load_font(size: int, bold: bool = False) -> ImageFont.ImageFont:
             except OSError:
                 continue
     return ImageFont.load_default()
+
+
+def _leaf_icon(size: int, color: str) -> Image.Image:
+    big = size * 4
+    canvas = Image.new("RGBA", (big, big), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(canvas)
+    w, h = int(big * 0.95), int(big * 0.55)
+    x0, y0 = (big - w) // 2, (big - h) // 2
+    stroke = max(2, big // 18)
+    draw.ellipse((x0, y0, x0 + w, y0 + h), outline=color, width=stroke)
+    draw.line((x0 + stroke, y0 + h // 2, x0 + w - stroke, y0 + h // 2), fill=color, width=stroke)
+    rotated = canvas.rotate(-45, resample=Image.BICUBIC, expand=False)
+    draw2 = ImageDraw.Draw(rotated)
+    draw2.line((big * 0.08, big * 0.92, big * 0.24, big * 0.76), fill=color, width=stroke)
+    return rotated.resize((size, size), Image.LANCZOS)
+
+
+def _trash_icon(size: int, color: str) -> Image.Image:
+    img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+    stroke = max(2, size // 12)
+    top, bottom = size * 0.3, size * 0.9
+    left, right = size * 0.2, size * 0.8
+    draw.line((size * 0.1, top, size * 0.9, top), fill=color, width=stroke)
+    draw.rounded_rectangle((left, top, right, bottom), radius=size * 0.08, outline=color, width=stroke)
+    draw.line((size * 0.38, top, size * 0.38, size * 0.14), fill=color, width=stroke)
+    draw.line((size * 0.62, top, size * 0.62, size * 0.14), fill=color, width=stroke)
+    draw.line((size * 0.38, size * 0.14, size * 0.62, size * 0.14), fill=color, width=stroke)
+    for fx in (0.38, 0.5, 0.62):
+        draw.line(
+            (size * fx, top + stroke * 1.6, size * fx, bottom - stroke * 1.6),
+            fill=color,
+            width=max(1, stroke // 2),
+        )
+    return img
 
 
 def _text_size(draw: ImageDraw.ImageDraw, text: str, font) -> tuple[int, int]:
@@ -121,25 +211,26 @@ class PiSim:
         self._lite = lite
         self._camera_pref = camera
         self._face = _pick_font(root)
+        self._face_head = _pick_font(root, heading=True)
         self.root.title("Plant Health")
-        self.root.geometry(f"{W}x{H}")
-        self.root.resizable(False, False)
         self.root.configure(bg=BG)
-        if fullscreen:
-            try:
-                self.root.attributes("-fullscreen", True)
-            except tk.TclError:
-                pass
-            if platform.machine().lower() in ("aarch64", "armv7l", "armv8l"):
-                self.root.config(cursor="none")
+        self._want_full = fullscreen
+        self.root.geometry(f"{W}x{H}")
+        if not fullscreen:
+            self.root.resizable(False, False)
         self.root.protocol("WM_DELETE_WINDOW", self._close)
         self.root.bind("<Escape>", lambda _e: self._close())
         self.scanner = None
         self.finder = None
         self.photo = None
+        self._photo_size: tuple[int, int] | None = None
         self.cap = None
+        self._cam_opening = False
         self._frame_pil = None
         self._tick_id = None
+        self._tick_n = 0
+        self._tick_t0 = 0.0
+        self._tick_warned = False
         self._scan_gen = 0
         self._tracks: list[dict] = []
         self._detect_busy = False
@@ -162,22 +253,137 @@ class PiSim:
         self._hud_health = DASH
         self._hud_notes = LOOKING
         self._hud_tone = "muted"
-        self._font_label = _load_font(14, bold=True)
-        self._font_value = _load_font(26, bold=True)
-        self._font_notes = _load_font(17)
+        self._hud_confidence: int | None = None
+        self._hud_extra = ""
+        self._font_label = _load_font(11, weight="semibold")
+        self._font_value = _load_font(26, heading=True)
+        self._font_notes = _load_font(14)
         self._font_mini = _load_font(15)
+        self._font_pill = _load_font(11, weight="semibold")
+        self._font_chip = _load_font(15, weight="bold")
+        self._font_nav = _load_font(15, weight="semibold")
+        self._font_gallery_title = _load_font(20, heading=True)
+        self._font_caption = _load_font(11)
+        self._icon_cache: dict[tuple, ImageTk.PhotoImage] = {}
+        self._pill_cache: dict[tuple, ImageTk.PhotoImage] = {}
+        self._delete_armed_until = 0.0
+        self._gal_record: dict | None = None
+        self._gal_records: list[dict] = []
+        self._gal_card_photo = None
         self._scan = tk.Frame(self.root, bg=BG)
         self._gallery = tk.Frame(self.root, bg=BG)
         self._build_scan()
         self._build_gallery()
         self._scan.pack(fill="both", expand=True)
         self._boot()
+        if self._want_full:
+            self.root.after(80, self._go_fullscreen)
+
+    def _go_fullscreen(self) -> None:
+        self.root.update_idletasks()
+        sw = max(1, int(self.root.winfo_screenwidth() or W))
+        sh = max(1, int(self.root.winfo_screenheight() or H))
+        try:
+            self.root.attributes("-fullscreen", True)
+        except tk.TclError:
+            pass
+        self.root.geometry(f"{sw}x{sh}+0+0")
+        if platform.machine().lower() in ("aarch64", "armv7l", "armv8l"):
+            self.root.config(cursor="none")
+
+    def _icon(self, kind: str, size: int, color: str) -> ImageTk.PhotoImage:
+        key = (kind, size, color)
+        cached = self._icon_cache.get(key)
+        if cached is None:
+            img = _leaf_icon(size, color) if kind == "leaf" else _trash_icon(size, color)
+            cached = ImageTk.PhotoImage(img)
+            self._icon_cache[key] = cached
+        return cached
+
+    def _pill_photo(
+        self,
+        text: str,
+        *,
+        font,
+        fg: str,
+        bg: str | None = None,
+        outline: str | None = None,
+        min_w: int = 0,
+        min_h: int = 44,
+        pad_x: int = 22,
+    ) -> ImageTk.PhotoImage:
+        key = (text, id(font), fg, bg, outline, min_w, min_h, pad_x)
+        cached = self._pill_cache.get(key)
+        if cached is not None:
+            return cached
+        scratch = ImageDraw.Draw(Image.new("RGB", (8, 8)))
+        tw, th = _text_size(scratch, text, font)
+        w = max(min_w, tw + pad_x * 2)
+        h = max(min_h, th + 16)
+        img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        radius = h // 2
+        if bg is not None:
+            draw.rounded_rectangle((0, 0, w - 1, h - 1), radius=radius, fill=bg)
+        elif outline is not None:
+            draw.rounded_rectangle((1, 1, w - 2, h - 2), radius=radius, outline=outline, width=2)
+        draw.text(((w - tw) // 2, (h - th) // 2 - 1), text, font=font, fill=fg)
+        photo = ImageTk.PhotoImage(img)
+        self._pill_cache[key] = photo
+        return photo
+
+    def _build_nav(self, parent: tk.Frame, active: str) -> None:
+        top = tk.Frame(
+            parent,
+            bg=SURFACE,
+            height=64,
+            highlightthickness=1,
+            highlightbackground=DIVIDER,
+            highlightcolor=DIVIDER,
+        )
+        top.pack(fill="x")
+        top.pack_propagate(False)
+        leaf = self._icon("leaf", 24, LEAF_GREEN)
+        tk.Label(top, image=leaf, bg=SURFACE).pack(side="left", padx=(20, 10))
+        tk.Label(
+            top,
+            text="Plant Health",
+            bg=SURFACE,
+            fg=TEXT,
+            font=(self._face_head, 18),
+        ).pack(side="left")
+
+        right = tk.Frame(top, bg=SURFACE)
+        right.pack(side="right", padx=20)
+
+        exit_img = self._pill_photo("Exit", font=self._font_nav, fg=ALERT, outline=ALERT)
+        exit_btn = tk.Label(right, image=exit_img, bg=SURFACE, cursor="hand2")
+        exit_btn.pack(side="right", padx=(16, 0))
+        exit_btn.bind("<Button-1>", lambda _e: self._close())
+
+        def tab(name: str, label: str, cmd) -> None:
+            is_active = active == name
+            img = self._pill_photo(
+                label,
+                font=self._font_nav,
+                fg=CREAM if is_active else TEXT,
+                bg=ACCENT if is_active else None,
+                outline=None if is_active else DIVIDER,
+            )
+            btn = tk.Label(right, image=img, bg=SURFACE, cursor="hand2")
+            btn.pack(side="right", padx=4)
+            btn.bind("<Button-1>", lambda _e: cmd())
+
+        tab("gallery", "Gallery", self._show_gallery)
+        tab("scan", "Scan", self._show_scan)
 
     def _boot(self) -> None:
         self._set_result(DASH, DASH, "Loading inspector…")
         self._start_camera()
         self._tick()
-        threading.Thread(target=self._load_brains, daemon=True).start()
+        # Torch starves the camera thread on a Pi, and a live view the operator
+        # can see beats a grader they can't. Let the sensor come up first.
+        self.root.after(1500, lambda: threading.Thread(target=self._load_brains, daemon=True).start())
 
     def _load_brains(self) -> None:
         scanner = None
@@ -197,42 +403,12 @@ class PiSim:
         self.finder = finder
         if scanner is None:
             self._set_result(DASH, DASH, "No grader loaded. Train best.pt first.", tone="warn")
-        else:
+        elif self.cap is not None:
             self._set_result(DASH, DASH, LOOKING)
+        # A missing camera is the louder problem; don't paper over it with LOOKING.
 
     def _build_scan(self) -> None:
-        top = tk.Frame(self._scan, bg=PANEL, height=44)
-        top.pack(fill="x")
-        top.pack_propagate(False)
-        tk.Label(
-            top,
-            text="Plant Health",
-            bg=PANEL,
-            fg=TEXT,
-            font=(self._face, 16, "bold"),
-        ).pack(side="left", padx=16)
-        self._exit_btn = tk.Label(
-            top,
-            text="EXIT",
-            bg=CRIT,
-            fg="#ffffff",
-            font=(self._face, 11, "bold"),
-            padx=14,
-            pady=6,
-        )
-        self._exit_btn.pack(side="right", padx=(0, 12))
-        self._exit_btn.bind("<Button-1>", lambda _e: self._close())
-        self._gal_btn = tk.Label(
-            top,
-            text="GALLERY",
-            bg=CHIP,
-            fg=TEXT,
-            font=(self._face, 11, "bold"),
-            padx=14,
-            pady=6,
-        )
-        self._gal_btn.pack(side="right", padx=12)
-        self._gal_btn.bind("<Button-1>", lambda _e: self._show_gallery())
+        self._build_nav(self._scan, "scan")
 
         self.stage = tk.Frame(self._scan, bg=VIEW)
         self.stage.pack(fill="both", expand=True)
@@ -241,90 +417,69 @@ class PiSim:
         self.view.bind("<Button-1>", self._on_view_click)
         self.stage.bind("<Configure>", self._on_stage)
 
-        self.badge = tk.Label(
-            self.stage,
-            text="LIVE",
-            bg=LIVE_BG,
-            fg=TEXT,
-            font=(self._face, 11, "bold"),
-            padx=12,
-            pady=4,
-            anchor="center",
-        )
-        self.badge.place(x=0, y=12)
+        self._live_img = ImageTk.PhotoImage(self._make_live_badge())
+        self.badge = tk.Label(self.stage, image=self._live_img, bg=VIEW, bd=0)
+        self.badge.place(x=16, y=16)
 
-    def _nav_btn(self, parent, text: str, cmd) -> tk.Label:
-        btn = tk.Label(
-            parent,
-            text=text,
-            bg=CHIP,
-            fg=TEXT,
-            font=(self._face, 11, "bold"),
-            padx=14,
-            pady=6,
-        )
-        btn.pack(side="left", padx=(0, 8))
-        btn.bind("<Button-1>", lambda _e: cmd())
-        return btn
-
-    def _set_result(self, crop: str, health: str, notes: str, *, tone: str = "muted") -> None:
+    def _set_result(
+        self,
+        crop: str,
+        health: str,
+        notes: str,
+        *,
+        tone: str = "muted",
+        confidence: int | None = None,
+        extra: str = "",
+    ) -> None:
         self._hud_crop = crop or DASH
         self._hud_health = health or DASH
         self._hud_notes = notes or DASH
         self._hud_tone = tone
+        self._hud_confidence = confidence
+        self._hud_extra = extra
         if self._page == "scan" and self._frame_pil is not None:
             self._show_image(self._frame_pil)
 
     def _build_gallery(self) -> None:
-        top = tk.Frame(self._gallery, bg=PANEL, height=44)
-        top.pack(fill="x")
-        top.pack_propagate(False)
-        self._nav_btn(top, "BACK", self._show_scan)
-        tk.Label(
-            top,
-            text="Gallery",
-            bg=PANEL,
-            fg=TEXT,
-            font=(self._face, 16, "bold"),
-        ).pack(side="left", padx=8)
-        bye = tk.Label(
-            top,
-            text="EXIT",
-            bg=CRIT,
-            fg="#ffffff",
-            font=(self._face, 11, "bold"),
-            padx=14,
-            pady=6,
-        )
-        bye.pack(side="right", padx=12)
-        bye.bind("<Button-1>", lambda _e: self._close())
-        where = tk.Label(
-            top,
-            text=str(SCANS_DIR),
-            bg=PANEL,
-            fg=LABEL,
-            font=(self._face, 10),
-        )
-        where.pack(side="right", padx=12)
+        self._build_nav(self._gallery, "gallery")
         body = tk.Frame(self._gallery, bg=BG)
         body.pack(fill="both", expand=True)
-        left = tk.Frame(body, bg=CARD, width=220)
+        left = tk.Frame(
+            body,
+            bg=SURFACE,
+            width=260,
+            highlightthickness=1,
+            highlightbackground=DIVIDER,
+            highlightcolor=DIVIDER,
+        )
         left.pack(side="left", fill="y")
         left.pack_propagate(False)
-        self._gal_list = tk.Canvas(left, bg=CARD, highlightthickness=0)
+        self._gal_list = tk.Canvas(left, bg=SURFACE, highlightthickness=0)
         scroll = tk.Scrollbar(left, orient="vertical", command=self._gal_list.yview)
         self._gal_list.configure(yscrollcommand=scroll.set)
         scroll.pack(side="right", fill="y")
         self._gal_list.pack(side="left", fill="both", expand=True)
-        self._gal_items = tk.Frame(self._gal_list, bg=CARD)
+        self._gal_items = tk.Frame(self._gal_list, bg=SURFACE)
         self._gal_list.create_window((0, 0), window=self._gal_items, anchor="nw")
         self._gal_items.bind(
             "<Configure>",
             lambda _e: self._gal_list.configure(scrollregion=self._gal_list.bbox("all")),
         )
-        self._gal_canvas = tk.Canvas(body, bg=VIEW, highlightthickness=0)
-        self._gal_canvas.pack(side="left", fill="both", expand=True)
+        right = tk.Frame(body, bg=VIEW)
+        right.pack(side="left", fill="both", expand=True)
+        self._gal_canvas = tk.Canvas(right, bg=VIEW, highlightthickness=0)
+        self._gal_canvas.place(relx=0, rely=0, relwidth=1, relheight=1)
         self._gal_canvas.bind("<Configure>", self._paint_gallery)
+        self._del_btn = tk.Label(
+            right,
+            image=self._icon("trash", 20, ALERT),
+            bg=SURFACE,
+            cursor="hand2",
+            width=48,
+            height=48,
+        )
+        self._del_btn.place(relx=1.0, rely=1.0, x=-44, y=-44, anchor="se")
+        self._del_btn.bind("<Button-1>", self._on_delete_click)
 
     def _show_gallery(self) -> None:
         self._page = "gallery"
@@ -338,21 +493,77 @@ class PiSim:
         self._gallery.pack_forget()
         self._scan.pack(fill="both", expand=True)
 
+    def _relative_time(self, created_at: str) -> str:
+        try:
+            dt = datetime.strptime(created_at, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+        except (ValueError, TypeError):
+            return ""
+        secs = (datetime.now(timezone.utc) - dt).total_seconds()
+        if secs < 60:
+            return "Just now"
+        mins = int(secs // 60)
+        if mins < 60:
+            return f"{mins} min ago"
+        hours = int(mins // 60)
+        if hours < 24:
+            return f"{hours} hr ago"
+        days = int(hours // 24)
+        return "Yesterday" if days == 1 else f"{days} days ago"
+
+    def _row_photo(self, rec: dict, *, selected: bool) -> Image.Image:
+        w, h = 228, 64
+        img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        if selected:
+            draw.rounded_rectangle((0, 0, w - 1, h - 1), radius=HUD_R, fill=CARD_FILL, outline=(*_hex_rgb(ACCENT), 255), width=2)
+        crop = _display_name(rec.get("crop") or DASH)
+        health_key = (rec.get("health") or "").strip().lower()
+        tokens = HEALTH_TOKENS.get(health_key)
+        title_font = self._font_gallery_title
+        tw, th = _text_size(draw, crop, title_font)
+        max_title_w = w - 24 - 70
+        while crop and _text_size(draw, crop, title_font)[0] > max_title_w:
+            crop = crop[:-1]
+        tw, th = _text_size(draw, crop, title_font)
+        draw.text((12, 8), crop, font=title_font, fill=TEXT_RGB)
+        if tokens:
+            tag_bg, tag_fg, _ = tokens
+            tag_text = _display_name(rec.get("health") or "")
+            ttw, tth = _text_size(draw, tag_text, self._font_pill)
+            pad = 8
+            tag_w, tag_h = ttw + pad * 2, tth + 8
+            tx = w - 12 - tag_w
+            ty = 8 + (th - tag_h) // 2
+            draw.rounded_rectangle((tx, ty, tx + tag_w, ty + tag_h), radius=tag_h // 2, fill=(*tag_bg, 255))
+            draw.text((tx + pad, ty + 4), tag_text, font=self._font_pill, fill=tag_fg)
+        confidence = rec.get("confidence")
+        caption = self._relative_time(rec.get("created_at") or "")
+        if isinstance(confidence, (int, float)):
+            pct = f"{int(round(confidence * 100))}% confidence"
+            caption = f"{caption} · {pct}" if caption else pct
+        caption = caption or DASH
+        max_caption_w = w - 24
+        while caption and _text_size(draw, caption, self._font_caption)[0] > max_caption_w:
+            caption = caption[:-1]
+        draw.text((12, 36), caption, font=self._font_caption, fill=(*_hex_rgb(MUTED), 255))
+        return img
+
     def _fill_gallery(self) -> None:
-        from src.records import list_photos
+        from src.records import list_scans
 
         for child in self._gal_items.winfo_children():
             child.destroy()
         self._thumbs = []
         self._gal_src = None
         self._gal_path = None
+        self._gal_record = None
         self._gal_canvas.delete("all")
-        photos = list_photos()
-        if not photos:
+        records = [r for r in list_scans() if r.get("image_path") and Path(r["image_path"]).exists()]
+        if not records:
             tk.Label(
                 self._gal_items,
                 text="No photos yet.\nTap the shutter first.",
-                bg=CARD,
+                bg=SURFACE,
                 fg=MUTED,
                 font=(self._face, 12),
                 padx=16,
@@ -360,31 +571,93 @@ class PiSim:
                 justify="left",
             ).pack(anchor="w")
             return
-        first = None
-        for path in photos:
-            try:
-                thumb = Image.open(path).convert("RGB")
-                thumb.thumbnail((188, 110))
-                photo = ImageTk.PhotoImage(thumb)
-            except Exception:
-                continue
-            if first is None:
-                first = path
+        self._gal_records = records
+        for rec in records:
+            photo = ImageTk.PhotoImage(self._row_photo(rec, selected=False))
             self._thumbs.append(photo)
-            item = tk.Label(self._gal_items, image=photo, bg=CHIP, bd=0)
-            item.pack(fill="x", padx=8, pady=6)
-            item.bind("<Button-1>", lambda _e, p=path: self._open_photo(p))
-        if first is not None:
-            self._open_photo(first)
-            self.root.after_idle(self._paint_gallery)
+            item = tk.Label(self._gal_items, image=photo, bg=SURFACE, bd=0)
+            item.pack(fill="x", padx=6, pady=3)
+            item.bind("<Button-1>", lambda _e, r=rec: self._open_photo(r))
+        self._open_photo(records[0])
+        self.root.after_idle(self._paint_gallery)
 
-    def _open_photo(self, path: Path) -> None:
+    def _open_photo(self, rec: dict) -> None:
+        path = Path(rec["image_path"])
         try:
             self._gal_src = Image.open(path).convert("RGB")
             self._gal_path = path
+            self._gal_record = rec
         except Exception:
             return
+        self._refresh_gallery_rows()
         self._paint_gallery()
+
+    def _refresh_gallery_rows(self) -> None:
+        selected_id = self._gal_record.get("id") if self._gal_record else None
+        self._thumbs = []
+        for widget, rec in zip(self._gal_items.winfo_children(), self._gal_records):
+            photo = ImageTk.PhotoImage(self._row_photo(rec, selected=(rec.get("id") == selected_id)))
+            self._thumbs.append(photo)
+            widget.configure(image=photo)
+
+    def _make_info_card(self, rec: dict) -> Image.Image:
+        crop = _display_name(rec.get("crop") or DASH)
+        health_key = (rec.get("health") or "").strip().lower()
+        tokens = HEALTH_TOKENS.get(health_key)
+        tip = rec.get("tip") or ""
+        time_txt = self._relative_time(rec.get("created_at") or "")
+        w = 420
+        scratch = ImageDraw.Draw(Image.new("RGB", (8, 8)))
+        tip_lines = _wrap_lines(scratch, tip, self._font_notes, w - 36, limit=3) if tip else []
+        h = 20 + 34 + (len(tip_lines) * 20 if tip_lines else 0) + 16
+        img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        draw.rounded_rectangle((0, 0, w - 1, h - 1), radius=HUD_R, fill=CARD_FILL, outline=CARD_LINE, width=2)
+        x, y = 18, 14
+        title_font = self._font_gallery_title
+        tw, th = _text_size(draw, crop, title_font)
+        draw.text((x, y), crop, font=title_font, fill=TEXT_RGB)
+        cx = x + tw + 10
+        if tokens:
+            tag_bg, tag_fg, _ = tokens
+        else:
+            tag_bg, tag_fg = (235, 221, 197), TEXT_RGB
+        tag_text = _display_name(rec.get("health") or "") or DASH
+        ttw, tth = _text_size(draw, tag_text, self._font_pill)
+        pad = 8
+        tag_w, tag_h = ttw + pad * 2, tth + 8
+        ty = y + (th - tag_h) // 2
+        draw.rounded_rectangle((cx, ty, cx + tag_w, ty + tag_h), radius=tag_h // 2, fill=(*tag_bg, 255))
+        draw.text((cx + pad, ty + 4), tag_text, font=self._font_pill, fill=tag_fg)
+        if time_txt:
+            cx2 = cx + tag_w + 10
+            draw.text((cx2, y + (th - 12) // 2), time_txt, font=self._font_mini, fill=(*_hex_rgb(MUTED), 255))
+        ny = y + th + 10
+        for line in tip_lines:
+            draw.text((x, ny), line, font=self._font_notes, fill=(*TEXT_RGB, 216))
+            ny += 20
+        return img
+
+    def _on_delete_click(self, _event=None) -> None:
+        if self._gal_record is None:
+            return
+        now = time.monotonic()
+        if now < self._delete_armed_until:
+            from src.records import delete_scan
+
+            rec = self._gal_record
+            self._delete_armed_until = 0.0
+            delete_scan(rec["id"], rec["image_path"])
+            self._del_btn.configure(bg=SURFACE, image=self._icon("trash", 20, ALERT))
+            self._fill_gallery()
+            return
+        self._delete_armed_until = now + 2.5
+        self._del_btn.configure(bg=ALERT, image=self._icon("trash", 20, "#ffffff"))
+        self.root.after(2600, self._reset_delete_arm)
+
+    def _reset_delete_arm(self) -> None:
+        if time.monotonic() >= self._delete_armed_until:
+            self._del_btn.configure(bg=SURFACE, image=self._icon("trash", 20, ALERT))
 
     def _paint_gallery(self, event=None) -> None:
         if self._gal_src is None or self._page != "gallery":
@@ -395,11 +668,16 @@ class PiSim:
         ch = max(1, ch)
         if cw < 64 or ch < 64:
             return
+        inset = 24
         show = self._gal_src.copy()
-        show.thumbnail((cw, ch))
+        show.thumbnail((max(1, cw - inset * 2), max(1, ch - inset * 2)))
         self._gallery_photo = ImageTk.PhotoImage(show)
         self._gal_canvas.delete("all")
         self._gal_canvas.create_image(cw // 2, ch // 2, image=self._gallery_photo)
+        if self._gal_record is not None:
+            card = self._make_info_card(self._gal_record)
+            self._gal_card_photo = ImageTk.PhotoImage(card)
+            self._gal_canvas.create_image(44, ch - 44, image=self._gal_card_photo, anchor="sw")
 
     def _dash_store(self, value: str) -> str:
         text = (value or "").strip()
@@ -412,8 +690,10 @@ class PiSim:
 
         track = self._focus_track()
         named = ""
+        confidence = None
         if track:
             named = track.get("named_plant") or ""
+            confidence = track.get("health_confidence")
         try:
             path = write_png(composed)
             add_scan(
@@ -422,6 +702,7 @@ class PiSim:
                 named_plant=named,
                 tip=self._dash_store(self._hud_notes),
                 image_path=path,
+                confidence=confidence,
             )
         except Exception:
             pass
@@ -458,17 +739,19 @@ class PiSim:
 
     def _hud_boxes(self) -> dict[str, tuple[int, int, int, int]]:
         boxes: dict[str, tuple[int, int, int, int]] = {}
-        x1, y = 14, 48
+        x1, y = 16, 72
         card_h = 78
         gap = 10
         if self._value_ready(self._hud_crop):
             boxes["type"] = (x1, y, x1 + HUD_W, y + card_h)
             y += card_h + gap
         if self._value_ready(self._hud_health):
-            boxes["health"] = (x1, y, x1 + HUD_W, y + card_h)
+            health_h = 112 if self._hud_confidence is not None else card_h
+            boxes["health"] = (x1, y, x1 + HUD_W, y + health_h)
         kind = self._notes_kind()
         if kind == "full":
-            boxes["notes"] = (12, self._view_h - 120, self._view_w - 12, self._view_h - 12)
+            notes_w = min(560, self._view_w - 32)
+            boxes["notes"] = (16, self._view_h - 126, 16 + notes_w, self._view_h - 16)
         elif kind == "mini":
             scratch = ImageDraw.Draw(Image.new("RGB", (8, 8)))
             tw, _ = _text_size(scratch, self._hud_notes, self._font_mini)
@@ -477,9 +760,38 @@ class PiSim:
             boxes["notes"] = (12, self._view_h - 12 - h, 12 + w, self._view_h - 12)
         return boxes
 
+    def _chip_boxes(self) -> dict[int, tuple[int, int, int, int]]:
+        boxes: dict[int, tuple[int, int, int, int]] = {}
+        if len(self._tracks) < 2:
+            return boxes
+        ranked = sorted(self._tracks, key=_box_area, reverse=True)[:2]
+        size, gap = 40, 8
+        total_w = size * 2 + gap
+        x0 = (self._view_w - total_w) // 2
+        y0 = 16
+        for i, track in enumerate(ranked):
+            x = x0 + i * (size + gap)
+            boxes[track.get("tid")] = (x, y0, x + size, y0 + size)
+        return boxes
+
+    def _make_live_badge(self) -> Image.Image:
+        font = self._font_pill
+        text = "LIVE"
+        scratch = ImageDraw.Draw(Image.new("RGB", (8, 8)))
+        tw, th = _text_size(scratch, text, font)
+        dot, gap, pad_x, pad_y = 7, 6, 14, 7
+        w = pad_x * 2 + dot + gap + tw
+        h = th + pad_y * 2
+        img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        draw.rounded_rectangle((0, 0, w - 1, h - 1), radius=h // 2, fill=ALERT)
+        cy = h // 2
+        draw.ellipse((pad_x, cy - dot // 2, pad_x + dot, cy + dot // 2), fill="#ffffff")
+        draw.text((pad_x + dot + gap, (h - th) // 2 - 1), text, font=font, fill="#ffffff")
+        return img
+
     def _place_live(self) -> None:
-        w = 88
-        self.badge.place(x=14, y=12, width=w, height=28)
+        self.badge.place(x=16, y=16)
 
     def _draw_card(
         self,
@@ -489,100 +801,275 @@ class PiSim:
         value: str,
         value_rgb: tuple[int, int, int],
         *,
-        fill: tuple[int, int, int, int] = CARD_FILL,
-        accent: tuple[int, int, int] | None = None,
+        fill: tuple[int, int, int] = CARD_FILL_RGB,
+        border: tuple[int, int, int] = CARD_LINE_RGB,
+        confidence: int | None = None,
     ) -> None:
-        outline = (*accent, 220) if accent else CARD_LINE
-        draw.rounded_rectangle(box, radius=HUD_R, fill=fill, outline=outline, width=2)
         x1, y1, x2, y2 = box
-        if accent:
-            draw.rounded_rectangle((x1 + 6, y1 + 10, x1 + 12, y2 - 10), radius=3, fill=(*accent, 255))
-            pip = 11
-            cx, cy = x2 - 22, (y1 + y2) // 2
-            draw.ellipse((cx - pip, cy - pip, cx + pip, cy + pip), fill=(*accent, 255))
-        inset = 22 if accent else 16
-        draw.text((x1 + inset, y1 + 10), title, font=self._font_label, fill=LABEL_RGB)
-        max_w = x2 - x1 - inset - (40 if accent else 16)
+        draw.rounded_rectangle(box, radius=HUD_R, fill=fill, outline=border, width=2)
+        inset = 16
+        draw.text((x1 + inset, y1 + 10), title.upper(), font=self._font_label, fill=LABEL_RGB)
+        max_w = x2 - x1 - inset * 2
         text = value or DASH
         while text and _text_size(draw, text, self._font_value)[0] > max_w:
             text = text[:-1]
         if text != (value or DASH):
             text = text[:-1] + "…" if len(text) > 1 else "…"
-        draw.text((x1 + inset, y1 + 34), text, font=self._font_value, fill=value_rgb)
+        draw.text((x1 + inset, y1 + 32), text, font=self._font_value, fill=value_rgb)
+        if confidence is not None:
+            pill_text = f"{confidence}% confident"
+            ptw, pth = _text_size(draw, pill_text, self._font_pill)
+            pad_x, pad_y = 10, 5
+            pw, ph = ptw + pad_x * 2, pth + pad_y * 2
+            px, py = x1 + inset, y1 + 70
+            draw.rounded_rectangle((px, py, px + pw, py + ph), radius=ph // 2, outline=value_rgb, width=2)
+            draw.text((px + pad_x, py + pad_y - 1), pill_text, font=self._font_pill, fill=value_rgb)
 
     def _cover_frame(self, img: Image.Image, vw: int, vh: int) -> Image.Image:
         iw, ih = img.size
         if iw < 1 or ih < 1:
             self._disp = {"ox": 0.0, "oy": 0.0, "scale": 1.0}
             return Image.new("RGB", (vw, vh), VIEW_RGB)
+        if (iw, ih) == (vw, vh):
+            self._disp = {"ox": 0.0, "oy": 0.0, "scale": 1.0}
+            return img.copy()
+        if iw == vw and ih > vh:
+            top = (ih - vh) // 2
+            self._disp = {"ox": 0.0, "oy": float(-top), "scale": 1.0}
+            return img.crop((0, top, vw, top + vh)).copy()
+        if ih == vh and iw > vw:
+            left = (iw - vw) // 2
+            self._disp = {"ox": float(-left), "oy": 0.0, "scale": 1.0}
+            return img.crop((left, 0, left + vw, vh)).copy()
         scale = max(vw / iw, vh / ih)
-        nw = max(1, int(round(iw * scale)))
-        nh = max(1, int(round(ih * scale)))
-        resized = img.resize((nw, nh), Image.BILINEAR)
-        left = max(0, (nw - vw) // 2)
-        top = max(0, (nh - vh) // 2)
-        filled = resized.crop((left, top, left + vw, top + vh))
-        if filled.size != (vw, vh):
+        nw = max(1, int(iw * scale))
+        nh = max(1, int(ih * scale))
+        show = img.resize((nw, nh), Image.BILINEAR)
+        ox, oy = (vw - nw) // 2, (vh - nh) // 2
+        if ox < 0 or oy < 0:
+            show = show.crop((-ox, -oy, -ox + vw, -oy + vh))
+        elif show.size != (vw, vh):
             canvas = Image.new("RGB", (vw, vh), VIEW_RGB)
-            canvas.paste(filled, (0, 0))
-            filled = canvas
-        self._disp = {"ox": float(-left), "oy": float(-top), "scale": scale}
-        return filled.convert("RGB")
+            canvas.paste(show, (ox, oy))
+            show = canvas
+        self._disp = {"ox": float(ox), "oy": float(oy), "scale": scale}
+        return show
+
+    def _blend_patch(self, show: Image.Image, box: tuple[int, int, int, int], draw_fn) -> None:
+        """Alpha-blend a small region in place, instead of compositing the whole frame."""
+        x1, y1, x2, y2 = (int(v) for v in box)
+        x1, y1 = max(0, x1), max(0, y1)
+        x2, y2 = min(show.width, x2), min(show.height, y2)
+        if x2 <= x1 or y2 <= y1:
+            return
+        patch = show.crop((x1, y1, x2, y2)).convert("RGBA")
+        overlay = Image.new("RGBA", patch.size, (0, 0, 0, 0))
+        draw_fn(ImageDraw.Draw(overlay))
+        show.paste(Image.alpha_composite(patch, overlay).convert("RGB"), (x1, y1))
+
+    def _dash_rect(
+        self,
+        draw: ImageDraw.ImageDraw,
+        box: tuple[int, int, int, int],
+        color: str,
+        width: int,
+        dash: int = 10,
+        gap: int = 6,
+    ) -> None:
+        x1, y1, x2, y2 = box
+
+        def dash_line(p1: tuple[float, float], p2: tuple[float, float]) -> None:
+            x1_, y1_ = p1
+            x2_, y2_ = p2
+            length = math.hypot(x2_ - x1_, y2_ - y1_)
+            if length <= 0:
+                return
+            step = dash + gap
+            t = 0.0
+            while t < 1.0:
+                t_end = min(1.0, t + dash / length)
+                xa, ya = x1_ + (x2_ - x1_) * t, y1_ + (y2_ - y1_) * t
+                xb, yb = x1_ + (x2_ - x1_) * t_end, y1_ + (y2_ - y1_) * t_end
+                draw.line((xa, ya, xb, yb), fill=color, width=width)
+                t += step / length
+
+        dash_line((x1, y1), (x2, y1))
+        dash_line((x2, y1), (x2, y2))
+        dash_line((x2, y2), (x1, y2))
+        dash_line((x1, y2), (x1, y1))
+
+    def _draw_tracks(self, img: Image.Image) -> Image.Image:
+        if not self._tracks:
+            return img
+        out = img
+        draw = ImageDraw.Draw(out)
+        focus = self._focus_track()
+        focus_tid = focus.get("tid") if focus else None
+        for track in self._tracks:
+            x1, y1, x2, y2 = [int(v) for v in track["xyxy"]]
+            x1, y1 = max(0, x1), max(0, y1)
+            x2, y2 = min(out.size[0] - 1, x2), min(out.size[1] - 1, y2)
+            if track.get("tid") == focus_tid:
+                draw.rounded_rectangle((x1, y1, x2, y2), radius=8, outline=ACCENT_2_400, width=3)
+            else:
+                self._dash_rect(draw, (x1, y1, x2, y2), NEUTRAL_400, 3)
+        return out
+
+    def _draw_tracks_view(self, img: Image.Image) -> Image.Image:
+        ox = self._disp.get("ox", 0.0)
+        oy = self._disp.get("oy", 0.0)
+        scale = self._disp.get("scale", 1.0)
+        mapped = []
+        for track in self._tracks:
+            x1, y1, x2, y2 = track["xyxy"]
+            item = dict(track)
+            item["xyxy"] = (
+                x1 * scale + ox,
+                y1 * scale + oy,
+                x2 * scale + ox,
+                y2 * scale + oy,
+            )
+            mapped.append(item)
+        saved = self._tracks
+        self._tracks = mapped
+        try:
+            return self._draw_tracks(img)
+        finally:
+            self._tracks = saved
+
+    def _draw_note_tail(
+        self,
+        show: Image.Image,
+        draw: ImageDraw.ImageDraw,
+        pos: tuple[int, int],
+        line: str,
+        extra: str,
+        max_w: int,
+        note_rgb: tuple[int, int, int],
+    ) -> None:
+        x, y = pos
+        tw, th = _text_size(draw, line, self._font_notes)
+        draw.text((x, y), line, font=self._font_notes, fill=note_rgb)
+        remaining = max_w - tw
+        if remaining <= 10:
+            return
+        text = extra
+        while text and _text_size(draw, text, self._font_notes)[0] > remaining:
+            text = text[:-1]
+        if not text:
+            return
+        if text != extra and len(text) > 1:
+            text = text[:-1] + "…"
+        etw, eth = _text_size(draw, text, self._font_notes)
+
+        def paint(patch_draw: ImageDraw.ImageDraw) -> None:
+            patch_draw.text((0, 0), text, font=self._font_notes, fill=(*note_rgb, 165))
+
+        self._blend_patch(show, (x + tw, y, x + tw + etw + 2, y + eth + 4), paint)
+
+    def _draw_chips(self, show: Image.Image, draw: ImageDraw.ImageDraw) -> None:
+        chips = self._chip_boxes()
+        if not chips:
+            return
+        ranked = sorted(self._tracks, key=_box_area, reverse=True)[:2]
+        focus = self._focus_track()
+        focus_tid = focus.get("tid") if focus else None
+        for i, track in enumerate(ranked):
+            tid = track.get("tid")
+            box = chips.get(tid)
+            if box is None:
+                continue
+            active = tid == focus_tid
+            label = str(i + 1)
+            x1, y1, x2, y2 = box
+            if active:
+                draw.ellipse(box, fill=_hex_rgb(ACCENT))
+                tw, th = _text_size(draw, label, self._font_chip)
+                draw.text(
+                    ((x1 + x2) // 2 - tw // 2, (y1 + y2) // 2 - th // 2 - 1),
+                    label,
+                    font=self._font_chip,
+                    fill=_hex_rgb(CREAM),
+                )
+                continue
+
+            def paint(patch_draw: ImageDraw.ImageDraw, label=label, size=(x2 - x1, y2 - y1)) -> None:
+                patch_draw.ellipse((0, 0, size[0], size[1]), fill=(20, 20, 20, 140), outline=(255, 255, 255, 230), width=2)
+                tw, th = _text_size(patch_draw, label, self._font_chip)
+                patch_draw.text(
+                    (size[0] // 2 - tw // 2, size[1] // 2 - th // 2 - 1),
+                    label,
+                    font=self._font_chip,
+                    fill=(255, 255, 255, 255),
+                )
+
+            self._blend_patch(show, box, paint)
 
     def _compose_frame(self, img: Image.Image) -> Image.Image:
         vw = max(1, self._view_w)
         vh = max(1, self._view_h)
-        focus = self._focus_track()
-        selected = focus.get("tid") if focus else None
-        framed = draw_boxes(img, self._tracks, selected_tid=selected, captions=False) if self._tracks else img
-        show = self._cover_frame(framed, vw, vh)
-        base = Image.new("RGBA", (vw, vh), (*VIEW_RGB, 255))
-        base.paste(show.convert("RGBA"), (0, 0))
-        overlay = Image.new("RGBA", (vw, vh), (0, 0, 0, 0))
-        draw = ImageDraw.Draw(overlay)
+        show = self._cover_frame(img, vw, vh)
+        if self._tracks:
+            show = self._draw_tracks_view(show)
+        draw = ImageDraw.Draw(show)
         boxes = self._hud_boxes()
         health_key = (self._hud_health or "").strip().lower()
-        health_rgb = HEALTH_RGB.get(health_key)
+        tokens = HEALTH_TOKENS.get(health_key)
         if "type" in boxes:
-            self._draw_card(draw, boxes["type"], "Plant type", self._hud_crop, TEXT_RGB)
+            self._draw_card(draw, boxes["type"], "Plant type", _display_name(self._hud_crop), TEXT_RGB)
         if "health" in boxes:
+            if tokens:
+                bg_rgb, text_rgb, border_rgb = tokens
+                fill, border, value_rgb = bg_rgb, border_rgb, text_rgb
+            else:
+                fill, border, value_rgb = CARD_FILL_RGB, CARD_LINE_RGB, TEXT_RGB
             self._draw_card(
                 draw,
                 boxes["health"],
                 "Plant health",
-                self._hud_health,
-                health_rgb or TEXT_RGB,
-                fill=HEALTH_FILL.get(health_key, CARD_FILL),
-                accent=health_rgb,
+                _display_name(self._hud_health),
+                value_rgb,
+                fill=fill,
+                border=border,
+                confidence=self._hud_confidence,
             )
+        self._draw_chips(show, draw)
         if "notes" in boxes:
             notes_box = boxes["notes"]
             nx1, ny1, nx2, ny2 = notes_box
-            draw.rounded_rectangle(notes_box, radius=HUD_R, fill=CARD_FILL, outline=CARD_LINE, width=2)
+            draw.rounded_rectangle(notes_box, radius=HUD_R, fill=CARD_FILL_RGB, outline=CARD_LINE_RGB, width=2)
             note_rgb = WARN_RGB if self._hud_tone == "warn" else TEXT_RGB
             if self._notes_kind() == "mini":
                 lines = _wrap_lines(draw, self._hud_notes, self._font_mini, nx2 - nx1 - 28, limit=1)
                 draw.text((nx1 + 14, ny1 + 12), lines[0], font=self._font_mini, fill=note_rgb)
             else:
-                draw.text((nx1 + 18, ny1 + 10), "Notes", font=self._font_label, fill=LABEL_RGB)
-                lines = _wrap_lines(draw, self._hud_notes, self._font_notes, nx2 - nx1 - 36, limit=3)
+                draw.text((nx1 + 18, ny1 + 10), "NOTES", font=self._font_label, fill=LABEL_RGB)
+                max_w = nx2 - nx1 - 36
+                lines = _wrap_lines(draw, self._hud_notes, self._font_notes, max_w, limit=3)
                 ty = ny1 + 34
-                for line in lines:
-                    draw.text((nx1 + 18, ty), line, font=self._font_notes, fill=note_rgb)
+                for i, line in enumerate(lines):
+                    if i == len(lines) - 1 and self._hud_extra:
+                        self._draw_note_tail(show, draw, (nx1 + 18, ty), line, self._hud_extra, max_w, note_rgb)
+                    else:
+                        draw.text((nx1 + 18, ty), line, font=self._font_notes, fill=note_rgb)
                     ty += 22
-        return Image.alpha_composite(base, overlay).convert("RGB")
+        return show
 
     def _sync_shutter(self) -> None:
         r = SHUTTER_R
-        x = max(r + 16, self._view_w - r - 20)
+        x = max(r + 16, self._view_w - r - SHUTTER_EDGE_INSET)
         y = max(r + 16, self._view_h // 2)
         self._shutter_xy = (x, y)
-        self.view.delete("shutter")
         on = self._shutter_enabled
-        ring = "#ffffff" if on else "#636366"
-        disk = "#ffffff" if on else "#636366"
-        well = "#1c1c1e"
+        ring = "#ffffff" if on else "#8a8378"
+        disk = "#ffffff" if on else "#8a8378"
+        well = ""
         punch = time.monotonic() < self._shutter_punch
+        key = (x, y, on, punch)
+        if key == getattr(self, "_shutter_key", None) and self.view.find_withtag("shutter"):
+            return
+        self._shutter_key = key
+        self.view.delete("shutter")
         self.view.create_oval(
             x - r,
             y - r,
@@ -593,7 +1080,7 @@ class PiSim:
             fill=well,
             tags="shutter",
         )
-        ir = r - SHUTTER_RING - (12 if punch else 6)
+        ir = r - SHUTTER_RING - (10 if punch else 4)
         self.view.create_oval(
             x - ir,
             y - ir,
@@ -623,6 +1110,13 @@ class PiSim:
         sx, sy = self._shutter_xy
         if (event.x - sx) ** 2 + (event.y - sy) ** 2 <= (SHUTTER_R + 8) ** 2:
             return
+        for tid, (x1, y1, x2, y2) in self._chip_boxes().items():
+            if x1 <= event.x <= x2 and y1 <= event.y <= y2:
+                self._picked_tid = tid
+                self._paint_primary()
+                if self._frame_pil is not None:
+                    self._show_image(self._frame_pil)
+                return
         if self._in_hud(event.x, event.y):
             return
         if not self._tracks or self._disp["scale"] <= 0:
@@ -646,24 +1140,52 @@ class PiSim:
         if self._frame_pil is not None:
             self._show_image(self._frame_pil)
 
+    def _view_message(self, text: str) -> None:
+        self.view.delete("frame")
+        self.photo = None
+        self._photo_size = None
+        self.view.delete("empty")
+        self.view.create_text(
+            self._view_w // 2,
+            self._view_h // 2,
+            text=text,
+            fill=MUTED,
+            font=(self._face, 16),
+            tags="empty",
+        )
+
     def _start_camera(self) -> None:
-        if self.cap is not None:
+        """Open the camera off the UI thread.
+
+        Opening it inline blocked __init__ before the first paint, so a slow or
+        wedged libcamera showed up as a blank cream screen instead of the app.
+        """
+        if self.cap is not None or self._cam_opening:
             return
-        cap = open_capture(self._camera_pref)
+        self._cam_opening = True
+        self._shutter_enabled = False
+        self._set_result(DASH, DASH, "Starting camera…")
+        self._sync_shutter()
+        self._place_live()
+        self._view_message("Starting camera…")
+        threading.Thread(target=self._open_camera_worker, daemon=True).start()
+
+    def _open_camera_worker(self) -> None:
+        cap = None
+        try:
+            cap = open_capture(self._camera_pref)
+        except Exception as exc:
+            print(f"camera open failed: {exc}", flush=True)
+        self.root.after(0, lambda c=cap: self._after_camera(c))
+
+    def _after_camera(self, cap) -> None:
+        self._cam_opening = False
         if cap is None:
             self._shutter_enabled = False
-            self._set_result(DASH, DASH, "No camera. Check the ribbon or plug in a USB webcam.", tone="warn")
+            self._set_result(DASH, DASH, NO_CAMERA, tone="warn")
             self._sync_shutter()
             self._place_live()
-            self.view.delete("empty")
-            self.view.create_text(
-                self._view_w // 2,
-                self._view_h // 2,
-                text="No camera. Check the ribbon or plug in a USB webcam.",
-                fill=MUTED,
-                font=(self._face, 16),
-                tags="empty",
-            )
+            self._view_message(NO_CAMERA)
             return
         self.cap = cap
         self._shutter_enabled = True
@@ -678,30 +1200,65 @@ class PiSim:
         if self._page != "scan":
             self._tick_id = self.root.after(250, self._tick)
             return
-        if self.cap is not None:
-            ok, frame = self.cap.read()
-            if ok and frame is not None:
-                try:
-                    self._frame_pil = _frame_to_pil(frame)
+        t0 = time.monotonic()
+        try:
+            if self.cap is not None:
+                ok, frame = self.cap.read()
+                if ok and frame is not None:
+                    self._frame_pil = _frame_to_pil(frame, rgb=bool(getattr(self.cap, "rgb", False)))
                     self._show_image(self._frame_pil)
                     self._kick_detect()
                     self._kick_grade()
-                except Exception:
-                    pass
-        if time.monotonic() < max(self._flash_until, self._shutter_punch):
-            self._sync_shutter()
-        self._tick_id = self.root.after(33, self._tick)
+                    now = time.monotonic()
+                    if self._tick_n == 0:
+                        self._tick_t0 = now
+                    self._tick_n += 1
+                    if self._tick_n in (45, 150, 300):
+                        dt = now - self._tick_t0
+                        print(f"live {self._tick_n / dt:.1f} fps over {dt:.1f}s", flush=True)
+                        self._tick_t0 = now
+                        self._tick_n = 0
+            if time.monotonic() < max(self._flash_until, self._shutter_punch):
+                self._sync_shutter()
+        except Exception as exc:
+            # Swallowing this silently is how a broken frame path looks
+            # identical to a dead camera. Say it once, then stay quiet.
+            if not self._tick_warned:
+                self._tick_warned = True
+                traceback.print_exc()
+                print(f"live frame failed: {exc}", flush=True)
+        finally:
+            # Re-arm only after the work, and always leave Tk idle time.
+            # Re-arming first kept the timer queue permanently ready, which
+            # starved the canvas redraw: the loop ran flat out while the
+            # picture on the panel sat frozen. The finally also means a raising
+            # read() can no longer kill the loop outright.
+            spent = (time.monotonic() - t0) * 1000.0
+            delay = max(TICK_FLOOR_MS, int(TICK_BUDGET_MS - spent))
+            self._tick_id = self.root.after(delay, self._tick)
 
     def _kick_detect(self) -> None:
         if self._detect_busy or self._frame_pil is None or self.finder is None:
             return
-        img = self._frame_pil.copy()
+        src = self._frame_pil
         gen = self._scan_gen
         self._detect_busy = True
 
         def work() -> None:
+            boxes = []
             try:
+                iw, ih = src.size
+                det_scale = 1.0
+                img = src
+                if iw > 640:
+                    det_scale = 640.0 / iw
+                    img = src.resize((640, max(1, int(ih * det_scale))), Image.BILINEAR)
                 boxes = self.finder.find(img)
+                if det_scale != 1.0:
+                    inv = 1.0 / det_scale
+                    for box in boxes:
+                        x1, y1, x2, y2 = box["xyxy"]
+                        box["xyxy"] = (x1 * inv, y1 * inv, x2 * inv, y2 * inv)
             except Exception:
                 boxes = []
             self.root.after(0, lambda b=boxes, g=gen: self._after_detect(g, b))
@@ -789,6 +1346,7 @@ class PiSim:
                 target["health"] = result["health"]
                 target["named_plant"] = None
                 target["tip"] = result.get("tip") or ""
+                target["health_confidence"] = result.get("health_confidence")
                 target["stage"] = "graded"
                 target["label"] = _track_label(target)
             elif detail and not locked:
@@ -796,6 +1354,7 @@ class PiSim:
                 target["crop"] = None if result["crop"] == "unknown" else result["crop"]
                 target["health"] = None if result["health"] == "unknown" else result["health"]
                 target["tip"] = result.get("tip") or ""
+                target["health_confidence"] = result.get("health_confidence")
                 target["stage"] = "graded"
                 target["label"] = _track_label(target)
             elif not detail:
@@ -812,11 +1371,20 @@ class PiSim:
         if time.monotonic() < self._flash_until:
             white = Image.new("RGB", composed.size, (255, 255, 255))
             composed = Image.blend(composed, white, 0.62)
-        self.photo = ImageTk.PhotoImage(composed)
-        self.view.delete("frame")
-        self.view.delete("empty")
-        self.view.create_image(self._view_w // 2, self._view_h // 2, image=self.photo, tags="frame")
-        self.view.tag_lower("frame")
+        # Building a fresh PhotoImage and re-creating the canvas item every
+        # frame was the most expensive thing in the loop. Paste into the
+        # existing image instead; only rebuild when the view size changes.
+        if self.photo is None or self._photo_size != composed.size:
+            self.photo = ImageTk.PhotoImage(composed)
+            self._photo_size = composed.size
+            self.view.delete("frame")
+            self.view.delete("empty")
+            self.view.create_image(
+                self._view_w // 2, self._view_h // 2, image=self.photo, tags="frame"
+            )
+            self.view.tag_lower("frame")
+        else:
+            self.photo.paste(composed)
         self._sync_shutter()
         self._place_live()
 
@@ -870,32 +1438,31 @@ class PiSim:
         if track is None:
             return
         n = len(self._tracks)
-        extra = f"Box {self._box_number(track)} of {n}. Tap another box to inspect it." if n > 1 else ""
+        extra = (
+            f" Box {self._box_number(track)} of {n} — tap the other box to inspect it."
+            if n > 1
+            else ""
+        )
         crop = track.get("crop")
         health = track.get("health")
         named = track.get("named_plant")
         tip = track.get("tip") or ""
         health_txt = health if health and health != "unknown" else DASH
+        confidence = track.get("health_confidence")
+        conf_pct = int(round(confidence * 100)) if isinstance(confidence, (int, float)) else None
         if track.get("stage") != "graded":
             self._set_result(DASH, DASH, "")
             return
         if crop and crop != "unknown":
-            notes = tip or extra or DASH
-            if tip and extra:
-                notes = f"{tip}  {extra}"
-            self._set_result(str(crop), health_txt, notes)
+            self._set_result(str(crop), health_txt, tip or DASH, confidence=conf_pct, extra=extra)
             return
         if named:
             plant = str(named).split(" (")[0]
             notes = tip or "Cannot name this crop yet."
-            if extra:
-                notes = f"{notes}  {extra}"
-            self._set_result(plant, health_txt, notes, tone="warn")
+            self._set_result(plant, health_txt, notes, tone="warn", confidence=conf_pct, extra=extra)
             return
         notes = tip or "Cannot name this crop yet."
-        if extra:
-            notes = f"{notes}  {extra}"
-        self._set_result(DASH, DASH, notes, tone="warn")
+        self._set_result(DASH, DASH, notes, tone="warn", extra=extra)
 
     def _close(self) -> None:
         self._scan_gen += 1

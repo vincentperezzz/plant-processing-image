@@ -23,21 +23,23 @@ MUTED = "#a5b89a"
 WARN = "#ef9a9a"
 
 
-def _frame_to_pil(frame: np.ndarray) -> Image.Image:
+def _frame_to_pil(frame: np.ndarray, *, rgb: bool = False) -> Image.Image:
     import cv2
 
     buf = np.ascontiguousarray(frame)
     if buf.dtype != np.uint8:
         buf = cv2.convertScaleAbs(buf)
     if buf.ndim == 2:
-        rgb = cv2.cvtColor(buf, cv2.COLOR_GRAY2RGB)
+        rgb_buf = cv2.cvtColor(buf, cv2.COLOR_GRAY2RGB)
+    elif rgb and buf.ndim == 3 and buf.shape[2] == 3:
+        return Image.fromarray(buf, "RGB")
     elif buf.shape[2] == 2:
-        rgb = cv2.cvtColor(buf, cv2.COLOR_YUV2RGB_YUY2)
+        rgb_buf = cv2.cvtColor(buf, cv2.COLOR_YUV2RGB_YUY2)
     elif buf.shape[2] == 4:
-        rgb = cv2.cvtColor(buf, cv2.COLOR_BGRA2RGB)
+        rgb_buf = cv2.cvtColor(buf, cv2.COLOR_BGRA2RGB)
     else:
-        rgb = cv2.cvtColor(buf, cv2.COLOR_BGR2RGB)
-    return Image.fromarray(np.ascontiguousarray(rgb).copy(), "RGB")
+        rgb_buf = cv2.cvtColor(buf, cv2.COLOR_BGR2RGB)
+    return Image.fromarray(np.ascontiguousarray(rgb_buf), "RGB")
 
 
 def _open_capture():

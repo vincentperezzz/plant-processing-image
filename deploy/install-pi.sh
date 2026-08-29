@@ -57,6 +57,14 @@ python3 -m venv --system-site-packages "$ROOT/.venv"
 "$PY" -m pip install --no-index --find-links "$WHEELS" --no-warn-script-location \
   torch torchvision pillow pyyaml "opencv-python>=4.8,<5"
 
+FONTS="$ROOT/vendor/fonts"
+if [[ -d "$FONTS" ]]; then
+  echo "Installing kiosk fonts (Caprasimo, Figtree)..."
+  mkdir -p "$HOME_DIR/.local/share/fonts/plant-health"
+  cp -f "$FONTS"/*.ttf "$HOME_DIR/.local/share/fonts/plant-health/"
+  fc-cache -f "$HOME_DIR/.local/share/fonts/plant-health" || true
+fi
+
 mkdir -p "$HOME_DIR/.config/autostart"
 chmod +x "$ROOT/deploy/run-kiosk.sh" "$ROOT/deploy/install-pi.sh" || true
 DESK="$HOME_DIR/.config/autostart/plant-health.desktop"
