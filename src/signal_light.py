@@ -12,8 +12,8 @@ from __future__ import annotations
 
 import threading
 
-DEFAULT_PIN = 17
-DEFAULT_PINS = (17, 27)
+DEFAULT_PIN = 2
+DEFAULT_PINS = (2,)
 DEFAULT_HOLD = 3.0
 
 
@@ -184,7 +184,7 @@ def _self_test(argv: list[str] | None = None) -> int:
     if not light.active:
         print("[capture-light] no GPIO - nothing to blink.")
         print("  Checks: running on the Pi? user in the 'gpio' group? /dev/gpiochip* present?")
-        print("  Wiring: BCM 17 = physical pin 11, resistor to LED anode, cathode to pin 9 (GND).")
+        print("  Wiring: BCM 2 = physical pin 3, resistor to LED anode, cathode to pin 6/9 (GND).")
         light.close()
         return 1
     print(f"[capture-light] blinking {args.count}x on BCM {args.pin}, {args.hold:.2f}s each")
