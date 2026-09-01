@@ -1124,9 +1124,6 @@ class PiSim:
         draw.text((pad_x + dot + gap, (h - th) // 2 - 1), text, font=font, fill="#ffffff")
         return img
 
-    def _place_live(self) -> None:
-        self.badge.place(x=16, y=16)
-
     def _draw_card(
         self,
         draw: ImageDraw.ImageDraw,
@@ -1540,7 +1537,6 @@ class PiSim:
         self._shutter_enabled = False
         self._set_result(DASH, DASH, "Starting camera…")
         self._sync_shutter()
-        self._place_live()
         self._view_message("Starting camera…")
         threading.Thread(target=self._open_camera_worker, daemon=True).start()
 
