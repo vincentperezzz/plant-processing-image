@@ -90,6 +90,34 @@ class _PiCam:
             arr = np.ascontiguousarray(arr)
         return True, arr
 
+    def set_profile(self, profile) -> bool:
+        """Push a ColorProfile at the ISP. True when it landed, never raises.
+
+        Only the CSI path has this; `_open_usb` hands back a bare
+        cv2.VideoCapture, so callers gate on `hasattr(cap, "set_profile")`.
+        """
+        try:
+            self._cam.set_controls(profile.to_controls(self.control_ranges()))
+            return True
+        except Exception:
+            return False
+
+    def control_ranges(self) -> dict:
+        """`Picamera2.camera_controls`: name -> (min, max, default). {} on failure."""
+        try:
+            ranges = self._cam.camera_controls
+        except Exception:
+            return {}
+        return ranges if isinstance(ranges, dict) else {}
+
+    def metadata(self) -> dict:
+        """Last frame's control metadata (includes ColourGains). {} on failure."""
+        try:
+            meta = self._cam.capture_metadata()
+        except Exception:
+            return {}
+        return meta if isinstance(meta, dict) else {}
+
     def release(self) -> None:
         for fn in (self._cam.stop, self._cam.close):
             try:

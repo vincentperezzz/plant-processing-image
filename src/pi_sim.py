@@ -1,4 +1,5 @@
 import math
+import os
 import platform
 import sys
 import threading
@@ -16,10 +17,18 @@ import tkinter.font as tkfont
 from PIL import Image, ImageDraw, ImageFont, ImageTk
 
 from src.camera import open_capture
+from src.colors import (
+    FALLBACK_RANGES,
+    ColorProfile,
+    ProfileStore,
+    merge_ranges,
+    profile_from_gains,
+)
 from src.detect import PlantFinder, _iou, crop_xyxy, match_tracks
 from src.infer import FARM_CROPS, Scanner
 from src.paths import CKPT
 from src.scan_drop import _box_area, _frame_to_pil, _track_label
+from src.signal_light import DEFAULT_PIN, CaptureLight
 
 FONTS_DIR = ROOT / "vendor" / "fonts"
 
@@ -206,10 +215,28 @@ def _wrap_lines(draw: ImageDraw.ImageDraw, text: str, font, max_w: int, limit: i
 
 
 class PiSim:
-    def __init__(self, root: tk.Tk, *, fullscreen: bool = False, lite: bool = False, camera: str = "auto"):
+    def __init__(
+        self,
+        root: tk.Tk,
+        *,
+        fullscreen: bool = False,
+        lite: bool = False,
+        camera: str = "auto",
+        gpio_pin: int = DEFAULT_PIN,
+        gpio_active_low: bool = False,
+        gpio: bool = True,
+    ):
         self.root = root
         self._lite = lite
         self._camera_pref = camera
+        # — capture indicator LED (silent no-op when there is no GPIO) —
+        env_pin = os.environ.get("PLANT_GPIO_PIN")
+        if env_pin:
+            try:
+                gpio_pin = int(env_pin)
+            except ValueError:
+                pass
+        self.light = CaptureLight(gpio_pin, active_high=not gpio_active_low, enabled=gpio)
         self._face = _pick_font(root)
         self._face_head = _pick_font(root, heading=True)
         self.root.title("Plant Health")
@@ -270,10 +297,30 @@ class PiSim:
         self._gal_record: dict | None = None
         self._gal_records: list[dict] = []
         self._gal_card_photo = None
+        # — colour tuning (Settings tab) —
+        self._color_store = ProfileStore()
+        self._color = self._color_store.current().copy()
+        self._color_ranges = dict(FALLBACK_RANGES)
+        # True once the ISP took the profile; the PIL fallback then costs nothing.
+        self._color_native = False
+        # First run seeds `night` from whatever AWB converged to, so the shipped
+        # look (AwbEnable + Indoor) is the baseline and not a regression.
+        self._color_seeded = not self._color_store.first_run
+        self._color_seed_frames = 0
+        self._color_syncing = False
+        self._color_scales: dict[str, tk.Scale] = {}
+        self._color_value_labels: dict[str, tk.Label] = {}
+        self._profile_btns: dict[str, tk.Label] = {}
+        self._settings_status: tk.Label | None = None
+        self._settings_photo = None
+        self._set_preview_key: tuple | None = None
+        # — end colour tuning —
         self._scan = tk.Frame(self.root, bg=BG)
         self._gallery = tk.Frame(self.root, bg=BG)
+        self._settings = tk.Frame(self.root, bg=BG)
         self._build_scan()
         self._build_gallery()
+        self._build_settings()
         self._scan.pack(fill="both", expand=True)
         self._boot()
         if self._want_full:
@@ -374,6 +421,9 @@ class PiSim:
             btn.pack(side="right", padx=4)
             btn.bind("<Button-1>", lambda _e: cmd())
 
+        # Packed side="right", so the last tab() call lands leftmost:
+        # this order paints Scan | Gallery | Settings.
+        tab("settings", "Settings", self._show_settings)
         tab("gallery", "Gallery", self._show_gallery)
         tab("scan", "Scan", self._show_scan)
 
@@ -481,17 +531,243 @@ class PiSim:
         self._del_btn.place(relx=1.0, rely=1.0, x=-44, y=-44, anchor="se")
         self._del_btn.bind("<Button-1>", self._on_delete_click)
 
+    # — colour tuning (Settings tab) —————————————————————————————
+
+    _COLOR_SLIDERS = (
+        ("red", "Red"),
+        ("green", "Green"),
+        ("blue", "Blue"),
+        ("saturation", "Saturation"),
+        ("brightness", "Brightness"),
+        ("contrast", "Contrast"),
+    )
+
+    def _build_settings(self) -> None:
+        self._build_nav(self._settings, "settings")
+        body = tk.Frame(self._settings, bg=BG)
+        body.pack(fill="both", expand=True)
+
+        left = tk.Frame(
+            body,
+            bg=SURFACE,
+            width=470,
+            highlightthickness=1,
+            highlightbackground=DIVIDER,
+            highlightcolor=DIVIDER,
+        )
+        left.pack(side="left", fill="y")
+        left.pack_propagate(False)
+
+        self._settings_status = tk.Label(
+            left,
+            text="",
+            bg=SURFACE,
+            fg=MUTED,
+            font=(self._face, 11),
+            anchor="w",
+        )
+        self._settings_status.pack(fill="x", padx=18, pady=(12, 6))
+
+        for name, label in self._COLOR_SLIDERS:
+            row = tk.Frame(left, bg=SURFACE)
+            row.pack(fill="x", padx=18, pady=2)
+            tk.Label(
+                row, text=label, bg=SURFACE, fg=TEXT, font=(self._face, 11), width=10, anchor="w"
+            ).pack(side="left")
+            value = tk.Label(row, text="", bg=SURFACE, fg=MUTED, font=(self._face, 11), width=6, anchor="e")
+            value.pack(side="right")
+            low, high = self._color_ranges[name]
+            scale = tk.Scale(
+                row,
+                from_=low,
+                to=high,
+                resolution=0.01,
+                orient="horizontal",
+                showvalue=False,
+                length=300,
+                width=16,
+                sliderlength=28,
+                bg=SURFACE,
+                fg=TEXT,
+                troughcolor=NEUTRAL_400,
+                activebackground=ACCENT,
+                highlightthickness=0,
+                bd=0,
+                sliderrelief="flat",
+                command=lambda v, n=name: self._on_color_slider(n, v),
+            )
+            scale.pack(side="left", fill="x", expand=True, padx=(8, 8))
+            self._color_scales[name] = scale
+            self._color_value_labels[name] = value
+
+        def button(parent, text, cmd, *, key=None):
+            img = self._pill_photo(text, font=self._font_nav, fg=TEXT, outline=DIVIDER, min_h=40)
+            btn = tk.Label(parent, image=img, bg=SURFACE, cursor="hand2")
+            btn.pack(side="left", padx=5)
+            btn.bind("<Button-1>", lambda _e: cmd())
+            if key is not None:
+                self._profile_btns[key] = btn
+            return btn
+
+        picks = tk.Frame(left, bg=SURFACE)
+        picks.pack(fill="x", padx=13, pady=(12, 4))
+        button(picks, "Night", lambda: self._activate_profile("night"), key="night")
+        button(picks, "Morning", lambda: self._activate_profile("morning"), key="morning")
+        button(picks, "Reset", self._reset_color)
+
+        saves = tk.Frame(left, bg=SURFACE)
+        saves.pack(fill="x", padx=13, pady=(0, 12))
+        button(saves, "Save as Night", lambda: self._save_color("night"))
+        button(saves, "Save as Morning", lambda: self._save_color("morning"))
+
+        right = tk.Frame(body, bg=VIEW)
+        right.pack(side="left", fill="both", expand=True)
+        self._set_canvas = tk.Canvas(right, bg=VIEW, highlightthickness=0)
+        self._set_canvas.place(relx=0, rely=0, relwidth=1, relheight=1)
+        self._set_canvas.bind("<Configure>", lambda _e: self._paint_settings_preview())
+
+        self._sync_color_sliders()
+        self._paint_profile_buttons()
+
+    def _on_color_slider(self, name: str, value) -> None:
+        try:
+            val = float(value)
+        except (TypeError, ValueError):
+            return
+        setattr(self._color, name, val)
+        label = self._color_value_labels.get(name)
+        if label is not None:
+            label.config(text=f"{val:.2f}")
+        if not self._color_syncing:
+            # Push while dragging so the change is visible; no disk write here.
+            self._push_color()
+
+    def _sync_color_sliders(self) -> None:
+        """Paint the widgets from `self._color` without re-pushing six times."""
+        self._color_syncing = True
+        try:
+            for name, scale in self._color_scales.items():
+                low, high = self._color_ranges[name]
+                scale.config(from_=low, to=high)
+                scale.set(float(getattr(self._color, name)))
+                label = self._color_value_labels.get(name)
+                if label is not None:
+                    label.config(text=f"{float(getattr(self._color, name)):.2f}")
+        finally:
+            self._color_syncing = False
+
+    def _paint_profile_buttons(self) -> None:
+        active = self._color_store.active
+        for key, btn in self._profile_btns.items():
+            on = key == active
+            img = self._pill_photo(
+                key.capitalize(),
+                font=self._font_nav,
+                fg=CREAM if on else TEXT,
+                bg=ACCENT if on else None,
+                outline=None if on else DIVIDER,
+                min_h=40,
+            )
+            btn.configure(image=img)
+        if self._settings_status is not None:
+            mode = "camera" if self._color_native else "software"
+            self._settings_status.config(text=f"Active profile: {active.capitalize()}  ·  applied in {mode}")
+
+    def _push_color(self) -> None:
+        """Hand the current profile to the ISP. Sets the native flag either way."""
+        cap = self.cap
+        if cap is None or not hasattr(cap, "set_profile") or not self._color_seeded:
+            self._color_native = False
+            return
+        self._color_native = bool(cap.set_profile(self._color))
+
+    def _activate_profile(self, name: str) -> None:
+        self._color = self._color_store.get(name).copy().clamped(self._color_ranges)
+        self._color_store.set_active(name)
+        self._sync_color_sliders()
+        self._push_color()
+        self._paint_profile_buttons()
+
+    def _save_color(self, name: str) -> None:
+        self._color_store.set_profile(name, self._color.clamped(self._color_ranges), activate=True)
+        self._paint_profile_buttons()
+
+    def _reset_color(self) -> None:
+        self._color = ColorProfile()
+        self._sync_color_sliders()
+        self._push_color()
+        self._paint_profile_buttons()
+
+    def _maybe_seed_night(self) -> None:
+        """Once, on first run, record what AWB converged to as `night`."""
+        if self._color_seeded or self.cap is None:
+            return
+        if not hasattr(self.cap, "metadata"):
+            # USB webcam / PC sim: no ISP metadata to read, neutral it is.
+            self._finish_seed(None)
+            return
+        self._color_seed_frames += 1
+        if self._color_seed_frames < 30:
+            return
+        seeded = None
+        try:
+            seeded = profile_from_gains(self.cap.metadata().get("ColourGains"))
+        except Exception:
+            seeded = None
+        self._finish_seed(seeded)
+
+    def _finish_seed(self, profile: ColorProfile | None) -> None:
+        self._color_seeded = True
+        base = (profile or ColorProfile()).clamped(self._color_ranges)
+        self._color_store.profiles["night"] = base.copy()
+        self._color_store.active = "night"
+        self._color_store.save()
+        self._color = base.copy()
+        self._sync_color_sliders()
+        self._push_color()
+        self._paint_profile_buttons()
+
+    def _paint_settings_preview(self) -> None:
+        img = self._frame_pil
+        if img is None or self._page != "settings":
+            return
+        cw = max(1, self._set_canvas.winfo_width())
+        ch = max(1, self._set_canvas.winfo_height())
+        if cw < 64 or ch < 64:
+            return
+        show = img.copy()
+        show.thumbnail((cw - 24, ch - 24))
+        key = (cw, ch, show.size)
+        if key != self._set_preview_key or self._settings_photo is None:
+            self._set_preview_key = key
+            self._settings_photo = ImageTk.PhotoImage(show)
+            self._set_canvas.delete("all")
+            self._set_canvas.create_image(cw // 2, ch // 2, image=self._settings_photo)
+        else:
+            self._settings_photo.paste(show)
+
+    # — end colour tuning ——————————————————————————————————————
+
+    def _show_page(self, name: str) -> None:
+        pages = {"scan": self._scan, "gallery": self._gallery, "settings": self._settings}
+        self._page = name
+        for key, frame in pages.items():
+            if key != name:
+                frame.pack_forget()
+        pages[name].pack(fill="both", expand=True)
+
     def _show_gallery(self) -> None:
-        self._page = "gallery"
-        self._scan.pack_forget()
-        self._gallery.pack(fill="both", expand=True)
+        self._show_page("gallery")
         self.root.update_idletasks()
         self._fill_gallery()
 
     def _show_scan(self) -> None:
-        self._page = "scan"
-        self._gallery.pack_forget()
-        self._scan.pack(fill="both", expand=True)
+        self._show_page("scan")
+
+    def _show_settings(self) -> None:
+        self._show_page("settings")
+        self.root.update_idletasks()
+        self._paint_settings_preview()
 
     def _relative_time(self, created_at: str) -> str:
         try:
@@ -1188,6 +1464,12 @@ class PiSim:
             self._view_message(NO_CAMERA)
             return
         self.cap = cap
+        if hasattr(cap, "control_ranges"):
+            self._color_ranges = merge_ranges(cap.control_ranges())
+            self._color = self._color.clamped(self._color_ranges)
+            self._sync_color_sliders()
+        self._push_color()
+        self._paint_profile_buttons()
         self._shutter_enabled = True
         if self.scanner is None:
             self._set_result(DASH, DASH, "Loading inspector…")
@@ -1197,28 +1479,40 @@ class PiSim:
         self._place_live()
 
     def _tick(self) -> None:
-        if self._page != "scan":
+        # Settings needs live frames too, or the sliders tune a still picture.
+        # Gallery keeps its cheap re-arm.
+        if self._page not in ("scan", "settings"):
             self._tick_id = self.root.after(250, self._tick)
             return
+        live = self._page == "scan"
         t0 = time.monotonic()
         try:
             if self.cap is not None:
                 ok, frame = self.cap.read()
                 if ok and frame is not None:
                     self._frame_pil = _frame_to_pil(frame, rgb=bool(getattr(self.cap, "rgb", False)))
-                    self._show_image(self._frame_pil)
-                    self._kick_detect()
-                    self._kick_grade()
-                    now = time.monotonic()
-                    if self._tick_n == 0:
-                        self._tick_t0 = now
-                    self._tick_n += 1
-                    if self._tick_n in (45, 150, 300):
-                        dt = now - self._tick_t0
-                        print(f"live {self._tick_n / dt:.1f} fps over {dt:.1f}s", flush=True)
-                        self._tick_t0 = now
-                        self._tick_n = 0
-            if time.monotonic() < max(self._flash_until, self._shutter_punch):
+                    if not self._color_native:
+                        # Only when the ISP could not do it. Native means zero
+                        # per-frame cost; apply_pil is a no-op when neutral.
+                        self._frame_pil = self._color.apply_pil(self._frame_pil)
+                    self._maybe_seed_night()
+                    if not live:
+                        # No detect/grade here: YOLO would make the sliders lag.
+                        self._paint_settings_preview()
+                    else:
+                        self._show_image(self._frame_pil)
+                        self._kick_detect()
+                        self._kick_grade()
+                        now = time.monotonic()
+                        if self._tick_n == 0:
+                            self._tick_t0 = now
+                        self._tick_n += 1
+                        if self._tick_n in (45, 150, 300):
+                            dt = now - self._tick_t0
+                            print(f"live {self._tick_n / dt:.1f} fps over {dt:.1f}s", flush=True)
+                            self._tick_t0 = now
+                            self._tick_n = 0
+            if live and time.monotonic() < max(self._flash_until, self._shutter_punch):
                 self._sync_shutter()
         except Exception as exc:
             # Swallowing this silently is how a broken frame path looks
@@ -1394,6 +1688,7 @@ class PiSim:
         if self._frame_pil is None:
             self._set_result(DASH, DASH, "No camera frame yet.", tone="warn")
             return
+        self.light.pulse()
         self._snap_busy = True
         self._flash_until = time.monotonic() + 0.16
         self._shutter_punch = time.monotonic() + 0.18
@@ -1472,6 +1767,7 @@ class PiSim:
         if self.cap is not None:
             self.cap.release()
             self.cap = None
+        self.light.close()
         self.root.destroy()
 
 

@@ -159,3 +159,31 @@ After install, scan time does **not** need the internet.
 | Touch does nothing | USB from the panel must be in the Pi; HDMI alone is picture only |
 
 Snaps live in `~/Pictures/plant-health` on the Pi (microSD root partition) or `data/scans/` on a PC.
+
+---
+
+## 6. Capture indicator LED (optional)
+
+A small LED on a GPIO pin lights for 3 seconds every time a photo is captured — touchscreen or remote. If nothing is wired up, the kiosk simply runs without it.
+
+| Wire | Where |
+| --- | --- |
+| BCM 17 (physical pin 11) | 220–330 Ω resistor → LED **anode** |
+| GND (physical pin 9) | LED **cathode** |
+
+Indicator LED only — a Pi pin sources about 16 mA. For anything brighter use a relay or transistor.
+
+Test the wiring before the kiosk is involved:
+
+```text
+cd ~/plant-health-kiosk
+.venv/bin/python -m src.signal_light --pin 17 --hold 1 --count 3
+```
+
+It prints the backend it resolved (or why there is none) and exits non-zero if GPIO is unavailable. The `admin` user is already in the `gpio` group, so **no sudo**.
+
+| Flag | Meaning |
+| --- | --- |
+| `--gpio-pin 17` | BCM pin (env `PLANT_GPIO_PIN` overrides) |
+| `--gpio-active-low` | For relay boards that switch on a LOW pin |
+| `--no-gpio` | Never touch GPIO |
