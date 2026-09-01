@@ -72,19 +72,20 @@ This is the kiosk the Pi runs. On a PC it is the same app, not a mock layout.
 
 Pi default: **`--lite`** — ExG boxes + MobileNet. No YOLO-World, no CLIP. That is the machine that fits 8 GB RAM. PC default: World + CLIP unless you pass `--lite`.
 
-### 3.1 Screen chrome
+### 3.1 Screen chrome (3 Tabs)
 
 | Piece | Behavior |
 | --- | --- |
-| Title bar | “Plant Health” · **GALLERY** |
-| LIVE badge | Camera is always live |
-| Stage | Webcam fills the panel under the title bar |
-| Colored boxes | Up to **5** plants. Focus box is thick; others dashed |
-| HUD cards | **Plant type** and **Plant health** on the left of the photo, rounded glass cards |
-| Notes | Rounded card along the bottom of the photo |
-| Shutter | iPhone-style ring + disk. Tap saves a PNG of the view (photo + HUD, no shutter) with a flash. Live never pauses |
-| Tap a box | Inspect that plant when several are boxed |
-| GALLERY | Saved PNGs. No CSV |
+| Title bar | “Plant Health” · **Scan** / **Gallery** / **Settings** · **Exit** |
+| LIVE badge | Real-time camera status indicator |
+| Stage | Viewfinder fills the panel under the title bar (1024×536) |
+| Colored boxes | Multi-plant tracking. Primary focus box is solid `#aebf92`; others dashed `#c0b6a5` |
+| Box Chips | "1" / "2" chips at top to select focus plant when multiple are framed |
+| HUD cards | **Plant type** and **Plant health** (color-coded by grade) on top-left |
+| Notes card | Glass card along the bottom displaying real-time actionable tip |
+| Shutter | iPhone-style ring + disk. Tap captures full-res PNG with flash animation |
+| GALLERY tab | Browse past scans, inspect health records & tips, delete scans |
+| SETTINGS tab | Live color calibration (RGB, Saturation, Brightness, Contrast), Night/Morning profiles |
 
 Empty camera: “No camera. Check the ribbon or plug in a USB webcam.”
 
@@ -99,17 +100,20 @@ LIVE  →  YOLO (or ExG) draws boxes every frame
 
 CAPTURE  →  flash + shutter punch
          →  write PNG of the viewfinder (boxes + plant type + health + notes)
+         →  pulse GPIO 17 indicator LED (3 seconds)
          →  camera stays live
 ```
 
 Live is the walk-the-row view. Capture is a photo of what you see, not a freeze. PNGs land on the microSD: `~/Pictures/plant-health` on the Pi (the 118 GB Linux partition), `data/scans/` on a PC.
 
-### 3.3 Sister apps (same brains, not the kiosk)
+### 3.3 Sister apps & Web Remote
 
 | App | Job |
 | --- | --- |
-| `src/kiosk.py` | 7 inch kiosk — **the product** |
+| `src/kiosk.py` | 7 inch kiosk & web server — **the product** |
 | `src/pi_sim.py` | Same UI; `python src/pi_sim.py` still launches the kiosk |
+| `src/server.py` | LAN Web Remote with 2-column symmetrical layout and full-res scan download |
+| `src/camera.py` | Dual camera abstraction (Picamera2 dynamic AWB + Threaded USB V4L2 MJPG) |
 | `src/scan_drop.py` | Larger PC webcam lab (Live / Snap / Browse) |
 | `src/scan_cli.py` | Grade a file or folder, print JSON |
 

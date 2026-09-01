@@ -35,7 +35,19 @@ The bundled file (`reference/Plant Health Kiosk.dc.html`) is an **HTML/CSS desig
 - Left rail, 260px wide, full height, `--color-surface` background, scrollable, 1px right border in `--color-divider`. One row per photo, 12px padding, min-height 68px, containing: crop name (16px) + health tag pill (top row), then a caption line "{time} · {confidence}% confidence" (11px, muted). The selected row gets a raised shadow (`--shadow-md`).
 - Right pane: the selected photo, letterboxed with 24px inset, rounded corners (`--radius-lg`).
   - **Info + notes card**: bottom-left, 44px inset, 420px wide. Row of crop name (Caprasimo 20px) + health tag + timestamp, then the saved tip text (13px, 85% opacity) underneath — the tip must be shown here, not only on the live Scan screen, so a grade's reasoning is still visible when reviewing later.
-  - **Delete button**: bottom-right, 44px inset, 48px icon button, trash icon in `#a5292b`. (No download/export/share action — deliberately left out.)
+  - **Delete button**: bottom-right, 44px inset, 48px icon button, trash icon in `#a5292b`.
+
+### 3. Settings (`_build_settings` / `_paint_profile_buttons` in `pi_sim.py`)
+**Purpose:** live colour calibration and persistent profile management.
+
+**Layout:**
+- Same top nav as Scan, with "Settings" as the active tab.
+- Left rail, 470px wide, containing:
+  - Active profile status text & remote web address label.
+  - 6 Channel Tuning Sliders (Red, Green, Blue, Saturation, Brightness, Contrast).
+  - Profile selection pills: `Night`, `Morning`, `Reset` (active = solid `#4f2d17` fill with white text; inactive = subtle warm tint with `#4f2d17` border).
+  - Profile save pills: `Save as Night`, `Save as Morning`.
+- Right pane: live camera viewfinder preview showing immediate color correction results in real-time.
 
 ## Design tokens
 
@@ -47,13 +59,24 @@ The bundled file (`reference/Plant Health Kiosk.dc.html`) is an **HTML/CSS desig
 | Critical | `#ffe4e1` | `#83000d` | `#c74b47` |
 | Dead | `#dcd3c4` (neutral-300) | `#2e2b25` (neutral-900) | `#474238` (neutral-800) |
 
+### Channel Slider Themes
+| Slider | Text / Active Hex | Trough Hex | Thumb Hex |
+|---|---|---|---|
+| Red | `#B33927` | `#FCEAE8` | `#C94634` |
+| Green | `#1E6B37` | `#EAF6ED` | `#2B8746` |
+| Blue | `#1D5B91` | `#EBF2FA` | `#2B7BC4` |
+| Saturation | `#4F2D17` | `#FBF1EB` | `#703E20` |
+| Brightness | `#4F2D17` | `#FBF1EB` | `#8A4D29` |
+| Contrast | `#4F2D17` | `#FBF1EB` | `#4F2D17` |
+
 ### Other colors
 | Token | Hex | Use |
 |---|---|---|
 | Cream ground | `#f5ead8` | page/viewfinder-adjacent background |
 | Card surface | `#ebddc5` | all floating cards, nav bar |
 | Text | `#201e1d` | default text |
-| Accent (terracotta) | `#c67139` | primary buttons, active tab |
+| Accent (brand roast) | `#4f2d17` | primary buttons, active tab, active profiles |
+| Accent terracotta | `#c67139` | primary accent |
 | Accent-2 (sage) | `#7a8a5e` | secondary accents |
 | Alert red | `#a52929` | LIVE badge, Exit button, delete icon |
 | Neutral-900 (viewfinder well) | `#2e2b25` | camera area background before/behind the live feed |
