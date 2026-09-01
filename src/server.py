@@ -948,11 +948,10 @@ PAGE_HTML = (
 
  /* — 16:9 PC widescreen / Desktop responsive layout — */
  @media (min-width: 860px){
-   body{max-width:1440px;width:94vw;min-height:100vh;margin:0 auto;
-        display:flex;flex-direction:column;justify-content:center;
-        padding:var(--space-4) var(--space-5) 150px;box-sizing:border-box}
-   body.cam{padding-bottom:160px}
-   .topbar{padding:0 0 var(--space-3);border-bottom:1px solid var(--color-divider);
+   body{max-width:1440px;width:94vw;margin:0 auto;
+        padding:var(--space-3) var(--space-5) 150px;box-sizing:border-box}
+   body.cam{padding-bottom:170px}
+   .topbar{padding:var(--space-2) 0 var(--space-3);border-bottom:1px solid var(--color-divider);
            margin-bottom:var(--space-4);display:flex;align-items:center;justify-content:space-between;width:100%}
    .brand{font-size:26px}
    .conn{font-size:12px;padding:6px 16px}
@@ -975,24 +974,29 @@ PAGE_HTML = (
    #view-camera .hcard.wide .v{font-size:16px;line-height:1.55}
 
    /* Gallery Tab Desktop Layout */
-   #gal-grid .grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--space-4)}
+   #gal-grid .grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--space-4);width:100%}
    #gal-detail{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);
                gap:32px;align-items:start}
    #gal-detail .back{grid-column:1 / -1;margin-bottom:var(--space-2);width:fit-content}
    #gal-detail .shot{max-height:72vh;object-fit:contain}
    #gal-detail .dmeta{margin-top:0}
 
-   /* Settings Tab Desktop Layout */
-   #view-settings .card{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,1fr);
-                        gap:32px;align-items:start;padding:var(--space-5)}
+   /* Settings Tab with Live Stream Preview */
+   .settings-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(380px,1fr);
+                    gap:32px;align-items:start;width:100%}
+   .settings-preview .stage{aspect-ratio:16/9;width:100%;border-radius:24px;
+                            box-shadow:var(--shadow-md);border:1px solid var(--color-divider)}
+   .settings-preview .stage img{width:100%;height:100%;object-fit:cover;display:block}
+   #view-settings .card{display:flex;flex-direction:column;gap:var(--space-3);
+                        padding:var(--space-4);border-radius:24px;border:1px solid var(--color-divider)}
    .settings-side{display:flex;flex-direction:column;gap:var(--space-3);
-                  background:var(--color-bg);padding:var(--space-4);
+                  background:var(--color-bg);padding:var(--space-3) var(--space-4);
                   border-radius:var(--radius-md);border:1px solid var(--color-divider)}
 
-   /* Floating Controls on Desktop: Transparent dock container without outer box border/shadow */
-   .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;z-index:10;
+   /* Floating Controls: Elevated & Enlarged Shutter on Top of Tabs */
+   .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:10;
          display:flex;flex-direction:column;align-items:center;justify-content:center;
-         gap:12px;padding:0;border-radius:0;
+         gap:16px;padding:0;border-radius:0;
          background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;
          border:none;box-shadow:none;width:auto;max-width:none}
    .dock > *{width:auto;max-width:none}
@@ -1001,13 +1005,18 @@ PAGE_HTML = (
           border-radius:999px;border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);
           pointer-events:none}
    .toast:empty{display:none}
-   .shutter{width:64px;height:64px;border-width:4px;margin:0}
-   .shutter::after{width:44px;height:44px}
+   .shutter{width:76px;height:76px;border-width:5px;margin:0 0 4px;box-shadow:var(--shadow-lg)}
+   .shutter::after{width:52px;height:52px}
    .tabs{padding:5px;gap:6px;border:1px solid var(--color-divider);background:var(--color-surface);
          border-radius:999px;box-shadow:var(--shadow-md)}
    .tabs .pill{min-height:40px;padding:0 22px;font-size:14.5px}
    .pill:hover:not([aria-selected="true"]){border-color:var(--color-accent)}
  }
+
+ .settings-layout{display:flex;flex-direction:column;gap:var(--space-3)}
+ .settings-preview .stage{aspect-ratio:16/9;width:100%;border-radius:var(--radius-lg);overflow:hidden;
+                          box-shadow:var(--shadow-md);border:1px solid var(--color-divider);position:relative;background:var(--color-neutral-900)}
+ .settings-preview .stage img{width:100%;height:100%;object-fit:cover;display:block}
 
  @media (min-width: 1200px){
    body{max-width:1560px;width:95vw}
@@ -1068,18 +1077,26 @@ PAGE_HTML = (
 </main>
 
 <main id="view-settings" hidden>
-  <div class="sect"><h2>Colour</h2><span class="hint">commits on release</span></div>
-  <div class="card">
-    <div id="sliders"></div>
-    <div class="settings-side">
-      <div class="pills">
-        <button class="pill" data-prof="night">Night</button>
-        <button class="pill" data-prof="morning">Morning</button>
-        <button class="pill" id="reset">Reset</button>
+  <div class="sect"><h2>Colour</h2><span class="hint">Live preview &amp; profile adjustment</span></div>
+  <div class="settings-layout">
+    <div class="settings-preview">
+      <div class="stage">
+        <img id="live-settings" alt="Live camera feed for color calibration">
+        <div class="live"><i></i>LIVE</div>
       </div>
-      <div class="pills">
-        <button class="pill sub" data-save="night">Save as Night</button>
-        <button class="pill sub" data-save="morning">Save as Morning</button>
+    </div>
+    <div class="card">
+      <div id="sliders"></div>
+      <div class="settings-side">
+        <div class="pills">
+          <button class="pill" data-prof="night">Night</button>
+          <button class="pill" data-prof="morning">Morning</button>
+          <button class="pill" id="reset">Reset</button>
+        </div>
+        <div class="pills">
+          <button class="pill sub" data-save="night">Save as Night</button>
+          <button class="pill sub" data-save="morning">Save as Morning</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1119,36 +1136,32 @@ async function api(path, opts) {
 }
 
 // — live view —
-//
-// The MJPEG connection is dropped whenever the Camera tab is not showing. It
-// is the most expensive thing the phone asks of the Pi (a JPEG encode per tick
-// plus a chunked push), the kiosk tick loop itself watches `client_count`, and
-// a tab the user cannot see has no claim on that budget. The cost is one
-// reconnect, a single LAN request that lands inside a frame period; to keep
-// that from ever showing as an empty or broken image, the last frame is frozen
-// into a data-URL still before the connection goes away, so the stage keeps
-// showing a picture the whole time.
 const live = q("#live");
+const liveSettings = q("#live-settings");
 let streaming = false;
 function startStream() {
   streaming = true;
-  live.src = url("/stream.mjpg") + "&t=" + Date.now();
+  const s = url("/stream.mjpg") + "&t=" + Date.now();
+  if (live) live.src = s;
+  if (liveSettings) liveSettings.src = s;
 }
 function freezeStream() {
   if (!streaming) return;
   streaming = false;
   let still = "";
   try {
-    if (live.naturalWidth) {
+    const srcImg = (tab === "settings" && liveSettings) ? liveSettings : live;
+    if (srcImg && srcImg.naturalWidth) {
       const c = document.createElement("canvas");
-      c.width = live.naturalWidth; c.height = live.naturalHeight;
-      c.getContext("2d").drawImage(live, 0, 0);
+      c.width = srcImg.naturalWidth; c.height = srcImg.naturalHeight;
+      c.getContext("2d").drawImage(srcImg, 0, 0);
       still = c.toDataURL("image/jpeg", 0.7);
     }
   } catch (e) { still = ""; }
-  // Same-origin, so the canvas is never tainted; if it failed anyway, leave
-  // the dead stream URL in place rather than blanking to a broken image.
-  if (still) live.src = still;
+  if (still) {
+    if (live) live.src = still;
+    if (liveSettings) liveSettings.src = still;
+  }
 }
 live.addEventListener("error", () => {
   if (streaming) setStale(true, "the stream connection dropped");
@@ -1166,10 +1179,6 @@ function setStale(on, why) {
 }
 
 // — tabs —
-//
-// Three mutually exclusive views. Everything periodic belongs to the tab that
-// needs it: only Camera polls status and holds the stream, only Gallery
-// fetches thumbnails, only Settings loads the colour state.
 const VIEWS = ["camera", "gallery", "settings"];
 let tab = "camera";
 let galleryDirty = true;
@@ -1183,9 +1192,13 @@ function showTab(name) {
     b.setAttribute("aria-selected", String(b.dataset.tab === name)));
   document.body.classList.toggle("cam", name === "camera");
   q("#snap").hidden = (name !== "camera");
-  if (name === "camera") {
+  if (name === "camera" || name === "settings") {
     startStream();
-    startPolling();
+    const conn = q("#conn");
+    conn.textContent = "streaming";
+    conn.classList.remove("idle", "bad");
+    if (name === "camera") startPolling();
+    else stopPolling();
   } else {
     stopPolling();
     freezeStream();
