@@ -960,19 +960,20 @@ PAGE_HTML = (
  /* — 16:9 PC widescreen / Desktop responsive layout — */
  @media (min-width: 860px){
    body{max-width:1440px;width:94vw;min-height:100vh;margin:0 auto;
-        display:flex;flex-direction:column;
         padding:var(--space-2) var(--space-5) 120px;box-sizing:border-box}
    body.cam{padding-bottom:120px}
-   .topbar{flex:none;padding:12px 0;border-bottom:1px solid var(--color-divider);
+   .topbar{padding:12px 0;border-bottom:1px solid var(--color-divider);
            margin-bottom:0;display:flex;align-items:center;justify-content:space-between;width:100%}
    .brand{font-size:26px}
    .conn{font-size:12px;padding:6px 16px}
    main{width:100%}
 
-   /* Camera & Settings Tabs: EXACT SAME position, vertical height, and 16:9 split layout (middle-centered) */
+   /* Camera & Settings Tabs: 100% IDENTICAL vertical height, top distance (168px), and 16:9 geometry */
    #view-camera, #view-settings{
-     flex:1;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);
-     gap:32px;align-items:center;align-content:center;width:100%;margin:auto 0}
+     display:grid;grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);
+     gap:32px;align-items:stretch;width:100%;
+     margin-top:clamp(24px, calc((100vh - (min(1440px, 94vw) * 0.62 * 9 / 16) - 170px) / 2), 168px);
+     margin-bottom:auto}
    #view-camera .stage, #view-settings .stage{
      aspect-ratio:16/9;width:100%;height:100%;min-height:0;
      border-radius:24px;box-shadow:var(--shadow-md);
