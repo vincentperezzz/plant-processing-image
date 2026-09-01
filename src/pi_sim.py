@@ -1411,11 +1411,11 @@ class PiSim:
         draw.text((41, 23), "LIVE", font=self._font_pill, fill=(255, 255, 255))
 
         # Draw Retry Scan button directly on top-right of the camera frame
-        rw, rh = 114, 34
+        rw, rh = 142, 42
         rx1, ry1, rx2, ry2 = vw - 16 - rw, 16, vw - 16, 16 + rh
         draw.rounded_rectangle((rx1, ry1, rx2, ry2), radius=rh // 2, fill=CARD_FILL_RGB, outline=CARD_LINE_RGB, width=2)
-        tw, th = _text_size(draw, "Retry Scan", self._font_pill)
-        draw.text(((rx1 + rx2) // 2 - tw // 2, (ry1 + ry2) // 2 - th // 2 - 1), "Retry Scan", font=self._font_pill, fill=TEXT_RGB)
+        tw, th = _text_size(draw, "Retry Scan", self._font_nav)
+        draw.text(((rx1 + rx2) // 2 - tw // 2, (ry1 + ry2) // 2 - th // 2 - 1), "Retry Scan", font=self._font_nav, fill=TEXT_RGB)
 
         return show
 
@@ -1471,7 +1471,7 @@ class PiSim:
         return False
 
     def _on_view_click(self, event: tk.Event) -> None:
-        rw, rh = 114, 34
+        rw, rh = 142, 42
         rx1, ry1, rx2, ry2 = self._view_w - 16 - rw, 16, self._view_w - 16, 16 + rh
         if rx1 <= event.x <= rx2 and ry1 <= event.y <= ry2:
             self.retry_scan()

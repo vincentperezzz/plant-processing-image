@@ -1057,14 +1057,16 @@ PAGE_HTML = (
     #view-camera .hcard .v{font-size:26px}
   }
 
-  .hcard-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:2px}
-  .rescan-btn-inline{display:none;align-items:center;gap:6px;background:var(--color-surface);
+  .hcard-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:4px}
+  .rescan-btn-inline{display:none;align-items:center;justify-content:center;gap:8px;
+                     background:var(--color-surface);
                      border:1.5px solid var(--color-divider);border-radius:999px;
-                     padding:5px 16px;font-size:13.5px;font-weight:600;font-family:var(--font-heading);
-                     color:var(--color-text);cursor:pointer;box-shadow:var(--shadow-sm);
+                     padding:8px 22px;min-height:38px;font-size:14.5px;font-weight:600;
+                     font-family:var(--font-heading);
+                     color:var(--color-text);cursor:pointer;box-shadow:var(--shadow-sm);white-space:nowrap;
                      transition:background .15s ease,border-color .15s ease,transform .12s ease,box-shadow .15s ease}
-  .rescan-btn-inline:hover{border-color:var(--color-accent);background:var(--color-accent-2-100);box-shadow:var(--shadow-md)}
-  .rescan-btn-inline:active{transform:scale(.95)}
+  .rescan-btn-inline:hover{border-color:var(--color-accent);background:var(--color-accent-2-100);box-shadow:var(--shadow-md);transform:translateY(-1px)}
+  .rescan-btn-inline:active{transform:scale(.96)}
   .rescan-btn-mobile{grid-column:1/-1;min-height:44px;font-size:14px;border:1px solid var(--color-divider);
                      background:var(--color-surface);color:var(--color-text);cursor:pointer;
                      display:inline-flex;align-items:center;justify-content:center;gap:6px}
@@ -1097,7 +1099,7 @@ PAGE_HTML = (
     <div class="hcard" id="h-type-card">
       <div class="hcard-top">
         <div class="k">Plant type</div>
-        <button class="rescan-btn-inline" id="btn-rescan-inline" type="button" title="Rescan Plant">↻ Retry</button>
+        <button class="rescan-btn-inline" id="btn-rescan-inline" type="button" title="Rescan Plant">↻ Retry Scan</button>
       </div>
       <div class="v" id="h-crop">—</div>
     </div>
