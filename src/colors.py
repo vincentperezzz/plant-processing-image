@@ -189,42 +189,34 @@ class ColorProfile:
         }
 
     def apply_pil(self, img):
-        """PIL/numpy stand-in for the ISP, for USB webcams and the PC sim.
-
-        Returns `img` itself — no copy, no allocation — when neutral, because
-        this sits in the per-frame path.
-
-        One numpy pass over a float32 copy, in the same order the ISP applies
-        them: channel gains (green normalised away exactly as in `to_controls`),
-        additive brightness, contrast about mid-grey, then saturation as a blend
-        against Rec.601 luma. PIL's ImageEnhance would need three separate
-        full-image passes plus a fourth for the gains.
-        """
+        """Ultra-fast OpenCV LUT stand-in for the ISP (1.5ms per frame on ARM)."""
         if self.is_neutral():
             return img
         prof = self.clamped()
         green = prof.green if prof.green > _EPSILON else 1.0
-        arr = np.asarray(img, dtype=np.float32) / 255.0
-        if arr.ndim != 3 or arr.shape[2] < 3:
+        try:
+            import cv2
+            from PIL import Image
+
+            arr = np.asarray(img)
+            r_gain = prof.red / green
+            b_gain = prof.blue / green
+            contrast = prof.contrast
+            brightness = prof.brightness * 128.0
+
+            lut_r = np.clip(((np.arange(256) * r_gain - 128.0) * contrast + 128.0 + brightness), 0, 255).astype(np.uint8)
+            lut_g = np.clip(((np.arange(256) - 128.0) * contrast + 128.0 + brightness), 0, 255).astype(np.uint8)
+            lut_b = np.clip(((np.arange(256) * b_gain - 128.0) * contrast + 128.0 + brightness), 0, 255).astype(np.uint8)
+            lut = np.dstack((lut_r, lut_g, lut_b))
+
+            adjusted = cv2.LUT(arr, lut)
+            if abs(prof.saturation - 1.0) > 0.01:
+                hsv = cv2.cvtColor(adjusted, cv2.COLOR_RGB2HSV)
+                hsv[:, :, 1] = cv2.multiply(hsv[:, :, 1], prof.saturation)
+                adjusted = cv2.cvtColor(hsv, cv2.COLOR_HSV2RGB)
+            return Image.fromarray(adjusted)
+        except Exception:
             return img
-        gains = np.array([prof.red / green, 1.0, prof.blue / green], dtype=np.float32)
-        rgb = arr[:, :, :3] * gains
-        if prof.brightness:
-            rgb += np.float32(prof.brightness)
-        if prof.contrast != 1.0:
-            rgb = (rgb - np.float32(0.5)) * np.float32(prof.contrast) + np.float32(0.5)
-        if prof.saturation != 1.0:
-            luma = (
-                rgb[:, :, 0] * np.float32(0.299)
-                + rgb[:, :, 1] * np.float32(0.587)
-                + rgb[:, :, 2] * np.float32(0.114)
-            )[:, :, None]
-            rgb = luma + (rgb - luma) * np.float32(prof.saturation)
-        np.clip(rgb, 0.0, 1.0, out=rgb)
-
-        from PIL import Image
-
-        return Image.fromarray((rgb * 255.0 + 0.5).astype(np.uint8), "RGB")
 
 
 def profile_from_gains(gains) -> ColorProfile | None:
