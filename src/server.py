@@ -1358,6 +1358,29 @@ function openDetail(s) {
   }
   q("#d-notes").textContent = s.tip || "No notes were saved with this scan.";
   q("#d-dl").href = url("/photo?id=" + s.id + "&download=1");
+  q("#d-dl").onclick = async (e) => {
+    e.preventDefault();
+    if (!openScan) return;
+    try {
+      toast("downloading photo…");
+      const res = await fetch(url("/photo?id=" + openScan.id + "&download=1"));
+      if (!res.ok) throw new Error("fetch failed");
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      const ext = blob.type === "image/png" ? ".png" : ".jpg";
+      const plant = (openScan.crop || openScan.named_plant || "plant").toLowerCase().replace(/[^a-z0-9]/g, "_");
+      a.download = "plant_scan_" + openScan.id + "_" + plant + ext;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+      toast("photo downloaded");
+    } catch (err) {
+      toast("download failed: " + err.message, true);
+    }
+  };
   const del = q("#d-del");
   del.textContent = "Delete"; del.classList.remove("armed"); del.dataset.armed = "";
   q("#gal-grid").hidden = true;
