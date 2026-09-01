@@ -26,7 +26,7 @@ class ClientLimit(RuntimeError):
 
 
 class FrameBus:
-    def __init__(self, *, max_fps: float = 12.0) -> None:
+    def __init__(self, *, max_fps: float = 20.0) -> None:
         self._cond = threading.Condition()
         self._jpeg: bytes = b""
         self._seq = 0
@@ -35,8 +35,44 @@ class FrameBus:
         try:
             fps = float(max_fps)
         except (TypeError, ValueError):
-            fps = 12.0
+            fps = 20.0
         self._interval = 1.0 / fps if fps > 0 else 0.0
+        self._enc_lock = threading.Lock()
+        self._pending_frame = None
+        self._enc_running = True
+        self._enc_thread = threading.Thread(target=self._encoder_loop, daemon=True)
+        self._enc_thread.start()
+
+    def _encoder_loop(self) -> None:
+        while self._enc_running:
+            item = None
+            with self._enc_lock:
+                if self._pending_frame is not None:
+                    item = self._pending_frame
+                    self._pending_frame = None
+            if item is None:
+                time.sleep(0.005)
+                continue
+            arr, stream_w, quality = item
+            try:
+                import cv2
+
+                h, w = arr.shape[:2]
+                if w > stream_w:
+                    sh = max(1, round(h * stream_w / w))
+                    arr = cv2.resize(arr, (stream_w, sh), interpolation=cv2.INTER_LINEAR)
+                ok, buf = cv2.imencode(".jpg", arr, [int(cv2.IMWRITE_JPEG_QUALITY), quality])
+                if ok:
+                    self.publish(buf.tobytes())
+            except Exception:
+                pass
+
+    def publish_array_async(self, bgr_array, stream_w: int = 1024, quality: int = 80) -> None:
+        """Enqueue a BGR numpy frame for background JPEG encoding."""
+        if not self.wants_frame():
+            return
+        with self._enc_lock:
+            self._pending_frame = (bgr_array, stream_w, quality)
 
     # — producer side (Tk thread) ————————————————————————————————
 

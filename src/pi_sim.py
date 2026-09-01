@@ -1170,7 +1170,15 @@ class PiSim:
         scale = max(vw / iw, vh / ih)
         nw = max(1, int(iw * scale))
         nh = max(1, int(ih * scale))
-        show = img.resize((nw, nh), Image.BILINEAR)
+        try:
+            import cv2
+            import numpy as np
+
+            arr = np.asarray(img)
+            resized = cv2.resize(arr, (nw, nh), interpolation=cv2.INTER_LINEAR)
+            show = Image.fromarray(resized)
+        except Exception:
+            show = img.resize((nw, nh), Image.BILINEAR)
         ox, oy = (vw - nw) // 2, (vh - nh) // 2
         if ox < 0 or oy < 0:
             show = show.crop((-ox, -oy, -ox + vw, -oy + vh))
@@ -1901,8 +1909,16 @@ class PiSim:
         scale = max(sw / iw, sh / ih)
         nw = max(1, int(iw * scale))
         nh = max(1, int(ih * scale))
-        resample = getattr(Image, "Resampling", Image).BILINEAR
-        out = src.copy() if (nw, nh) == (iw, ih) else src.resize((nw, nh), resample)
+        try:
+            import cv2
+            import numpy as np
+
+            arr = np.asarray(src)
+            resized = cv2.resize(arr, (nw, nh), interpolation=cv2.INTER_LINEAR)
+            out = Image.fromarray(resized)
+        except Exception:
+            resample = getattr(Image, "Resampling", Image).BILINEAR
+            out = src.copy() if (nw, nh) == (iw, ih) else src.resize((nw, nh), resample)
         ox = (sw - nw) // 2
         oy = (sh - nh) // 2
         # crop() always copies, so the shared self._frame_pil is never drawn on.
@@ -1917,36 +1933,25 @@ class PiSim:
     def _publish_stream(self, src: Image.Image) -> None:
         """Encode one JPEG for the phone. Cheap no-op when nobody is watching."""
         bus = self._bus
-        if bus is None:
-            return
-        if not bus.wants_frame(time.monotonic()):
+        if bus is None or not bus.wants_frame(time.monotonic()):
             return
         try:
+            import numpy as np
             frame = self._stream_frame(src)
+            arr = np.asarray(frame)[:, :, ::-1]  # RGB -> BGR
+            bus.publish_array_async(arr, self._stream_w, self._stream_q)
         except Exception:
-            return
-        self._publish_jpeg(frame)
+            pass
 
     def _publish_jpeg(self, img: Image.Image) -> None:
         bus = self._bus
         if bus is None:
             return
         try:
-            import cv2
             import numpy as np
-
-            if img.width > self._stream_w:
-                height = max(1, round(img.height * self._stream_w / img.width))
-                resample = getattr(Image, "Resampling", Image).BILINEAR
-                img = img.resize((self._stream_w, height), resample)
-            if img.mode != "RGB":
-                img = img.convert("RGB")
             arr = np.asarray(img)[:, :, ::-1]  # PIL RGB -> cv2 BGR
-            ok, buf = cv2.imencode(".jpg", arr, [int(cv2.IMWRITE_JPEG_QUALITY), self._stream_q])
-            if ok:
-                bus.publish(buf.tobytes())
+            bus.publish_array_async(arr, self._stream_w, self._stream_q)
         except Exception:
-            # A broken encode must never take the display path down with it.
             pass
 
     def _stream_only(self, img: Image.Image) -> None:
