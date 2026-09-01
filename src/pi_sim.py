@@ -56,8 +56,8 @@ NO_CAMERA = "No camera. Check the ribbon or plug in a USB webcam."
 
 # Frame pacing. The floor is what buys Tk the idle time it needs to
 # actually blit the canvas; without it the screen stops updating.
-TICK_BUDGET_MS = 33
-TICK_FLOOR_MS = 8
+TICK_BUDGET_MS = 25
+TICK_FLOOR_MS = 4
 
 # health-grade tokens: (background, text/value, border/accent) — all RGB(A)
 HEALTH_TOKENS = {
