@@ -39,6 +39,7 @@ class _PiCam:
         self._view = view
         self._yuv = yuv
         self._timeout_kw: dict | None = None
+        self._base_gains: tuple[float, float] | None = None
 
     def _grab(self):
         """capture_request, with a timeout when this picamera2 supports one.
@@ -97,10 +98,32 @@ class _PiCam:
         cv2.VideoCapture, so callers gate on `hasattr(cap, "set_profile")`.
         """
         try:
-            # to_controls() wants slider-name -> (low, high); camera_controls is
-            # keyed by libcamera names with (min, max, default) triples, so passing
-            # it raw matched nothing and silently fell back to the default spans.
-            self._cam.set_controls(profile.to_controls())
+            if self._base_gains is None:
+                meta = self.metadata()
+                gains = meta.get("ColourGains")
+                if gains and len(gains) >= 2 and gains[0] > 0.1 and gains[1] > 0.1:
+                    self._base_gains = (float(gains[0]), float(gains[1]))
+                else:
+                    self._base_gains = (1.4, 2.2)
+
+            if profile.is_neutral() or (
+                abs(profile.red - 1.0) < 0.01
+                and abs(profile.green - 1.0) < 0.01
+                and abs(profile.blue - 1.0) < 0.01
+            ):
+                from libcamera import controls
+
+                self._cam.set_controls(
+                    {
+                        "AwbEnable": True,
+                        "AwbMode": controls.AwbModeEnum.Auto,
+                        "Saturation": profile.saturation,
+                        "Brightness": profile.brightness,
+                        "Contrast": profile.contrast,
+                    }
+                )
+            else:
+                self._cam.set_controls(profile.to_controls(base_gains=self._base_gains))
             return True
         except Exception:
             return False
@@ -224,7 +247,7 @@ def _open_csi():
             cam.set_controls(
                 {
                     "AwbEnable": True,
-                    "AwbMode": controls.AwbModeEnum.Indoor,
+                    "AwbMode": controls.AwbModeEnum.Auto,
                     "FrameDurationLimits": (16666, 33333),
                 }
             )

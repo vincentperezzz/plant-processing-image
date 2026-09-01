@@ -168,16 +168,21 @@ class ColorProfile:
             and abs(self.contrast - 1.0) < _EPSILON
         )
 
-    def to_controls(self, ranges: dict[str, tuple[float, float]] | None = None) -> dict:
+    def to_controls(
+        self,
+        ranges: dict[str, tuple[float, float]] | None = None,
+        base_gains: tuple[float, float] | None = None,
+    ) -> dict:
         """The dict to hand to `Picamera2.set_controls`.
 
-        AwbEnable goes to False or the ISP re-converges and drops the gains.
+        When neutral, caller enables AWB. When tuned, gains scale relative to base_gains.
         """
         prof = self.clamped(ranges)
         green = prof.green if prof.green > _EPSILON else 1.0
+        bg_r, bg_b = base_gains if base_gains and len(base_gains) >= 2 else (1.0, 1.0)
         return {
             "AwbEnable": False,
-            "ColourGains": (prof.red / green, prof.blue / green),
+            "ColourGains": (bg_r * (prof.red / green), bg_b * (prof.blue / green)),
             "Saturation": prof.saturation,
             "Brightness": prof.brightness,
             "Contrast": prof.contrast,
