@@ -961,10 +961,10 @@ PAGE_HTML = (
  @media (min-width: 860px){
    body{max-width:1440px;width:94vw;min-height:100vh;margin:0 auto;
         display:flex;flex-direction:column;
-        padding:var(--space-3) var(--space-5) 150px;box-sizing:border-box}
-   body.cam{padding-bottom:170px}
-   .topbar{flex:none;padding:var(--space-2) 0 var(--space-3);border-bottom:1px solid var(--color-divider);
-           margin-bottom:var(--space-4);display:flex;align-items:center;justify-content:space-between;width:100%}
+        padding:var(--space-3) var(--space-5) 84px;box-sizing:border-box}
+   body.cam{padding-bottom:160px}
+   .topbar{flex:none;padding:var(--space-2) 0;border-bottom:1px solid var(--color-divider);
+           margin-bottom:var(--space-2);display:flex;align-items:center;justify-content:space-between;width:100%}
    .brand{font-size:26px}
    .conn{font-size:12px;padding:6px 16px}
    main{width:100%}
@@ -990,7 +990,7 @@ PAGE_HTML = (
 
    /* Settings Right Panel on Desktop */
    .settings-panel{display:flex;flex-direction:column;height:100%;justify-content:center}
-   #settings-card{display:flex;flex-direction:column;gap:var(--space-2);padding:18px 22px;
+   #settings-card{display:flex;flex-direction:column;gap:var(--space-2);padding:18px 24px;
                   border-radius:24px;border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);background:var(--color-surface)}
    .settings-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px}
    .settings-header h2{font-size:20px}
