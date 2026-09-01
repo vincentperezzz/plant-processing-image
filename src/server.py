@@ -1032,32 +1032,49 @@ PAGE_HTML = (
    #gal-detail .dmeta{margin-top:0}
 
    /* Floating Controls: Elevated & Enlarged Shutter on Top of Tabs */
-   .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;z-index:10;
-         display:flex;flex-direction:column;align-items:center;justify-content:center;
-         gap:14px;padding:0;border-radius:0;
-         background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;
-         border:none;box-shadow:none;width:auto;max-width:none}
-   .dock > *{width:auto;max-width:none}
-   .toast{position:absolute;top:-36px;left:50%;transform:translateX(-50%);
-          white-space:nowrap;background:var(--color-surface);padding:4px 14px;
-          border-radius:999px;border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);
-          pointer-events:none}
-   .toast:empty{display:none}
-   .shutter{width:76px;height:76px;border-width:5px;margin:0 0 2px;box-shadow:var(--shadow-lg)}
-   .shutter::after{width:52px;height:52px}
-   .tabs{padding:5px;gap:6px;border:1px solid var(--color-divider);background:var(--color-surface);
-         border-radius:999px;box-shadow:var(--shadow-md)}
-   .tabs .pill{min-height:40px;padding:0 22px;font-size:14.5px}
-   .pill:hover:not([aria-selected="true"]){border-color:var(--color-accent)}
- }
+    .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;z-index:10;
+          display:flex;flex-direction:column;align-items:center;justify-content:center;
+          gap:14px;padding:0;border-radius:0;
+          background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;
+          border:none;box-shadow:none;width:auto;max-width:none}
+    .dock > *{width:auto;max-width:none}
+    .toast{position:absolute;top:-36px;left:50%;transform:translateX(-50%);
+           white-space:nowrap;background:var(--color-surface);padding:4px 14px;
+           border-radius:999px;border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);
+           pointer-events:none}
+    .toast:empty{display:none}
+    .shutter{width:76px;height:76px;border-width:5px;margin:0 0 2px;box-shadow:var(--shadow-lg)}
+    .shutter::after{width:52px;height:52px}
+    .tabs{padding:5px;gap:6px;border:1px solid var(--color-divider);background:var(--color-surface);
+          border-radius:999px;box-shadow:var(--shadow-md)}
+    .tabs .pill{min-height:40px;padding:0 22px;font-size:14.5px}
+    .pill:hover:not([aria-selected="true"]){border-color:var(--color-accent)}
+  }
 
- @media (min-width: 1200px){
-   body{max-width:1560px;width:95vw}
-   #view-camera, #view-settings{grid-template-columns:minmax(0,1.75fr) minmax(380px,1fr);gap:40px}
-   #view-camera .hcard .v{font-size:26px}
- }
+  @media (min-width: 1200px){
+    body{max-width:1560px;width:95vw}
+    #view-camera, #view-settings{grid-template-columns:minmax(0,1.75fr) minmax(380px,1fr);gap:40px}
+    #view-camera .hcard .v{font-size:26px}
+  }
 
- @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+  .hcard-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .rescan-btn-inline{display:none;align-items:center;gap:4px;background:var(--color-bg);
+                     border:1px solid var(--color-divider);border-radius:999px;
+                     padding:2px 10px;font-size:11.5px;font-family:var(--font-heading);
+                     color:var(--color-text);cursor:pointer;
+                     transition:background .15s ease,border-color .15s ease,transform .12s ease}
+  .rescan-btn-inline:hover{border-color:var(--color-accent);background:rgba(32,30,29,.05)}
+  .rescan-btn-inline:active{transform:scale(.96)}
+  .rescan-btn-mobile{grid-column:1/-1;min-height:44px;font-size:14px;border:1px solid var(--color-divider);
+                     background:var(--color-surface);color:var(--color-text);cursor:pointer;
+                     display:inline-flex;align-items:center;justify-content:center;gap:6px}
+
+  @media (min-width: 900px){
+    .rescan-btn-mobile{display:none !important}
+    .rescan-btn-inline{display:inline-flex}
+  }
+
+  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
 </style></head><body class="cam">
 
 <header class="topbar">
@@ -1077,7 +1094,13 @@ PAGE_HTML = (
     <div class="veil" id="veil"><b>No live frames</b><span id="veiltext">the kiosk stream went quiet</span></div>
   </div>
   <div class="hud">
-    <div class="hcard"><div class="k">Plant type</div><div class="v" id="h-crop">—</div></div>
+    <div class="hcard" id="h-type-card">
+      <div class="hcard-top">
+        <div class="k">Plant type</div>
+        <button class="rescan-btn-inline" id="btn-rescan-inline" type="button" title="Rescan Plant">↻ Retry</button>
+      </div>
+      <div class="v" id="h-crop">—</div>
+    </div>
     <div class="hcard" id="h-health-card">
       <div class="k">Plant health</div><div class="v" id="h-health">—</div>
       <span class="conf" id="h-conf" hidden></span>
@@ -1085,7 +1108,7 @@ PAGE_HTML = (
     <div class="hcard wide" id="h-notes-card">
       <div class="k">Notes</div><div class="v" id="h-notes">Looking for plant</div>
     </div>
-    <button class="pill" id="btn-rescan" type="button" style="grid-column:1/-1;min-height:44px;font-size:14px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;">↻ Retry Scan</button>
+    <button class="pill rescan-btn-mobile" id="btn-rescan" type="button">↻ Retry Scan</button>
   </div>
 </main>
 
@@ -1553,16 +1576,17 @@ q("#live").addEventListener("click", async (e) => {
   } catch (err) {}
 });
 
+const triggerRescan = async () => {
+  toast("Rescanning plant…");
+  try {
+    const res = await api("/api/retry", { method: "POST" });
+    if (res.ok) poll();
+  } catch (e) {}
+};
 const btnRescan = q("#btn-rescan");
-if (btnRescan) {
-  btnRescan.onclick = async () => {
-    toast("Rescanning plant…");
-    try {
-      const res = await api("/api/retry", { method: "POST" });
-      if (res.ok) poll();
-    } catch (e) {}
-  };
-}
+if (btnRescan) btnRescan.onclick = triggerRescan;
+const btnRescanInline = q("#btn-rescan-inline");
+if (btnRescanInline) btnRescanInline.onclick = triggerRescan;
 
 showTab("camera");
 </script></body></html>

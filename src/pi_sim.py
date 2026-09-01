@@ -489,15 +489,6 @@ class PiSim:
         self.view.bind("<Button-1>", self._on_view_click)
         self.stage.bind("<Configure>", self._on_stage)
 
-        self._live_img = ImageTk.PhotoImage(self._make_live_badge())
-        self.badge = tk.Label(self.stage, image=self._live_img, bg=VIEW, bd=0)
-        self.badge.place(x=16, y=16)
-
-        retry_img = self._pill_photo("↻ Retry Scan", font=self._font_pill, fg=TEXT, bg=SURFACE, outline=DIVIDER, min_h=34, pad_x=16)
-        self._retry_btn = tk.Label(self.stage, image=retry_img, bg=VIEW, bd=0, cursor="hand2")
-        self._retry_btn.place(relx=1.0, x=-20, y=16, anchor="ne")
-        self._retry_btn.bind("<Button-1>", lambda _e: self.retry_scan())
-
     def retry_scan(self) -> None:
         """Reset the current scan and trigger a fresh detection & diagnosis cycle."""
         self._scan_gen += 1
@@ -1417,6 +1408,19 @@ class PiSim:
                     else:
                         draw.text((nx1 + 18, ty), line, font=self._font_notes, fill=note_rgb)
                     ty += 22
+
+        # Draw LIVE badge directly on top-left of the camera frame
+        draw.rounded_rectangle((16, 16, 88, 48), radius=16, fill=_hex_rgb(ALERT))
+        draw.ellipse((27, 28, 35, 36), fill=(255, 255, 255))
+        draw.text((41, 23), "LIVE", font=self._font_pill, fill=(255, 255, 255))
+
+        # Draw Retry Scan button directly on top-right of the camera frame
+        rw, rh = 114, 34
+        rx1, ry1, rx2, ry2 = vw - 16 - rw, 16, vw - 16, 16 + rh
+        draw.rounded_rectangle((rx1, ry1, rx2, ry2), radius=rh // 2, fill=CARD_FILL_RGB, outline=CARD_LINE_RGB, width=2)
+        tw, th = _text_size(draw, "Retry Scan", self._font_pill)
+        draw.text(((rx1 + rx2) // 2 - tw // 2, (ry1 + ry2) // 2 - th // 2 - 1), "Retry Scan", font=self._font_pill, fill=TEXT_RGB)
+
         return show
 
     def _sync_shutter(self) -> None:
@@ -1471,6 +1475,12 @@ class PiSim:
         return False
 
     def _on_view_click(self, event: tk.Event) -> None:
+        rw, rh = 114, 34
+        rx1, ry1, rx2, ry2 = self._view_w - 16 - rw, 16, self._view_w - 16, 16 + rh
+        if rx1 <= event.x <= rx2 and ry1 <= event.y <= ry2:
+            self.retry_scan()
+            return
+
         sx, sy = self._shutter_xy
         if (event.x - sx) ** 2 + (event.y - sy) ** 2 <= (SHUTTER_R + 8) ** 2:
             return
