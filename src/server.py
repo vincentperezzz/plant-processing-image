@@ -946,7 +946,17 @@ PAGE_HTML = (
                                    box-shadow:var(--shadow-sm)}
  .tabs .pill:hover:not([aria-selected="true"]){background:rgba(32,30,29,.06)}
 
- /* — 16:9 PC widescreen / Desktop responsive layout — */
+ /* — Settings Mobile Base — */
+ #view-settings{display:flex;flex-direction:column;gap:var(--space-3)}
+ #view-settings .stage{aspect-ratio:16/9;width:100%;border-radius:var(--radius-lg);overflow:hidden;
+                       box-shadow:var(--shadow-md);border:1px solid var(--color-divider);position:relative;background:var(--color-neutral-900)}
+ #view-settings .stage img{width:100%;height:100%;object-fit:cover;display:block}
+ .settings-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:var(--space-1)}
+ .settings-header h2{font-size:20px}
+ .settings-header .hint{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 50%,transparent)}
+ .settings-side{display:flex;flex-direction:column;gap:var(--space-2);background:var(--color-bg);
+                padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);border:1px solid var(--color-divider);margin-top:var(--space-2)}
+
  /* — 16:9 PC widescreen / Desktop responsive layout — */
  @media (min-width: 860px){
    body{max-width:1440px;width:94vw;min-height:100vh;margin:0 auto;
@@ -959,13 +969,16 @@ PAGE_HTML = (
    .conn{font-size:12px;padding:6px 16px}
    main{width:100%}
 
-   /* Camera Tab ONLY: Vertically centered in the remaining viewport space */
-   #view-camera{flex:1;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);
-                gap:32px;align-items:center;align-content:center;width:100%;margin:auto 0}
-   #view-camera .stage{aspect-ratio:16/9;width:100%;height:100%;min-height:0;
-                       border-radius:24px;box-shadow:var(--shadow-md);
-                       border:1px solid var(--color-divider)}
-   #view-camera .stage img{width:100%;height:100%;object-fit:cover}
+   /* Camera & Settings Tabs: Identical 16:9 split layout and vertical centering */
+   #view-camera, #view-settings{
+     flex:1;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);
+     gap:32px;align-items:center;align-content:center;width:100%;margin:auto 0}
+   #view-camera .stage, #view-settings .stage{
+     aspect-ratio:16/9;width:100%;height:100%;min-height:0;
+     border-radius:24px;box-shadow:var(--shadow-md);
+     border:1px solid var(--color-divider);overflow:hidden}
+   #view-camera .stage img, #view-settings .stage img{
+     width:100%;height:100%;object-fit:cover;display:block}
    #view-camera .hud{margin-top:0;display:flex;flex-direction:column;gap:18px;height:100%;justify-content:center}
    #view-camera .hcard{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
                        padding:18px 24px;border-radius:24px;
@@ -975,6 +988,18 @@ PAGE_HTML = (
    #view-camera .hcard .v{font-size:24px;margin-top:4px}
    #view-camera .hcard.wide .v{font-size:16px;line-height:1.55}
 
+   /* Settings Right Panel on Desktop */
+   .settings-panel{display:flex;flex-direction:column;height:100%;justify-content:center}
+   #settings-card{display:flex;flex-direction:column;gap:var(--space-2);padding:18px 22px;
+                  border-radius:24px;border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);background:var(--color-surface)}
+   .settings-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px}
+   .settings-header h2{font-size:20px}
+   .settings-header .hint{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:color-mix(in srgb,var(--color-text) 50%,transparent)}
+   .settings-side{display:flex;flex-direction:column;gap:6px;background:var(--color-bg);
+                  padding:8px 12px;border-radius:var(--radius-md);border:1px solid var(--color-divider);margin-top:4px}
+   .settings-side .pills{display:flex;gap:6px;margin-top:0}
+   .settings-side .pill{min-height:36px;padding:4px 12px;font-size:13.5px}
+
    /* Gallery Tab Desktop Layout (flows naturally from top) */
    #view-gallery{flex:none;width:100%}
    #gal-grid .grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--space-4);width:100%}
@@ -983,19 +1008,6 @@ PAGE_HTML = (
    #gal-detail .back{grid-column:1 / -1;margin-bottom:var(--space-2);width:fit-content}
    #gal-detail .shot{max-height:72vh;object-fit:contain}
    #gal-detail .dmeta{margin-top:0}
-
-   /* Settings Tab with Live Stream Preview (flows naturally from top) */
-   #view-settings{flex:none;width:100%}
-   .settings-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(380px,1fr);
-                    gap:32px;align-items:start;width:100%}
-   .settings-preview .stage{aspect-ratio:16/9;width:100%;border-radius:24px;
-                            box-shadow:var(--shadow-md);border:1px solid var(--color-divider)}
-   .settings-preview .stage img{width:100%;height:100%;object-fit:cover;display:block}
-   #view-settings .card{display:flex;flex-direction:column;gap:var(--space-3);
-                        padding:var(--space-4);border-radius:24px;border:1px solid var(--color-divider)}
-   .settings-side{display:flex;flex-direction:column;gap:var(--space-3);
-                  background:var(--color-bg);padding:var(--space-3) var(--space-4);
-                  border-radius:var(--radius-md);border:1px solid var(--color-divider)}
 
    /* Floating Controls: Elevated & Enlarged Shutter on Top of Tabs */
    .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:10;
@@ -1017,14 +1029,9 @@ PAGE_HTML = (
    .pill:hover:not([aria-selected="true"]){border-color:var(--color-accent)}
  }
 
- .settings-layout{display:flex;flex-direction:column;gap:var(--space-3)}
- .settings-preview .stage{aspect-ratio:16/9;width:100%;border-radius:var(--radius-lg);overflow:hidden;
-                          box-shadow:var(--shadow-md);border:1px solid var(--color-divider);position:relative;background:var(--color-neutral-900)}
- .settings-preview .stage img{width:100%;height:100%;object-fit:cover;display:block}
-
  @media (min-width: 1200px){
    body{max-width:1560px;width:95vw}
-   #view-camera{grid-template-columns:minmax(0,1.75fr) minmax(380px,1fr);gap:40px}
+   #view-camera, #view-settings{grid-template-columns:minmax(0,1.75fr) minmax(380px,1fr);gap:40px}
    #view-camera .hcard .v{font-size:26px}
  }
 
@@ -1081,15 +1088,16 @@ PAGE_HTML = (
 </main>
 
 <main id="view-settings" hidden>
-  <div class="sect"><h2>Colour</h2><span class="hint">Live preview &amp; profile adjustment</span></div>
-  <div class="settings-layout">
-    <div class="settings-preview">
-      <div class="stage">
-        <img id="live-settings" alt="Live camera feed for color calibration">
-        <div class="live"><i></i>LIVE</div>
+  <div class="stage">
+    <img id="live-settings" alt="Live camera feed for color calibration">
+    <div class="live"><i></i>LIVE</div>
+  </div>
+  <div class="settings-panel">
+    <div class="card" id="settings-card">
+      <div class="settings-header">
+        <h2>Colour Profile</h2>
+        <span class="hint">commits on release</span>
       </div>
-    </div>
-    <div class="card">
       <div id="sliders"></div>
       <div class="settings-side">
         <div class="pills">
@@ -1104,7 +1112,6 @@ PAGE_HTML = (
       </div>
     </div>
   </div>
-  <p class="note">__ACCESS_NOTE__</p>
 </main>
 
 <div class="dock">
