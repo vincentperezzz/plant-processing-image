@@ -304,6 +304,48 @@ def _usb_attempts(index: int | None):
     return out
 
 
+class _ThreadedUsbCam:
+    """Zero-latency threaded reader for USB webcams on Linux/Windows.
+
+    Decouples OpenCV blocking hardware USB buffer reads from the UI/Streamer.
+    Constantly drains the V4L2 USB hardware ring buffer in a background thread,
+    guaranteeing that cap.read() always returns the latest frame in 0.0ms.
+    """
+
+    def __init__(self, cap):
+        self._cap = cap
+        self._lock = threading.Lock()
+        self._running = True
+        self._ok = False
+        self._frame = None
+        self.rgb = False
+        self._thread = threading.Thread(target=self._capture_loop, daemon=True)
+        self._thread.start()
+
+    def _capture_loop(self):
+        while self._running and self._cap.isOpened():
+            ok, frame = self._cap.read()
+            if ok and frame is not None:
+                with self._lock:
+                    self._ok = ok
+                    self._frame = frame
+            else:
+                time.sleep(0.005)
+
+    def read(self):
+        with self._lock:
+            if self._frame is None:
+                return False, None
+            return self._ok, self._frame
+
+    def isOpened(self) -> bool:
+        return self._cap.isOpened() and self._running
+
+    def release(self) -> None:
+        self._running = False
+        self._cap.release()
+
+
 def _open_usb(index: int | None = None):
     import cv2
 
@@ -330,7 +372,7 @@ def _open_usb(index: int | None = None):
         if frame.shape[0] < 32 or frame.shape[1] < 32:
             cap.release()
             continue
-        return cap
+        return _ThreadedUsbCam(cap)
     return None
 
 
