@@ -493,6 +493,23 @@ class PiSim:
         self.badge = tk.Label(self.stage, image=self._live_img, bg=VIEW, bd=0)
         self.badge.place(x=16, y=16)
 
+        retry_img = self._pill_photo("↻ Retry", font=self._font_pill, fg=TEXT, bg=SURFACE, outline=DIVIDER, min_h=32, pad_x=14)
+        self._retry_btn = tk.Label(self.stage, image=retry_img, bg=VIEW, bd=0, cursor="hand2")
+        self._retry_btn.place(x=100, y=16)
+        self._retry_btn.bind("<Button-1>", lambda _e: self.retry_scan())
+
+    def retry_scan(self) -> None:
+        """Reset the current scan and trigger a fresh detection & diagnosis cycle."""
+        self._scan_gen += 1
+        self._tracks = []
+        self._picked_tid = None
+        self._detect_busy = False
+        self._grade_busy = False
+        self._set_result(DASH, DASH, "Rescanning plant…", tone="muted")
+        if self._frame_pil is not None:
+            self._show_image(self._frame_pil)
+        self._kick_detect()
+
     def _set_result(
         self,
         crop: str,
@@ -1990,6 +2007,10 @@ class PiSim:
 
     def remote_shutter(self) -> dict:
         return self._call_on_tk(self._remote_snap)
+
+    def remote_retry(self) -> dict:
+        self._call_on_tk(self.retry_scan)
+        return {"ok": True, "reason": "rescan started"}
 
     def _remote_snap(self) -> dict:
         # On the Tk thread, so these are the same preconditions snap() itself

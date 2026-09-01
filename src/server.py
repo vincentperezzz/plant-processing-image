@@ -295,6 +295,8 @@ class _Handler(BaseHTTPRequestHandler):
             return
         if path == "/shutter":
             self._shutter()
+        elif path in ("/api/retry", "/api/rescan"):
+            self._retry_post()
         elif path == "/api/tap":
             self._tap_post(body)
         elif path == "/api/color":
@@ -497,6 +499,13 @@ class _Handler(BaseHTTPRequestHandler):
             self._json({"ok": False, "error": f"kiosk did not answer: {exc}"}, 503)
             return
         self._json({"ok": True, **(state or {})})
+
+    def _retry_post(self) -> None:
+        try:
+            res = self.ctx.bridge.remote_retry()
+            self._json(res or {"ok": True})
+        except Exception as exc:
+            self._json({"ok": False, "error": str(exc)}, 503)
 
     def _tap_post(self, body: bytes) -> None:
         try:
@@ -1076,6 +1085,7 @@ PAGE_HTML = (
     <div class="hcard wide" id="h-notes-card">
       <div class="k">Notes</div><div class="v" id="h-notes">Looking for plant</div>
     </div>
+    <button class="pill" id="btn-rescan" type="button" style="grid-column:1/-1;min-height:44px;font-size:14px;border:1px solid var(--color-divider);background:var(--color-surface);color:var(--color-text);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;">↻ Retry Scan</button>
   </div>
 </main>
 
@@ -1542,6 +1552,17 @@ q("#live").addEventListener("click", async (e) => {
     }
   } catch (err) {}
 });
+
+const btnRescan = q("#btn-rescan");
+if (btnRescan) {
+  btnRescan.onclick = async () => {
+    toast("Rescanning plant…");
+    try {
+      const res = await api("/api/retry", { method: "POST" });
+      if (res.ok) poll();
+    } catch (e) {}
+  };
+}
 
 showTab("camera");
 </script></body></html>
