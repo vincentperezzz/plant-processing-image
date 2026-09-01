@@ -948,16 +948,19 @@ PAGE_HTML = (
 
  /* — 16:9 PC widescreen / Desktop responsive layout — */
  @media (min-width: 860px){
-   body{max-width:1440px;width:94vw;padding:var(--space-3) var(--space-5) 140px}
-   body.cam{padding-bottom:150px}
-   .topbar{padding:var(--space-2) 0 var(--space-3);border-bottom:1px solid var(--color-divider);
-           margin-bottom:var(--space-5);display:flex;align-items:center;justify-content:space-between}
+   body{max-width:1440px;width:94vw;min-height:100vh;margin:0 auto;
+        display:flex;flex-direction:column;justify-content:center;
+        padding:var(--space-4) var(--space-5) 150px;box-sizing:border-box}
+   body.cam{padding-bottom:160px}
+   .topbar{padding:0 0 var(--space-3);border-bottom:1px solid var(--color-divider);
+           margin-bottom:var(--space-4);display:flex;align-items:center;justify-content:space-between;width:100%}
    .brand{font-size:26px}
    .conn{font-size:12px;padding:6px 16px}
+   main{width:100%}
 
    /* Camera Tab 16:9 widescreen split layout with maximized space and generous gap */
    #view-camera{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);
-                gap:32px;align-items:stretch}
+                gap:32px;align-items:stretch;width:100%}
    #view-camera .stage{aspect-ratio:16/9;width:100%;height:100%;min-height:0;
                        border-radius:24px;box-shadow:var(--shadow-md);
                        border:1px solid var(--color-divider)}
@@ -986,13 +989,12 @@ PAGE_HTML = (
                   background:var(--color-bg);padding:var(--space-4);
                   border-radius:var(--radius-md);border:1px solid var(--color-divider)}
 
-   /* Floating Pill Dock: Shutter stacked ON TOP of Navigation Tabs */
-   .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:10;
+   /* Floating Controls on Desktop: Transparent dock container without outer box border/shadow */
+   .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;z-index:10;
          display:flex;flex-direction:column;align-items:center;justify-content:center;
-         gap:10px;padding:12px 20px 10px;border-radius:36px;
-         background:rgba(245,234,216,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-         border:1px solid var(--color-divider);box-shadow:var(--shadow-lg);
-         width:auto;max-width:92vw}
+         gap:12px;padding:0;border-radius:0;
+         background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;
+         border:none;box-shadow:none;width:auto;max-width:none}
    .dock > *{width:auto;max-width:none}
    .toast{position:absolute;top:-36px;left:50%;transform:translateX(-50%);
           white-space:nowrap;background:var(--color-surface);padding:4px 14px;
@@ -1001,8 +1003,9 @@ PAGE_HTML = (
    .toast:empty{display:none}
    .shutter{width:64px;height:64px;border-width:4px;margin:0}
    .shutter::after{width:44px;height:44px}
-   .tabs{padding:4px;gap:6px;border:1px solid var(--color-divider);background:var(--color-bg)}
-   .tabs .pill{min-height:38px;padding:0 22px;font-size:14.5px}
+   .tabs{padding:5px;gap:6px;border:1px solid var(--color-divider);background:var(--color-surface);
+         border-radius:999px;box-shadow:var(--shadow-md)}
+   .tabs .pill{min-height:40px;padding:0 22px;font-size:14.5px}
    .pill:hover:not([aria-selected="true"]){border-color:var(--color-accent)}
  }
 
