@@ -229,8 +229,8 @@ class PiSim:
         port: int = 8000,
         token: str | None = None,
         open_mode: bool = False,
-        stream_width: int = 640,
-        stream_quality: int = 70,
+        stream_width: int = 1024,
+        stream_quality: int = 85,
         stream_fps: float = 12.0,
     ):
         self.root = root
@@ -1884,7 +1884,8 @@ class PiSim:
         scale = max(sw / iw, sh / ih)
         nw = max(1, int(iw * scale))
         nh = max(1, int(ih * scale))
-        out = src if (nw, nh) == (iw, ih) else src.resize((nw, nh), Image.BILINEAR)
+        resample = getattr(Image, "Resampling", Image).LANCZOS
+        out = src.copy() if (nw, nh) == (iw, ih) else src.resize((nw, nh), resample)
         ox = (sw - nw) // 2
         oy = (sh - nh) // 2
         # crop() always copies, so the shared self._frame_pil is never drawn on.
@@ -1924,7 +1925,8 @@ class PiSim:
 
             if img.width > self._stream_w:
                 height = max(1, round(img.height * self._stream_w / img.width))
-                img = img.resize((self._stream_w, height), Image.BILINEAR)
+                resample = getattr(Image, "Resampling", Image).LANCZOS
+                img = img.resize((self._stream_w, height), resample)
             if img.mode != "RGB":
                 img = img.convert("RGB")
             arr = np.asarray(img)[:, :, ::-1]  # PIL RGB -> cv2 BGR

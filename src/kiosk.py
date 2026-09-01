@@ -33,8 +33,8 @@ def main(argv: list[str] | None = None) -> None:
         action="store_true",
         help="serve with no authentication at all - anyone on the LAN can view and control",
     )
-    parser.add_argument("--stream-width", type=int, default=640)
-    parser.add_argument("--stream-quality", type=int, default=70)
+    parser.add_argument("--stream-width", type=int, default=1024)
+    parser.add_argument("--stream-quality", type=int, default=85)
     parser.add_argument("--stream-fps", type=float, default=12.0)
     args = parser.parse_args(argv)
     root = tk.Tk()

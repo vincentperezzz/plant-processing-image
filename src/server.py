@@ -578,7 +578,7 @@ class KioskServer:
         token: str | None = None,
         host: str = "0.0.0.0",
         max_clients: int = DEFAULT_MAX_CLIENTS,
-        stream_width: int = 640,
+        stream_width: int = 1024,
         open_mode: bool = False,
     ) -> None:
         self.bridge = bridge
