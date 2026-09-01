@@ -959,19 +959,20 @@ PAGE_HTML = (
 
  /* — 16:9 PC widescreen / Desktop responsive layout — */
  @media (min-width: 860px){
-   body{max-width:1440px;width:94vw;margin:0 auto;
-        padding:var(--space-3) var(--space-5) 150px;box-sizing:border-box}
-   body.cam{padding-bottom:170px}
+   body{max-width:1440px;width:94vw;min-height:100vh;margin:0 auto;
+        display:flex;flex-direction:column;
+        padding:var(--space-2) var(--space-5) 120px;box-sizing:border-box}
+   body.cam{padding-bottom:120px}
    .topbar{flex:none;padding:12px 0;border-bottom:1px solid var(--color-divider);
-           margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;width:100%}
+           margin-bottom:0;display:flex;align-items:center;justify-content:space-between;width:100%}
    .brand{font-size:26px}
    .conn{font-size:12px;padding:6px 16px}
    main{width:100%}
 
-   /* Camera & Settings Tabs: EXACT SAME position, vertical height, and 16:9 split layout */
+   /* Camera & Settings Tabs: EXACT SAME position, vertical height, and 16:9 split layout (middle-centered) */
    #view-camera, #view-settings{
-     display:grid;grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);
-     gap:32px;align-items:stretch;width:100%;margin:0}
+     flex:1;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);
+     gap:32px;align-items:center;align-content:center;width:100%;margin:auto 0}
    #view-camera .stage, #view-settings .stage{
      aspect-ratio:16/9;width:100%;height:100%;min-height:0;
      border-radius:24px;box-shadow:var(--shadow-md);
@@ -1000,7 +1001,7 @@ PAGE_HTML = (
    .settings-side .pill{min-height:36px;padding:4px 12px;font-size:13.5px}
 
    /* Gallery Tab Desktop Layout (flows naturally from top) */
-   #view-gallery{flex:none;width:100%}
+   #view-gallery{flex:none;width:100%;padding-top:var(--space-3)}
    #gal-grid .grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--space-4);width:100%}
    #gal-detail{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);
                gap:32px;align-items:start}
@@ -1011,7 +1012,7 @@ PAGE_HTML = (
    /* Floating Controls: Elevated & Enlarged Shutter on Top of Tabs */
    .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;z-index:10;
          display:flex;flex-direction:column;align-items:center;justify-content:center;
-         gap:16px;padding:0;border-radius:0;
+         gap:14px;padding:0;border-radius:0;
          background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;
          border:none;box-shadow:none;width:auto;max-width:none}
    .dock > *{width:auto;max-width:none}
@@ -1020,7 +1021,7 @@ PAGE_HTML = (
           border-radius:999px;border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);
           pointer-events:none}
    .toast:empty{display:none}
-   .shutter{width:76px;height:76px;border-width:5px;margin:0 0 4px;box-shadow:var(--shadow-lg)}
+   .shutter{width:76px;height:76px;border-width:5px;margin:0 0 2px;box-shadow:var(--shadow-lg)}
    .shutter::after{width:52px;height:52px}
    .tabs{padding:5px;gap:6px;border:1px solid var(--color-divider);background:var(--color-surface);
          border-radius:999px;box-shadow:var(--shadow-md)}
