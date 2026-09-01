@@ -21,7 +21,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--windowed", action="store_true")
     parser.add_argument("--lite", action="store_true")
     parser.add_argument("--world", action="store_true")
-    parser.add_argument("--camera", default="auto", help="auto, csi, usb, or a camera index")
+    parser.add_argument("--camera", default="usb", help="usb, auto, csi, or a camera index")
     parser.add_argument("--gpio-pin", "--gpio-pins", default="2", help="BCM GPIO pin number (e.g. 2)")
     parser.add_argument("--gpio-active-low", action="store_true")
     parser.add_argument("--no-gpio", action="store_true")

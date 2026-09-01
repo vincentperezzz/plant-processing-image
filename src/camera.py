@@ -378,18 +378,17 @@ def _open_usb(index: int | None = None):
     return None
 
 
-def open_capture(prefer: str = "auto"):
-    prefer = (prefer or "auto").strip().lower()
+def open_capture(prefer: str = "usb"):
+    prefer = (prefer or "usb").strip().lower()
     env = os.environ.get("PLANT_CAMERA", "").strip().lower()
     if prefer == "auto" and env:
         prefer = env
-    if prefer in ("csi", "picam", "pi"):
+    if prefer in ("csi", "picam", "pi", "noir"):
         return _open_csi()
     if prefer.isdigit():
         return _open_usb(int(prefer))
-    if prefer in ("usb", "webcam"):
-        return _open_usb(None)
-    cap = _open_csi()
-    if cap is not None:
-        return cap
+    if prefer in ("usb", "webcam", "auto"):
+        cap = _open_usb(None)
+        if cap is not None:
+            return cap
     return _open_usb(None)

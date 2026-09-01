@@ -221,7 +221,7 @@ class PiSim:
         *,
         fullscreen: bool = False,
         lite: bool = False,
-        camera: str = "auto",
+        camera: str = "usb",
         gpio_pin: int = DEFAULT_PIN,
         gpio_active_low: bool = False,
         gpio: bool = True,

@@ -34,4 +34,4 @@ sleep 1
 export DISPLAY="${DISPLAY:-:0}"
 export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 export QT_QPA_PLATFORM="${QT_QPA_PLATFORM:-xcb}"
-exec "$PY" -u "$ROOT/src/kiosk.py" --fullscreen --lite --camera auto --stream-fps 25 --serve --open "$@"
+exec "$PY" -u "$ROOT/src/kiosk.py" --fullscreen --lite --camera usb --stream-fps 25 --serve --open "$@"
