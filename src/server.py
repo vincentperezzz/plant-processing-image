@@ -947,24 +947,26 @@ PAGE_HTML = (
  .tabs .pill:hover:not([aria-selected="true"]){background:rgba(32,30,29,.06)}
 
  /* — 16:9 PC widescreen / Desktop responsive layout — */
+ /* — 16:9 PC widescreen / Desktop responsive layout — */
  @media (min-width: 860px){
-   body{max-width:1440px;width:94vw;margin:0 auto;
+   body{max-width:1440px;width:94vw;min-height:100vh;margin:0 auto;
+        display:flex;flex-direction:column;
         padding:var(--space-3) var(--space-5) 150px;box-sizing:border-box}
    body.cam{padding-bottom:170px}
-   .topbar{padding:var(--space-2) 0 var(--space-3);border-bottom:1px solid var(--color-divider);
+   .topbar{flex:none;padding:var(--space-2) 0 var(--space-3);border-bottom:1px solid var(--color-divider);
            margin-bottom:var(--space-4);display:flex;align-items:center;justify-content:space-between;width:100%}
    .brand{font-size:26px}
    .conn{font-size:12px;padding:6px 16px}
    main{width:100%}
 
-   /* Camera Tab 16:9 widescreen split layout with maximized space and generous gap */
-   #view-camera{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);
-                gap:32px;align-items:stretch;width:100%}
+   /* Camera Tab ONLY: Vertically centered in the remaining viewport space */
+   #view-camera{flex:1;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);
+                gap:32px;align-items:center;align-content:center;width:100%;margin:auto 0}
    #view-camera .stage{aspect-ratio:16/9;width:100%;height:100%;min-height:0;
                        border-radius:24px;box-shadow:var(--shadow-md);
                        border:1px solid var(--color-divider)}
    #view-camera .stage img{width:100%;height:100%;object-fit:cover}
-   #view-camera .hud{margin-top:0;display:flex;flex-direction:column;gap:18px;height:100%}
+   #view-camera .hud{margin-top:0;display:flex;flex-direction:column;gap:18px;height:100%;justify-content:center}
    #view-camera .hcard{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
                        padding:18px 24px;border-radius:24px;
                        border:1px solid var(--color-divider);box-shadow:var(--shadow-sm)}
@@ -973,7 +975,8 @@ PAGE_HTML = (
    #view-camera .hcard .v{font-size:24px;margin-top:4px}
    #view-camera .hcard.wide .v{font-size:16px;line-height:1.55}
 
-   /* Gallery Tab Desktop Layout */
+   /* Gallery Tab Desktop Layout (flows naturally from top) */
+   #view-gallery{flex:none;width:100%}
    #gal-grid .grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--space-4);width:100%}
    #gal-detail{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);
                gap:32px;align-items:start}
@@ -981,7 +984,8 @@ PAGE_HTML = (
    #gal-detail .shot{max-height:72vh;object-fit:contain}
    #gal-detail .dmeta{margin-top:0}
 
-   /* Settings Tab with Live Stream Preview */
+   /* Settings Tab with Live Stream Preview (flows naturally from top) */
+   #view-settings{flex:none;width:100%}
    .settings-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(380px,1fr);
                     gap:32px;align-items:start;width:100%}
    .settings-preview .stage{aspect-ratio:16/9;width:100%;border-radius:24px;
