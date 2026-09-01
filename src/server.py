@@ -959,20 +959,19 @@ PAGE_HTML = (
 
  /* — 16:9 PC widescreen / Desktop responsive layout — */
  @media (min-width: 860px){
-   body{max-width:1440px;width:94vw;min-height:100vh;margin:0 auto;
-        display:flex;flex-direction:column;
-        padding:var(--space-2) var(--space-5) 124px;box-sizing:border-box}
+   body{max-width:1440px;width:94vw;margin:0 auto;
+        padding:var(--space-3) var(--space-5) 150px;box-sizing:border-box}
    body.cam{padding-bottom:170px}
    .topbar{flex:none;padding:12px 0;border-bottom:1px solid var(--color-divider);
-           margin-bottom:0;display:flex;align-items:center;justify-content:space-between;width:100%}
+           margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;width:100%}
    .brand{font-size:26px}
    .conn{font-size:12px;padding:6px 16px}
    main{width:100%}
 
-   /* Camera & Settings Tabs: Identical 16:9 split layout and true vertical centering */
+   /* Camera & Settings Tabs: EXACT SAME position, vertical height, and 16:9 split layout */
    #view-camera, #view-settings{
-     flex:1;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);
-     gap:32px;align-items:center;align-content:center;width:100%;margin:auto 0}
+     display:grid;grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);
+     gap:32px;align-items:stretch;width:100%;margin:0}
    #view-camera .stage, #view-settings .stage{
      aspect-ratio:16/9;width:100%;height:100%;min-height:0;
      border-radius:24px;box-shadow:var(--shadow-md);
@@ -988,7 +987,7 @@ PAGE_HTML = (
    #view-camera .hcard .v{font-size:24px;margin-top:4px}
    #view-camera .hcard.wide .v{font-size:16px;line-height:1.55}
 
-   /* Settings Right Panel on Desktop */
+   /* Settings Right Panel on Desktop: Matches stage height seamlessly */
    .settings-panel{display:flex;flex-direction:column;height:100%;justify-content:center}
    #settings-card{display:flex;flex-direction:column;gap:var(--space-2);padding:18px 24px;
                   border-radius:24px;border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);background:var(--color-surface)}
@@ -1001,7 +1000,7 @@ PAGE_HTML = (
    .settings-side .pill{min-height:36px;padding:4px 12px;font-size:13.5px}
 
    /* Gallery Tab Desktop Layout (flows naturally from top) */
-   #view-gallery{flex:none;width:100%;padding-top:var(--space-3)}
+   #view-gallery{flex:none;width:100%}
    #gal-grid .grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--space-4);width:100%}
    #gal-detail{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);
                gap:32px;align-items:start}
