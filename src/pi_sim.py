@@ -2084,6 +2084,76 @@ class PiSim:
         if self._page == "gallery":
             self._fill_gallery()
 
+    def remote_tap(self, norm_x: float, norm_y: float) -> dict:
+        """Handle a tap on the live stream video from a browser client."""
+        return self._call_on_tk(lambda: self._remote_tap_tk(norm_x, norm_y))
+
+    def _remote_tap_tk(self, norm_x: float, norm_y: float) -> dict:
+        if not self._tracks:
+            return {"ok": True, "picked": None}
+        norm_x = max(0.0, min(1.0, float(norm_x)))
+        norm_y = max(0.0, min(1.0, float(norm_y)))
+
+        vw = max(1, self._view_w)
+        vh = max(1, self._view_h)
+        sw = max(1, min(self._stream_w, vw))
+        sh = max(1, round(vh * sw / vw))
+        src = self._frame_pil
+        if src is None or src.size[0] < 1 or src.size[1] < 1:
+            return {"ok": False, "error": "no frame"}
+        iw, ih = src.size
+        scale = max(sw / iw, sh / ih)
+        nw = max(1, int(iw * scale))
+        nh = max(1, int(ih * scale))
+        ox = (sw - nw) // 2
+        oy = (sh - nh) // 2
+
+        # Click coordinate in stream pixel space
+        sx = norm_x * sw
+        sy = norm_y * sh
+
+        ranked = sorted(self._tracks, key=_box_area, reverse=True)[:2]
+        # Check if tapping near top chips (y < 0.20 and x centered)
+        if len(ranked) >= 2 and norm_y < 0.20 and 0.35 <= norm_x <= 0.65:
+            if norm_x < 0.50:
+                self._picked_tid = ranked[0].get("tid")
+            else:
+                self._picked_tid = ranked[1].get("tid")
+            self._paint_primary()
+            if self._frame_pil is not None:
+                self._show_image(self._frame_pil)
+            return {"ok": True, "picked": self._picked_tid}
+
+        # Convert stream pixel space to raw camera frame coordinates
+        ix = (sx - ox) / scale
+        iy = (sy - oy) / scale
+
+        hits = []
+        for track in self._tracks:
+            x1, y1, x2, y2 = track["xyxy"]
+            if x1 <= ix <= x2 and y1 <= iy <= y2:
+                hits.append(track)
+
+        if hits:
+            pick = min(hits, key=_box_area)
+            self._picked_tid = pick.get("tid")
+        else:
+            # If tapping on screen with multiple tracks, toggle between tracks
+            if len(ranked) >= 2:
+                focus = self._focus_track()
+                focus_tid = focus.get("tid") if focus else None
+                if focus_tid == ranked[0].get("tid"):
+                    self._picked_tid = ranked[1].get("tid")
+                else:
+                    self._picked_tid = ranked[0].get("tid")
+            else:
+                self._picked_tid = None
+
+        self._paint_primary()
+        if self._frame_pil is not None:
+            self._show_image(self._frame_pil)
+        return {"ok": True, "picked": self._picked_tid}
+
     # — end phone remote ——————————————————————————————————————————
 
     def _close(self) -> None:

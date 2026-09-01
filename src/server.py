@@ -295,6 +295,8 @@ class _Handler(BaseHTTPRequestHandler):
             return
         if path == "/shutter":
             self._shutter()
+        elif path == "/api/tap":
+            self._tap_post(body)
         elif path == "/api/color":
             self._color_post(body)
         else:
@@ -495,6 +497,16 @@ class _Handler(BaseHTTPRequestHandler):
             self._json({"ok": False, "error": f"kiosk did not answer: {exc}"}, 503)
             return
         self._json({"ok": True, **(state or {})})
+
+    def _tap_post(self, body: bytes) -> None:
+        try:
+            data = json.loads(body.decode("utf-8") or "{}")
+            x = float(data.get("x", 0.5))
+            y = float(data.get("y", 0.5))
+            res = self.ctx.bridge.remote_tap(x, y)
+            self._json(res or {"ok": True})
+        except Exception as exc:
+            self._json({"ok": False, "error": str(exc)}, 400)
 
     def _stream(self) -> None:
         bus = self.ctx.bus
@@ -1513,6 +1525,22 @@ document.addEventListener("keydown", (e) => {
       snap.click();
     }
   }
+});
+
+q("#live").addEventListener("click", async (e) => {
+  const rect = e.target.getBoundingClientRect();
+  if (rect.width <= 0 || rect.height <= 0) return;
+  const nx = (e.clientX - rect.left) / rect.width;
+  const ny = (e.clientY - rect.top) / rect.height;
+  try {
+    const res = await api("/api/tap", {
+      method: "POST",
+      body: JSON.stringify({ x: nx, y: ny })
+    });
+    if (res.ok) {
+      poll();
+    }
+  } catch (err) {}
 });
 
 showTab("camera");
