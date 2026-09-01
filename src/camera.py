@@ -286,7 +286,7 @@ def _open_csi():
 def _usb_attempts(index: int | None):
     import cv2
 
-    idxs = (index,) if index is not None else (0, 1)
+    idxs = (index,) if index is not None else (1, 0, 2, 4)
     if sys.platform == "win32":
         backends = (
             (cv2.CAP_DSHOW, "MJPG"),
@@ -296,7 +296,7 @@ def _usb_attempts(index: int | None):
             (cv2.CAP_ANY, None),
         )
     else:
-        backends = ((cv2.CAP_V4L2, None), (cv2.CAP_ANY, None))
+        backends = ((cv2.CAP_V4L2, "MJPG"), (cv2.CAP_V4L2, None), (cv2.CAP_ANY, None))
     out = []
     for idx in idxs:
         for backend, fourcc in backends:
@@ -314,8 +314,8 @@ def _open_usb(index: int | None = None):
             continue
         cap.set(cv2.CAP_PROP_CONVERT_RGB, 1)
         cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
         if fourcc:
             cap.set(cv2.CAP_PROP_FOURCC, _fourcc(fourcc))
         ok = False
