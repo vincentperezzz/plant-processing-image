@@ -25,6 +25,17 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--gpio-pin", type=int, default=17)
     parser.add_argument("--gpio-active-low", action="store_true")
     parser.add_argument("--no-gpio", action="store_true")
+    parser.add_argument("--serve", action="store_true", help="phone remote on the LAN")
+    parser.add_argument("--port", type=int, default=8000)
+    parser.add_argument("--token", default=None, help="pin the access token (else random)")
+    parser.add_argument(
+        "--open",
+        action="store_true",
+        help="serve with no authentication at all - anyone on the LAN can view and control",
+    )
+    parser.add_argument("--stream-width", type=int, default=640)
+    parser.add_argument("--stream-quality", type=int, default=70)
+    parser.add_argument("--stream-fps", type=float, default=12.0)
     args = parser.parse_args(argv)
     root = tk.Tk()
     panel = root.winfo_screenwidth() <= 1280 and root.winfo_screenheight() <= 800
@@ -38,6 +49,13 @@ def main(argv: list[str] | None = None) -> None:
         gpio_pin=args.gpio_pin,
         gpio_active_low=args.gpio_active_low,
         gpio=not args.no_gpio,
+        serve=args.serve,
+        port=args.port,
+        token=args.token,
+        open_mode=args.open,
+        stream_width=args.stream_width,
+        stream_quality=args.stream_quality,
+        stream_fps=args.stream_fps,
     )
     root.mainloop()
 

@@ -187,3 +187,34 @@ It prints the backend it resolved (or why there is none) and exits non-zero if G
 | `--gpio-pin 17` | BCM pin (env `PLANT_GPIO_PIN` overrides) |
 | `--gpio-active-low` | For relay boards that switch on a LOW pin |
 | `--no-gpio` | Never touch GPIO |
+
+---
+
+## 7. Phone remote (optional)
+
+Watch the live view, tap the shutter, tune colour and browse the gallery from a phone on the **same network**. Off unless you ask for it:
+
+```text
+.venv/bin/python src/kiosk.py --fullscreen --lite --camera auto --serve
+```
+
+The kiosk prints the address and a fresh access token at startup, and shows both on the **Settings** page — read them off the panel:
+
+```text
+remote: http://192.168.1.226:8000/  token 7Kq2xVbA
+```
+
+Open `http://<pi-ip>:8000/` on the phone and paste the token, or scan-free: `http://<pi-ip>:8000/?token=<token>`. The token changes every restart unless you pin it with `--token`.
+
+| Flag | Meaning |
+| --- | --- |
+| `--serve` | Turn the remote on (default off — no thread, no socket, no cost) |
+| `--port 8000` | Listen port |
+| `--token` | Pin the token instead of generating one |
+| `--stream-width 640` | Downscale before encoding |
+| `--stream-quality 70` | JPEG quality |
+| `--stream-fps 12` | Ceiling on encoded frames per second |
+
+**LAN only, and not encrypted.** This is plain HTTP: anyone already on the network who has the token can watch the camera and press the shutter. Do not port-forward it to the internet. Captures made from the phone are ordinary captures — same photo, same database row, same LED on BCM 17.
+
+At most **3 people can watch the stream at once** (one thread each); a fourth gets a "too many viewers" message instead of a stalled page. Everything else — shutter, gallery, sliders — is unlimited.

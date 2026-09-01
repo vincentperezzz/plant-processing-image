@@ -225,6 +225,13 @@ class PiSim:
         gpio_pin: int = DEFAULT_PIN,
         gpio_active_low: bool = False,
         gpio: bool = True,
+        serve: bool = False,
+        port: int = 8000,
+        token: str | None = None,
+        open_mode: bool = False,
+        stream_width: int = 640,
+        stream_quality: int = 70,
+        stream_fps: float = 12.0,
     ):
         self.root = root
         self._lite = lite
@@ -315,6 +322,18 @@ class PiSim:
         self._settings_photo = None
         self._set_preview_key: tuple | None = None
         # — end colour tuning —
+        # — phone remote (Track C). Everything here stays None unless --serve,
+        # and src.server is not imported at all in that case. —
+        self._serve = bool(serve)
+        self._serve_port = int(port)
+        self._serve_token = token
+        self._serve_open = bool(open_mode)
+        self._stream_w = max(160, int(stream_width))
+        self._stream_q = max(20, min(95, int(stream_quality)))
+        self._stream_fps = float(stream_fps)
+        self._bus = None
+        self._server = None
+        self._remote_label: tk.Label | None = None
         self._scan = tk.Frame(self.root, bg=BG)
         self._gallery = tk.Frame(self.root, bg=BG)
         self._settings = tk.Frame(self.root, bg=BG)
@@ -431,6 +450,7 @@ class PiSim:
         self._set_result(DASH, DASH, "Loading inspector…")
         self._start_camera()
         self._tick()
+        self._start_server()
         # Torch starves the camera thread on a Pi, and a live view the operator
         # can see beats a grader they can't. Let the sensor come up first.
         self.root.after(1500, lambda: threading.Thread(target=self._load_brains, daemon=True).start())
@@ -567,6 +587,19 @@ class PiSim:
             anchor="w",
         )
         self._settings_status.pack(fill="x", padx=18, pady=(12, 6))
+
+        # Where the operator reads the phone address and token. Empty (and
+        # invisible) unless --serve actually brought a server up.
+        self._remote_label = tk.Label(
+            left,
+            text="",
+            bg=SURFACE,
+            fg=TEXT,
+            font=(self._face, 11),
+            anchor="w",
+            justify="left",
+        )
+        self._remote_label.pack(fill="x", padx=18, pady=(0, 6))
 
         for name, label in self._COLOR_SLIDERS:
             row = tk.Frame(left, bg=SURFACE)
@@ -1192,9 +1225,22 @@ class PiSim:
         return out
 
     def _draw_tracks_view(self, img: Image.Image) -> Image.Image:
-        ox = self._disp.get("ox", 0.0)
-        oy = self._disp.get("oy", 0.0)
-        scale = self._disp.get("scale", 1.0)
+        return self._draw_tracks_mapped(
+            img,
+            self._disp.get("ox", 0.0),
+            self._disp.get("oy", 0.0),
+            self._disp.get("scale", 1.0),
+        )
+
+    def _draw_tracks_mapped(
+        self, img: Image.Image, ox: float, oy: float, scale: float
+    ) -> Image.Image:
+        """Draw the detection boxes onto `img` using an explicit image->img map.
+
+        The kiosk canvas and the phone stream cover-fit the same source frame
+        into different rectangles, so each passes its own offset/scale rather
+        than sharing `self._disp`.
+        """
         mapped = []
         for track in self._tracks:
             x1, y1, x2, y2 = track["xyxy"]
@@ -1480,8 +1526,12 @@ class PiSim:
 
     def _tick(self) -> None:
         # Settings needs live frames too, or the sliders tune a still picture.
-        # Gallery keeps its cheap re-arm.
-        if self._page not in ("scan", "settings"):
+        # Gallery keeps its cheap re-arm — unless a phone is watching, in which
+        # case the stream would otherwise freeze the moment the kiosk is left
+        # on Gallery. Frames are still only serviced, not painted.
+        bus = self._bus
+        watched = bus is not None and bus.client_count > 0
+        if self._page not in ("scan", "settings") and not watched:
             self._tick_id = self.root.after(250, self._tick)
             return
         live = self._page == "scan"
@@ -1496,9 +1546,13 @@ class PiSim:
                         # per-frame cost; apply_pil is a no-op when neutral.
                         self._frame_pil = self._color.apply_pil(self._frame_pil)
                     self._maybe_seed_night()
-                    if not live:
+                    if self._page == "settings":
                         # No detect/grade here: YOLO would make the sliders lag.
                         self._paint_settings_preview()
+                        self._stream_only(self._frame_pil)
+                    elif not live:
+                        # Gallery with a remote viewer: stream only, no canvas.
+                        self._stream_only(self._frame_pil)
                     else:
                         self._show_image(self._frame_pil)
                         self._kick_detect()
@@ -1665,6 +1719,9 @@ class PiSim:
         if time.monotonic() < self._flash_until:
             white = Image.new("RGB", composed.size, (255, 255, 255))
             composed = Image.blend(composed, white, 0.62)
+        # The phone gets a card-free frame built at stream size (boxes only);
+        # the HUD text reaches it as HTML via /api/status instead.
+        self._publish_stream(img)
         # Building a fresh PhotoImage and re-creating the canvas item every
         # frame was the most expensive thing in the loop. Paste into the
         # existing image instead; only rebuild when the view size changes.
@@ -1759,8 +1816,267 @@ class PiSim:
         notes = tip or "Cannot name this crop yet."
         self._set_result(DASH, DASH, notes, tone="warn", extra=extra)
 
+    # — phone remote (Track C) ————————————————————————————————————
+
+    def _start_server(self) -> None:
+        """Bring the LAN server up. No-op, and no import, without --serve."""
+        if not self._serve:
+            return
+        try:
+            from src.frame_bus import FrameBus
+            from src.server import KioskServer, lan_ip
+
+            bus = FrameBus(max_fps=self._stream_fps)
+            server = KioskServer(
+                self,
+                bus=bus,
+                port=self._serve_port,
+                token=self._serve_token,
+                stream_width=self._stream_w,
+                open_mode=self._serve_open,
+            )
+            server.start()
+        except Exception as exc:
+            print(f"remote: server did not start ({exc})", flush=True)
+            return
+        self._bus = bus
+        self._server = server
+        host = lan_ip()
+        if self._serve_open:
+            print(f"remote: http://{host}:{server.port}/  (open mode, no token)", flush=True)
+            print(
+                "remote: OPEN MODE - the stream and controls are reachable by ANYONE "
+                "on the network with no authentication.",
+                flush=True,
+            )
+        else:
+            print(f"remote: http://{host}:{server.port}/  token {server.token}", flush=True)
+        print(
+            "remote: plain HTTP on the local network - the stream is NOT encrypted.",
+            flush=True,
+        )
+        if self._remote_label is not None:
+            if self._serve_open:
+                self._remote_label.config(text=f"Remote: http://{host}:{server.port}\n(open, no token)")
+            else:
+                self._remote_label.config(
+                    text=f"Remote: http://{host}:{server.port}\nToken: {server.token}"
+                )
+
+    def _stream_frame(self, src: Image.Image) -> Image.Image:
+        """Build the phone's frame directly at stream resolution.
+
+        The phone renders Plant type / health / Notes as real HTML, so the
+        streamed pixels carry only the detection boxes — those are spatial and
+        mean nothing away from the plant they outline. Building straight from
+        the raw camera frame at ~stream size (instead of composing a second
+        1024-wide HUD frame and shrinking it) keeps the extra per-tick cost to
+        one small resize plus a handful of rectangles.
+        """
+        vw = max(1, self._view_w)
+        vh = max(1, self._view_h)
+        sw = max(1, min(self._stream_w, vw))
+        sh = max(1, round(vh * sw / vw))
+        iw, ih = src.size
+        if iw < 1 or ih < 1:
+            return Image.new("RGB", (sw, sh), VIEW_RGB)
+        # Same cover-fit as the kiosk canvas, so the phone sees the same framing.
+        scale = max(sw / iw, sh / ih)
+        nw = max(1, int(iw * scale))
+        nh = max(1, int(ih * scale))
+        out = src if (nw, nh) == (iw, ih) else src.resize((nw, nh), Image.BILINEAR)
+        ox = (sw - nw) // 2
+        oy = (sh - nh) // 2
+        # crop() always copies, so the shared self._frame_pil is never drawn on.
+        out = out.crop((-ox, -oy, -ox + sw, -oy + sh))
+        if self._tracks:
+            out = self._draw_tracks_mapped(out, ox, oy, scale)
+        if time.monotonic() < self._flash_until:
+            white = Image.new("RGB", out.size, (255, 255, 255))
+            out = Image.blend(out, white, 0.62)
+        return out
+
+    def _publish_stream(self, src: Image.Image) -> None:
+        """Encode one JPEG for the phone. Cheap no-op when nobody is watching.
+
+        Skipped outright while YOLO holds a worker: on four A72 cores an extra
+        full-frame encode per tick is visible in the live framerate, and a
+        dropped remote frame is the cheaper loss.
+        """
+        bus = self._bus
+        if bus is None or self._detect_busy:
+            return
+        if not bus.wants_frame(time.monotonic()):
+            return
+        try:
+            frame = self._stream_frame(src)
+        except Exception:
+            return
+        self._publish_jpeg(frame)
+
+    def _publish_jpeg(self, img: Image.Image) -> None:
+        bus = self._bus
+        if bus is None:
+            return
+        try:
+            import cv2
+            import numpy as np
+
+            if img.width > self._stream_w:
+                height = max(1, round(img.height * self._stream_w / img.width))
+                img = img.resize((self._stream_w, height), Image.BILINEAR)
+            if img.mode != "RGB":
+                img = img.convert("RGB")
+            arr = np.asarray(img)[:, :, ::-1]  # PIL RGB -> cv2 BGR
+            ok, buf = cv2.imencode(".jpg", arr, [int(cv2.IMWRITE_JPEG_QUALITY), self._stream_q])
+            if ok:
+                bus.publish(buf.tobytes())
+        except Exception:
+            # A broken encode must never take the display path down with it.
+            pass
+
+    def _stream_only(self, img: Image.Image) -> None:
+        """Publish for a remote viewer without painting the canvas.
+
+        This is the Gallery/Settings page with somebody watching from a phone:
+        the stream has to keep moving, but the scan canvas is not on screen.
+        """
+        self._publish_stream(img)
+
+    def _call_on_tk(self, fn, timeout: float = 1.5):
+        """Run `fn` on the Tk thread from an HTTP thread and return its result.
+
+        Bounded on purpose: a wedged UI turns into a 503 for the phone, not a
+        hung request holding one of the three handler threads forever.
+        """
+        done = threading.Event()
+        box: dict = {}
+
+        def run() -> None:
+            try:
+                box["value"] = fn()
+            except Exception as exc:  # noqa: BLE001 - re-raised on the caller
+                box["error"] = exc
+            finally:
+                done.set()
+
+        self.root.after(0, run)
+        if not done.wait(timeout):
+            raise TimeoutError("kiosk UI thread did not respond")
+        if "error" in box:
+            raise box["error"]
+        return box.get("value")
+
+    # — the KioskBridge interface. All of these run on an HTTP thread. —
+
+    def remote_shutter(self) -> dict:
+        return self._call_on_tk(self._remote_snap)
+
+    def _remote_snap(self) -> dict:
+        # On the Tk thread, so these are the same preconditions snap() itself
+        # checks and the answer we hand the phone cannot go stale in between.
+        if self._snap_busy:
+            return {"ok": False, "reason": "a capture is already running"}
+        if not self._shutter_enabled:
+            return {"ok": False, "reason": "the shutter is disabled right now"}
+        if self._frame_pil is None:
+            return {"ok": False, "reason": "no camera frame yet"}
+        self.snap()
+        return {"ok": True, "reason": "capture started"}
+
+    def remote_color(self) -> dict:
+        return {
+            "profile": self._color.to_dict(),
+            "ranges": {k: [float(v[0]), float(v[1])] for k, v in self._color_ranges.items()},
+            "active": self._color_store.active,
+            "native": bool(self._color_native),
+            "sliders": [{"name": n, "label": lbl} for n, lbl in self._COLOR_SLIDERS],
+        }
+
+    def remote_hud(self) -> dict:
+        """The HUD text the phone renders as HTML cards.
+
+        Deliberately *not* marshalled through `_call_on_tk`: this is read on
+        every status poll, the six fields are plain attribute reads (each one
+        atomic in CPython), and bouncing it off the Tk thread would both add
+        work to the render loop and let a busy UI turn the phone's liveness
+        poll into a 503. The worst case is a torn read that mixes one grade's
+        crop with the next grade's health for a single poll.
+        """
+        health = (self._hud_health or "").strip()
+        key = health.lower()
+        return {
+            "crop": _display_name(self._hud_crop),
+            "health": key if key in HEALTH_DISPLAY else "",
+            "health_label": _display_name(health),
+            "notes": self._hud_notes or "",
+            "notes_extra": self._hud_extra or "",
+            "tone": self._hud_tone or "muted",
+            "confidence": self._hud_confidence,
+        }
+
+    def remote_set_slider(self, name: str, value: float) -> dict:
+        if name not in dict(self._COLOR_SLIDERS):
+            raise KeyError(f"unknown slider {name!r}")
+        low, high = self._color_ranges[name]
+        val = min(float(high), max(float(low), float(value)))
+        self._call_on_tk(lambda: self._remote_apply_slider(name, val))
+        return self.remote_color()
+
+    def _remote_apply_slider(self, name: str, value: float) -> None:
+        # Drive the model first, then the widget. Going the other way round --
+        # scale.set() and letting the widget's -command fire back -- looks
+        # tidier but silently loses the edit: set() moves the slider without
+        # invoking the callback, so self._color never changed and every phone
+        # adjustment was dropped while reset/activate (which assign _color
+        # directly) appeared to work. The sync guard keeps the widget move from
+        # re-entering if a later Tk build does fire the command.
+        self._on_color_slider(name, value)
+        scale = self._color_scales.get(name)
+        if scale is not None:
+            self._color_syncing = True
+            try:
+                scale.set(value)
+            finally:
+                self._color_syncing = False
+
+    def remote_profile(self, action: str, name: str | None = None) -> dict:
+        if action in ("activate", "save") and name not in ("night", "morning"):
+            raise ValueError(f"unknown profile {name!r}")
+        self._call_on_tk(lambda: self._remote_profile(action, name))
+        return self.remote_color()
+
+    def _remote_profile(self, action: str, name: str | None) -> None:
+        if action == "activate":
+            self._activate_profile(str(name))
+        elif action == "save":
+            self._save_color(str(name))
+        elif action == "reset":
+            self._reset_color()
+        else:
+            raise ValueError(f"unknown action {action!r}")
+        self._sync_color_sliders()
+        self._paint_profile_buttons()
+
+    def remote_gallery_changed(self) -> None:
+        self.root.after(0, self._remote_refill_gallery)
+
+    def _remote_refill_gallery(self) -> None:
+        if self._page == "gallery":
+            self._fill_gallery()
+
+    # — end phone remote ——————————————————————————————————————————
+
     def _close(self) -> None:
         self._scan_gen += 1
+        server = self._server
+        self._server = None
+        self._bus = None
+        if server is not None:
+            # From the Tk thread while serve_forever runs on its own: calling
+            # shutdown() from a serving thread deadlocks, and the join inside
+            # stop() is bounded so a wedged viewer cannot hold up exit.
+            server.stop()
         if self._tick_id is not None:
             self.root.after_cancel(self._tick_id)
             self._tick_id = None

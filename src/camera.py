@@ -97,7 +97,10 @@ class _PiCam:
         cv2.VideoCapture, so callers gate on `hasattr(cap, "set_profile")`.
         """
         try:
-            self._cam.set_controls(profile.to_controls(self.control_ranges()))
+            # to_controls() wants slider-name -> (low, high); camera_controls is
+            # keyed by libcamera names with (min, max, default) triples, so passing
+            # it raw matched nothing and silently fell back to the default spans.
+            self._cam.set_controls(profile.to_controls())
             return True
         except Exception:
             return False
