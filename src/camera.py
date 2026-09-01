@@ -312,12 +312,12 @@ def _open_usb(index: int | None = None):
         if not cap.isOpened():
             cap.release()
             continue
-        cap.set(cv2.CAP_PROP_CONVERT_RGB, 1)
-        cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
         if fourcc:
             cap.set(cv2.CAP_PROP_FOURCC, _fourcc(fourcc))
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+        cap.set(cv2.CAP_PROP_FPS, 30)
+        cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
         ok = False
         frame = None
         for _ in range(8):
