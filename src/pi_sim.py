@@ -1901,7 +1901,7 @@ class PiSim:
         scale = max(sw / iw, sh / ih)
         nw = max(1, int(iw * scale))
         nh = max(1, int(ih * scale))
-        resample = getattr(Image, "Resampling", Image).LANCZOS
+        resample = getattr(Image, "Resampling", Image).BILINEAR
         out = src.copy() if (nw, nh) == (iw, ih) else src.resize((nw, nh), resample)
         ox = (sw - nw) // 2
         oy = (sh - nh) // 2
@@ -1915,14 +1915,9 @@ class PiSim:
         return out
 
     def _publish_stream(self, src: Image.Image) -> None:
-        """Encode one JPEG for the phone. Cheap no-op when nobody is watching.
-
-        Skipped outright while YOLO holds a worker: on four A72 cores an extra
-        full-frame encode per tick is visible in the live framerate, and a
-        dropped remote frame is the cheaper loss.
-        """
+        """Encode one JPEG for the phone. Cheap no-op when nobody is watching."""
         bus = self._bus
-        if bus is None or self._detect_busy:
+        if bus is None:
             return
         if not bus.wants_frame(time.monotonic()):
             return
@@ -1942,7 +1937,7 @@ class PiSim:
 
             if img.width > self._stream_w:
                 height = max(1, round(img.height * self._stream_w / img.width))
-                resample = getattr(Image, "Resampling", Image).LANCZOS
+                resample = getattr(Image, "Resampling", Image).BILINEAR
                 img = img.resize((self._stream_w, height), resample)
             if img.mode != "RGB":
                 img = img.convert("RGB")
