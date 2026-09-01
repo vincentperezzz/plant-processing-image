@@ -565,12 +565,12 @@ class PiSim:
     )
 
     _SLIDER_THEMES = {
-        "red": {"fg": "#B33927", "trough": "#FCEAE8", "thumb": "#C94634", "active": "#9E2919"},
-        "green": {"fg": "#1E6B37", "trough": "#EAF6ED", "thumb": "#2B8746", "active": "#16592C"},
-        "blue": {"fg": "#1D5B91", "trough": "#EBF2FA", "thumb": "#2B7BC4", "active": "#174C7A"},
-        "saturation": {"fg": "#A35200", "trough": "#FEF3E7", "thumb": "#CF6E08", "active": "#944700"},
-        "brightness": {"fg": "#995D00", "trough": "#FFF8E6", "thumb": "#CCA01A", "active": "#8A5200"},
-        "contrast": {"fg": "#44403C", "trough": "#F0EEEC", "thumb": "#78716C", "active": "#292524"},
+        "red": {"fg": "#B33927", "trough": "#FCEAE8", "thumb": "#C94634", "active": "#4f2d17"},
+        "green": {"fg": "#1E6B37", "trough": "#EAF6ED", "thumb": "#2B8746", "active": "#4f2d17"},
+        "blue": {"fg": "#1D5B91", "trough": "#EBF2FA", "thumb": "#2B7BC4", "active": "#4f2d17"},
+        "saturation": {"fg": "#4f2d17", "trough": "#FBF1EB", "thumb": "#703e20", "active": "#4f2d17"},
+        "brightness": {"fg": "#4f2d17", "trough": "#FBF1EB", "thumb": "#8a4d29", "active": "#4f2d17"},
+        "contrast": {"fg": "#4f2d17", "trough": "#FBF1EB", "thumb": "#4f2d17", "active": "#2b180c"},
     }
 
     def _build_settings(self) -> None:
@@ -613,7 +613,7 @@ class PiSim:
         self._remote_label.pack(fill="x", padx=18, pady=(0, 6))
 
         for name, label in self._COLOR_SLIDERS:
-            theme = self._SLIDER_THEMES.get(name, {"fg": TEXT, "trough": NEUTRAL_400, "thumb": ACCENT, "active": ACCENT})
+            theme = self._SLIDER_THEMES.get(name, {"fg": TEXT, "trough": NEUTRAL_400, "thumb": "#4f2d17", "active": "#4f2d17"})
             row = tk.Frame(left, bg=SURFACE)
             row.pack(fill="x", padx=18, pady=3)
             tk.Label(
@@ -656,14 +656,14 @@ class PiSim:
 
         picks = tk.Frame(left, bg=SURFACE)
         picks.pack(fill="x", padx=13, pady=(12, 4))
-        button(picks, "Night", lambda: self._activate_profile("night"), fg="#C8622A", bg="#FAECE4", outline="#E8BAA2", key="night")
-        button(picks, "Morning", lambda: self._activate_profile("morning"), fg="#B45309", bg="#FEF6E4", outline="#F6DCA6", key="morning")
+        button(picks, "Night", lambda: self._activate_profile("night"), fg="#4f2d17", bg="#f3e7dc", outline="#dec5b4", key="night")
+        button(picks, "Morning", lambda: self._activate_profile("morning"), fg="#4f2d17", bg="#f3e7dc", outline="#dec5b4", key="morning")
         button(picks, "Reset", self._reset_color, fg="#57534E", bg="#F4F1EA", outline="#D6D0C4")
 
         saves = tk.Frame(left, bg=SURFACE)
         saves.pack(fill="x", padx=13, pady=(0, 12))
-        button(saves, "Save as Night", lambda: self._save_color("night"), fg="#C8622A", bg="#FAECE4", outline="#E8BAA2")
-        button(saves, "Save as Morning", lambda: self._save_color("morning"), fg="#B45309", bg="#FEF6E4", outline="#F6DCA6")
+        button(saves, "Save as Night", lambda: self._save_color("night"), fg="#4f2d17", bg="#f3e7dc", outline="#dec5b4")
+        button(saves, "Save as Morning", lambda: self._save_color("morning"), fg="#4f2d17", bg="#f3e7dc", outline="#dec5b4")
 
         right = tk.Frame(body, bg=VIEW)
         right.pack(side="left", fill="both", expand=True)
@@ -704,12 +704,12 @@ class PiSim:
     def _paint_profile_buttons(self) -> None:
         active = self._color_store.active
         profile_colors = {
-            "night": {"active_bg": "#C8622A", "active_fg": "#FFFFFF", "inactive_bg": "#FAECE4", "inactive_fg": "#C8622A", "outline": "#E8BAA2"},
-            "morning": {"active_bg": "#D97706", "active_fg": "#FFFFFF", "inactive_bg": "#FEF6E4", "inactive_fg": "#B45309", "outline": "#F6DCA6"},
+            "night": {"active_bg": "#4f2d17", "active_fg": "#FFFFFF", "inactive_bg": "#f3e7dc", "inactive_fg": "#4f2d17", "outline": "#dec5b4"},
+            "morning": {"active_bg": "#4f2d17", "active_fg": "#FFFFFF", "inactive_bg": "#f3e7dc", "inactive_fg": "#4f2d17", "outline": "#dec5b4"},
         }
         for key, btn in self._profile_btns.items():
             on = key == active
-            cfg = profile_colors.get(key, {"active_bg": ACCENT, "active_fg": CREAM, "inactive_bg": None, "inactive_fg": TEXT, "outline": DIVIDER})
+            cfg = profile_colors.get(key, {"active_bg": "#4f2d17", "active_fg": "#FFFFFF", "inactive_bg": None, "inactive_fg": TEXT, "outline": DIVIDER})
             img = self._pill_photo(
                 key.capitalize(),
                 font=self._font_nav,
