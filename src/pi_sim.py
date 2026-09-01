@@ -389,7 +389,9 @@ class PiSim:
         img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
         draw = ImageDraw.Draw(img)
         radius = h // 2
-        if bg is not None:
+        if bg is not None and outline is not None:
+            draw.rounded_rectangle((1, 1, w - 2, h - 2), radius=radius, fill=bg, outline=outline, width=1)
+        elif bg is not None:
             draw.rounded_rectangle((0, 0, w - 1, h - 1), radius=radius, fill=bg)
         elif outline is not None:
             draw.rounded_rectangle((1, 1, w - 2, h - 2), radius=radius, outline=outline, width=2)
@@ -562,6 +564,15 @@ class PiSim:
         ("contrast", "Contrast"),
     )
 
+    _SLIDER_THEMES = {
+        "red": {"fg": "#B33927", "trough": "#FCEAE8", "thumb": "#C94634", "active": "#9E2919"},
+        "green": {"fg": "#1E6B37", "trough": "#EAF6ED", "thumb": "#2B8746", "active": "#16592C"},
+        "blue": {"fg": "#1D5B91", "trough": "#EBF2FA", "thumb": "#2B7BC4", "active": "#174C7A"},
+        "saturation": {"fg": "#A35200", "trough": "#FEF3E7", "thumb": "#CF6E08", "active": "#944700"},
+        "brightness": {"fg": "#995D00", "trough": "#FFF8E6", "thumb": "#CCA01A", "active": "#8A5200"},
+        "contrast": {"fg": "#44403C", "trough": "#F0EEEC", "thumb": "#78716C", "active": "#292524"},
+    }
+
     def _build_settings(self) -> None:
         self._build_nav(self._settings, "settings")
         body = tk.Frame(self._settings, bg=BG)
@@ -602,12 +613,13 @@ class PiSim:
         self._remote_label.pack(fill="x", padx=18, pady=(0, 6))
 
         for name, label in self._COLOR_SLIDERS:
+            theme = self._SLIDER_THEMES.get(name, {"fg": TEXT, "trough": NEUTRAL_400, "thumb": ACCENT, "active": ACCENT})
             row = tk.Frame(left, bg=SURFACE)
-            row.pack(fill="x", padx=18, pady=2)
+            row.pack(fill="x", padx=18, pady=3)
             tk.Label(
-                row, text=label, bg=SURFACE, fg=TEXT, font=(self._face, 11), width=10, anchor="w"
+                row, text=label, bg=SURFACE, fg=theme["fg"], font=(self._face, 11, "bold"), width=10, anchor="w"
             ).pack(side="left")
-            value = tk.Label(row, text="", bg=SURFACE, fg=MUTED, font=(self._face, 11), width=6, anchor="e")
+            value = tk.Label(row, text="", bg=SURFACE, fg=theme["fg"], font=(self._face, 11, "bold"), width=6, anchor="e")
             value.pack(side="right")
             low, high = self._color_ranges[name]
             scale = tk.Scale(
@@ -620,10 +632,10 @@ class PiSim:
                 length=300,
                 width=16,
                 sliderlength=28,
-                bg=SURFACE,
-                fg=TEXT,
-                troughcolor=NEUTRAL_400,
-                activebackground=ACCENT,
+                bg=theme["thumb"],
+                fg=theme["fg"],
+                troughcolor=theme["trough"],
+                activebackground=theme["active"],
                 highlightthickness=0,
                 bd=0,
                 sliderrelief="flat",
@@ -633,8 +645,8 @@ class PiSim:
             self._color_scales[name] = scale
             self._color_value_labels[name] = value
 
-        def button(parent, text, cmd, *, key=None):
-            img = self._pill_photo(text, font=self._font_nav, fg=TEXT, outline=DIVIDER, min_h=40)
+        def button(parent, text, cmd, *, fg=TEXT, bg=None, outline=DIVIDER, key=None):
+            img = self._pill_photo(text, font=self._font_nav, fg=fg, bg=bg, outline=outline, min_h=40)
             btn = tk.Label(parent, image=img, bg=SURFACE, cursor="hand2")
             btn.pack(side="left", padx=5)
             btn.bind("<Button-1>", lambda _e: cmd())
@@ -644,14 +656,14 @@ class PiSim:
 
         picks = tk.Frame(left, bg=SURFACE)
         picks.pack(fill="x", padx=13, pady=(12, 4))
-        button(picks, "Night", lambda: self._activate_profile("night"), key="night")
-        button(picks, "Morning", lambda: self._activate_profile("morning"), key="morning")
-        button(picks, "Reset", self._reset_color)
+        button(picks, "Night", lambda: self._activate_profile("night"), fg="#C8622A", bg="#FAECE4", outline="#E8BAA2", key="night")
+        button(picks, "Morning", lambda: self._activate_profile("morning"), fg="#B45309", bg="#FEF6E4", outline="#F6DCA6", key="morning")
+        button(picks, "Reset", self._reset_color, fg="#57534E", bg="#F4F1EA", outline="#D6D0C4")
 
         saves = tk.Frame(left, bg=SURFACE)
         saves.pack(fill="x", padx=13, pady=(0, 12))
-        button(saves, "Save as Night", lambda: self._save_color("night"))
-        button(saves, "Save as Morning", lambda: self._save_color("morning"))
+        button(saves, "Save as Night", lambda: self._save_color("night"), fg="#C8622A", bg="#FAECE4", outline="#E8BAA2")
+        button(saves, "Save as Morning", lambda: self._save_color("morning"), fg="#B45309", bg="#FEF6E4", outline="#F6DCA6")
 
         right = tk.Frame(body, bg=VIEW)
         right.pack(side="left", fill="both", expand=True)
@@ -691,14 +703,19 @@ class PiSim:
 
     def _paint_profile_buttons(self) -> None:
         active = self._color_store.active
+        profile_colors = {
+            "night": {"active_bg": "#C8622A", "active_fg": "#FFFFFF", "inactive_bg": "#FAECE4", "inactive_fg": "#C8622A", "outline": "#E8BAA2"},
+            "morning": {"active_bg": "#D97706", "active_fg": "#FFFFFF", "inactive_bg": "#FEF6E4", "inactive_fg": "#B45309", "outline": "#F6DCA6"},
+        }
         for key, btn in self._profile_btns.items():
             on = key == active
+            cfg = profile_colors.get(key, {"active_bg": ACCENT, "active_fg": CREAM, "inactive_bg": None, "inactive_fg": TEXT, "outline": DIVIDER})
             img = self._pill_photo(
                 key.capitalize(),
                 font=self._font_nav,
-                fg=CREAM if on else TEXT,
-                bg=ACCENT if on else None,
-                outline=None if on else DIVIDER,
+                fg=cfg["active_fg"] if on else cfg["inactive_fg"],
+                bg=cfg["active_bg"] if on else cfg["inactive_bg"],
+                outline=None if on else cfg["outline"],
                 min_h=40,
             )
             btn.configure(image=img)
