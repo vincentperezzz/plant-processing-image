@@ -1356,7 +1356,7 @@ class PiSim:
 
             self._blend_patch(show, box, paint)
 
-    def _compose_frame(self, img: Image.Image) -> Image.Image:
+    def _compose_frame(self, img: Image.Image, *, is_capture: bool = False) -> Image.Image:
         vw = max(1, self._view_w)
         vh = max(1, self._view_h)
         show = self._cover_frame(img, vw, vh)
@@ -1405,17 +1405,18 @@ class PiSim:
                         draw.text((nx1 + 18, ty), line, font=self._font_notes, fill=note_rgb)
                     ty += 22
 
-        # Draw LIVE badge directly on top-left of the camera frame
-        draw.rounded_rectangle((16, 16, 88, 48), radius=16, fill=_hex_rgb(ALERT))
-        draw.ellipse((27, 28, 35, 36), fill=(255, 255, 255))
-        draw.text((41, 23), "LIVE", font=self._font_pill, fill=(255, 255, 255))
+        if not is_capture:
+            # Draw LIVE badge directly on top-left of the camera frame
+            draw.rounded_rectangle((16, 16, 88, 48), radius=16, fill=_hex_rgb(ALERT))
+            draw.ellipse((27, 28, 35, 36), fill=(255, 255, 255))
+            draw.text((41, 23), "LIVE", font=self._font_pill, fill=(255, 255, 255))
 
-        # Draw Retry Scan button directly on top-right of the camera frame
-        rw, rh = 142, 42
-        rx1, ry1, rx2, ry2 = vw - 16 - rw, 16, vw - 16, 16 + rh
-        draw.rounded_rectangle((rx1, ry1, rx2, ry2), radius=rh // 2, fill=CARD_FILL_RGB, outline=CARD_LINE_RGB, width=2)
-        tw, th = _text_size(draw, "Retry Scan", self._font_nav)
-        draw.text(((rx1 + rx2) // 2 - tw // 2, (ry1 + ry2) // 2 - th // 2 - 1), "Retry Scan", font=self._font_nav, fill=TEXT_RGB)
+            # Draw Retry Scan button directly on top-right of the camera frame
+            rw, rh = 142, 42
+            rx1, ry1, rx2, ry2 = vw - 16 - rw, 16, vw - 16, 16 + rh
+            draw.rounded_rectangle((rx1, ry1, rx2, ry2), radius=rh // 2, fill=CARD_FILL_RGB, outline=CARD_LINE_RGB, width=2)
+            tw, th = _text_size(draw, "Retry Scan", self._font_nav)
+            draw.text(((rx1 + rx2) // 2 - tw // 2, (ry1 + ry2) // 2 - th // 2 - 1), "Retry Scan", font=self._font_nav, fill=TEXT_RGB)
 
         return show
 
@@ -1795,7 +1796,7 @@ class PiSim:
         self._flash_until = time.monotonic() + 0.16
         self._shutter_punch = time.monotonic() + 0.18
         img = self._frame_pil.copy()
-        composed = self._compose_frame(img)
+        composed = self._compose_frame(img, is_capture=True)
         self._show_image(img)
 
         def work() -> None:
