@@ -948,48 +948,49 @@ PAGE_HTML = (
 
  /* — 16:9 PC widescreen / Desktop responsive layout — */
  @media (min-width: 860px){
-   body{max-width:1200px;padding:var(--space-3) var(--space-5) 110px}
-   body.cam{padding-bottom:110px}
+   body{max-width:1440px;width:94vw;padding:var(--space-3) var(--space-5) 140px}
+   body.cam{padding-bottom:150px}
    .topbar{padding:var(--space-2) 0 var(--space-3);border-bottom:1px solid var(--color-divider);
-           margin-bottom:var(--space-4);display:flex;align-items:center;justify-content:space-between}
-   .brand{font-size:24px}
-   .conn{font-size:12px;padding:5px 14px}
+           margin-bottom:var(--space-5);display:flex;align-items:center;justify-content:space-between}
+   .brand{font-size:26px}
+   .conn{font-size:12px;padding:6px 16px}
 
-   /* Camera Tab 16:9 widescreen split layout */
-   #view-camera{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(320px,1fr);
-                gap:var(--space-4);align-items:stretch}
+   /* Camera Tab 16:9 widescreen split layout with maximized space and generous gap */
+   #view-camera{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);
+                gap:32px;align-items:stretch}
    #view-camera .stage{aspect-ratio:16/9;width:100%;height:100%;min-height:0;
-                       border-radius:var(--radius-lg);box-shadow:var(--shadow-md);
+                       border-radius:24px;box-shadow:var(--shadow-md);
                        border:1px solid var(--color-divider)}
    #view-camera .stage img{width:100%;height:100%;object-fit:cover}
-   #view-camera .hud{margin-top:0;display:flex;flex-direction:column;gap:var(--space-3);height:100%}
+   #view-camera .hud{margin-top:0;display:flex;flex-direction:column;gap:18px;height:100%}
    #view-camera .hcard{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;
-                       padding:var(--space-3) var(--space-4);border-radius:var(--radius-lg);
-                       border:1px solid var(--color-divider)}
-   #view-camera .hcard.wide{flex:1.3;justify-content:flex-start}
-   #view-camera .hcard .v{font-size:22px;margin-top:2px}
-   #view-camera .hcard.wide .v{font-size:15px;line-height:1.5}
+                       padding:18px 24px;border-radius:24px;
+                       border:1px solid var(--color-divider);box-shadow:var(--shadow-sm)}
+   #view-camera .hcard.wide{flex:1.35;justify-content:flex-start}
+   #view-camera .hcard .k{font-size:11.5px;letter-spacing:.1em}
+   #view-camera .hcard .v{font-size:24px;margin-top:4px}
+   #view-camera .hcard.wide .v{font-size:16px;line-height:1.55}
 
    /* Gallery Tab Desktop Layout */
-   #gal-grid .grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:var(--space-4)}
-   #gal-detail{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(340px,1fr);
-               gap:var(--space-4);align-items:start}
+   #gal-grid .grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--space-4)}
+   #gal-detail{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);
+               gap:32px;align-items:start}
    #gal-detail .back{grid-column:1 / -1;margin-bottom:var(--space-2);width:fit-content}
-   #gal-detail .shot{max-height:70vh;object-fit:contain}
+   #gal-detail .shot{max-height:72vh;object-fit:contain}
    #gal-detail .dmeta{margin-top:0}
 
    /* Settings Tab Desktop Layout */
-   #view-settings .card{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(280px,1fr);
-                        gap:var(--space-5);align-items:start}
-   .settings-side{display:flex;flex-direction:column;gap:var(--space-2);
+   #view-settings .card{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,1fr);
+                        gap:32px;align-items:start;padding:var(--space-5)}
+   .settings-side{display:flex;flex-direction:column;gap:var(--space-3);
                   background:var(--color-bg);padding:var(--space-4);
                   border-radius:var(--radius-md);border:1px solid var(--color-divider)}
 
-   /* Floating Pill Dock & Shutter on Desktop */
-   .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;z-index:10;
-         display:flex;flex-direction:row;align-items:center;justify-content:center;
-         gap:var(--space-3);padding:8px 16px;border-radius:999px;
-         background:rgba(245,234,216,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+   /* Floating Pill Dock: Shutter stacked ON TOP of Navigation Tabs */
+   .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:10;
+         display:flex;flex-direction:column;align-items:center;justify-content:center;
+         gap:10px;padding:12px 20px 10px;border-radius:36px;
+         background:rgba(245,234,216,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
          border:1px solid var(--color-divider);box-shadow:var(--shadow-lg);
          width:auto;max-width:92vw}
    .dock > *{width:auto;max-width:none}
@@ -998,16 +999,17 @@ PAGE_HTML = (
           border-radius:999px;border:1px solid var(--color-divider);box-shadow:var(--shadow-sm);
           pointer-events:none}
    .toast:empty{display:none}
-   .shutter{width:58px;height:58px;border-width:4px;margin:0}
-   .shutter::after{width:38px;height:38px}
-   .tabs{padding:4px;gap:4px;border:1px solid var(--color-divider);background:var(--color-bg)}
-   .tabs .pill{min-height:38px;padding:0 18px;font-size:14px}
+   .shutter{width:64px;height:64px;border-width:4px;margin:0}
+   .shutter::after{width:44px;height:44px}
+   .tabs{padding:4px;gap:6px;border:1px solid var(--color-divider);background:var(--color-bg)}
+   .tabs .pill{min-height:38px;padding:0 22px;font-size:14.5px}
    .pill:hover:not([aria-selected="true"]){border-color:var(--color-accent)}
  }
 
  @media (min-width: 1200px){
-   body{max-width:1320px}
-   #view-camera{grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);gap:var(--space-5)}
+   body{max-width:1560px;width:95vw}
+   #view-camera{grid-template-columns:minmax(0,1.75fr) minmax(380px,1fr);gap:40px}
+   #view-camera .hcard .v{font-size:26px}
  }
 
  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
