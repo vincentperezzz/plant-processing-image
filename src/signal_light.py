@@ -13,27 +13,40 @@ from __future__ import annotations
 import threading
 
 DEFAULT_PIN = 17
+DEFAULT_PINS = (17, 27)
 DEFAULT_HOLD = 3.0
 
 
+def _parse_pins(pin_spec: int | str | Iterable[int]) -> list[int]:
+    if isinstance(pin_spec, int):
+        return [int(pin_spec)]
+    if isinstance(pin_spec, str):
+        parts = pin_spec.replace(",", " ").split()
+        return [int(p) for p in parts if p.strip().isdigit()] or list(DEFAULT_PINS)
+    try:
+        return [int(p) for p in pin_spec]
+    except Exception:
+        return list(DEFAULT_PINS)
+
+
 class CaptureLight:
-    """Blink an indicator LED for `hold` seconds on each `pulse()`."""
+    """Blink indicator LEDs for `hold` seconds on each `pulse()`."""
 
     def __init__(
         self,
-        pin: int = DEFAULT_PIN,
+        pin: int | str | Iterable[int] = DEFAULT_PINS,
         *,
         active_high: bool = True,
         hold: float = DEFAULT_HOLD,
         enabled: bool = True,
     ) -> None:
-        self.pin = int(pin)
+        self.pins = _parse_pins(pin)
         self.active_high = bool(active_high)
         self.hold = max(0.05, float(hold))
         self._lock = threading.Lock()
         self._timer: threading.Timer | None = None
         self._gen = 0
-        self._led = None
+        self._leds: list = []
         self._closed = False
         self._backend = "disabled"
         self._reason = ""
@@ -52,65 +65,66 @@ class CaptureLight:
             self._reason = f"gpiozero unavailable ({exc.__class__.__name__}: {exc})"
             print(f"[capture-light] off: {self._reason}")
             return
+        factory = None
+        first_pin = self.pins[0] if self.pins else 17
         try:
-            self._led = gpiozero.LED(self.pin, active_high=self.active_high, initial_value=False)
+            test_led = gpiozero.LED(first_pin, active_high=self.active_high, initial_value=False)
+            test_led.close()
             self._backend = "gpiozero (default pin factory)"
-            return
         except Exception as exc:
-            first = f"{exc.__class__.__name__}: {exc}"
-        # Default factory failed — try lgpio explicitly (Debian trixie / Pi 5 path).
-        try:
-            from gpiozero.pins.lgpio import LGPIOFactory
+            try:
+                from gpiozero.pins.lgpio import LGPIOFactory
 
-            self._led = gpiozero.LED(
-                self.pin,
-                active_high=self.active_high,
-                initial_value=False,
-                pin_factory=LGPIOFactory(),
-            )
-            self._backend = "gpiozero (LGPIOFactory)"
-            return
-        except Exception as exc:
-            second = f"{exc.__class__.__name__}: {exc}"
-        self._led = None
-        self._backend = "none"
-        self._reason = f"BCM {self.pin} unavailable (default: {first}; lgpio: {second})"
-        print(f"[capture-light] off: {self._reason}")
+                factory = LGPIOFactory()
+                self._backend = "gpiozero (LGPIOFactory)"
+            except Exception as exc2:
+                self._backend = "none"
+                self._reason = f"GPIO pins {self.pins} unavailable (default: {exc}; lgpio: {exc2})"
+                print(f"[capture-light] off: {self._reason}")
+                return
+
+        self._leds = []
+        for p in self.pins:
+            try:
+                kw = {"active_high": self.active_high, "initial_value": False}
+                if factory is not None:
+                    kw["pin_factory"] = factory
+                led = gpiozero.LED(p, **kw)
+                self._leds.append(led)
+            except Exception as exc:
+                print(f"[capture-light] warning: could not claim BCM {p}: {exc}")
 
     # — state —
 
     @property
     def active(self) -> bool:
-        """True when a real GPIO pin is being driven."""
-        return self._led is not None and not self._closed
+        """True when at least one GPIO pin is being driven."""
+        return len(self._leds) > 0 and not self._closed
 
     @property
     def backend(self) -> str:
         """Short human-readable description of the resolved backend."""
         if not self.active:
             return f"off - {self._reason}" if self._reason else "off"
-        return f"{self._backend}, BCM {self.pin}, active-{'high' if self.active_high else 'low'}"
+        return f"{self._backend}, BCM {self.pins}, active-{'high' if self.active_high else 'low'}"
 
     # — use —
 
     def pulse(self) -> None:
-        """Light the LED now and schedule it off after `hold` seconds."""
+        """Light all configured LEDs now and schedule them off after `hold` seconds."""
         with self._lock:
-            if self._led is None or self._closed:
+            if not self._leds or self._closed:
                 return
             if self._timer is not None:
                 self._timer.cancel()
                 self._timer = None
-            # cancel() loses the race when the timer has already fired and is
-            # blocked on this lock: that stale _expire would switch the LED off
-            # moments after this pulse turned it on. The generation token makes
-            # a late expiry a no-op.
             self._gen += 1
             gen = self._gen
-            try:
-                self._led.on()
-            except Exception:
-                return
+            for led in self._leds:
+                try:
+                    led.on()
+                except Exception:
+                    pass
             timer = threading.Timer(self.hold, self._expire, args=(gen,))
             timer.daemon = True
             self._timer = timer
@@ -121,15 +135,16 @@ class CaptureLight:
             if gen != self._gen:
                 return
             self._timer = None
-            if self._led is None or self._closed:
+            if not self._leds or self._closed:
                 return
-            try:
-                self._led.off()
-            except Exception:
-                pass
+            for led in self._leds:
+                try:
+                    led.off()
+                except Exception:
+                    pass
 
     def close(self) -> None:
-        """Cancel any pending timer, turn the LED off and release the pin."""
+        """Cancel any pending timer, turn the LEDs off and release the pins."""
         with self._lock:
             self._closed = True
             self._gen += 1
@@ -139,14 +154,13 @@ class CaptureLight:
                 except Exception:
                     pass
                 self._timer = None
-            led, self._led = self._led, None
-        if led is None:
-            return
-        for step in (led.off, led.close):
-            try:
-                step()
-            except Exception:
-                pass
+            leds, self._leds = self._leds, []
+        for led in leds:
+            for step in (led.off, led.close):
+                try:
+                    step()
+                except Exception:
+                    pass
 
 
 def _self_test(argv: list[str] | None = None) -> int:

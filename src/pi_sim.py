@@ -1050,7 +1050,6 @@ class PiSim:
             self._show_image(self._frame_pil)
         else:
             self._sync_shutter()
-            self._place_live()
 
     def _value_ready(self, value: str) -> bool:
         text = (value or "").strip().lower()
@@ -1570,7 +1569,6 @@ class PiSim:
         else:
             self._set_result(DASH, DASH, LOOKING)
         self._sync_shutter()
-        self._place_live()
 
     def _tick(self) -> None:
         # Settings needs live frames too, or the sliders tune a still picture.
@@ -1785,7 +1783,6 @@ class PiSim:
         else:
             self.photo.paste(composed)
         self._sync_shutter()
-        self._place_live()
 
     def snap(self) -> None:
         if self._snap_busy or not self._shutter_enabled:
