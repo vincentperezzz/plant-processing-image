@@ -44,12 +44,12 @@ def _shape_masses(mask: np.ndarray) -> tuple[float, float]:
         bh = float(max(1, stats[i, cv2.CC_STAT_HEIGHT]))
         aspect = max(bw, bh) / min(bw, bh)
         fill = area / (bw * bh)
-        if aspect <= 1.55 and fill >= 0.42:
-            round_a += area
-        elif aspect <= 1.8 and fill >= 0.35:
-            round_a += area * 0.65
-        elif aspect >= 2.05:
+        if aspect >= 1.65:
             skinny_a += area
+        elif aspect <= 1.40 and fill >= 0.45:
+            round_a += area
+        elif aspect <= 1.60 and fill >= 0.38:
+            round_a += area * 0.5
     return round_a / img_a, skinny_a / img_a
 
 
@@ -87,13 +87,15 @@ def plant_look(img: Image.Image) -> dict:
     purple_f = float(purple.mean())
     ripe = red_f + orange_f
     hint = None
-    if purple_f >= 0.018 or purple_round + purple_skinny >= 0.008:
-        hint = "eggplant"
-    elif round_m >= 0.0045 and round_m >= skinny_m * 0.8 and ripe >= 0.0035:
-        hint = "tomato"
-    elif skinny_m >= 0.0055 and skinny_m > round_m * 1.2 and ripe >= 0.0028:
+    if skinny_m >= 0.0035 and ripe >= 0.0020:
         hint = "sili"
-    elif round_m >= 0.01 and ripe >= 0.0025:
+    elif purple_f >= 0.022 or purple_round + purple_skinny >= 0.012:
+        hint = "eggplant"
+    elif round_m >= 0.0080 and round_m > skinny_m * 1.5 and ripe >= 0.0040:
+        hint = "tomato"
+    elif skinny_m >= 0.0040 and skinny_m > round_m:
+        hint = "sili"
+    elif round_m >= 0.012 and ripe >= 0.0035:
         hint = "tomato"
     return {
         "leaf": round(leaf, 4),
@@ -253,15 +255,18 @@ class Scanner:
         hint = look.get("fruit_hint")
         cnn_name = self.crop_names[crop_i]
         if hint in FARM_CROPS and hint in self.crop_names and cnn_name != "palay" and crop != "palay":
-            strong = (look.get("fruit_round") or 0) >= 0.0045 or (look.get("fruit") or 0) >= 0.016
-            if strong or (hint != crop and (look.get("fruit_round") or 0) >= 0.003):
-                crop = hint
-                crop_i = self.crop_names.index(hint)
-                crop_conf = max(crop_conf, 0.72)
-                margin = max(margin, 0.22)
-                unknown = False
-                reason = None
-                health = self.health_names[health_i] if health_conf >= self.health_thr else health
+            # If CNN is already confident about an in-list farm crop, do not overwrite it with a different hint
+            cnn_confident = (not unknown) and crop_conf >= 0.70 and margin >= 0.15 and (crop in FARM_CROPS)
+            if not cnn_confident or hint == crop:
+                strong = (look.get("fruit_round") or 0) >= 0.008 or (look.get("fruit_skinny") or 0) >= 0.005 or (look.get("fruit") or 0) >= 0.02
+                if strong or unknown:
+                    crop = hint
+                    crop_i = self.crop_names.index(hint)
+                    crop_conf = max(crop_conf, 0.75)
+                    margin = max(margin, 0.25)
+                    unknown = False
+                    reason = None
+                    health = self.health_names[health_i] if health_conf >= self.health_thr else health
         trust_cnn = (not unknown) and crop in FARM_CROPS
         closeup = look["leaf"] >= 0.20 and look["fruit"] < 0.08
         view = "leaf" if trust_cnn and closeup else "plant"

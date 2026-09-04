@@ -260,12 +260,35 @@ Same facts as §4.0. Only `best.pt` was trained on our photos. YOLO and CLIP wei
 | 1 | `training/download.py` | PlantVillage, chili, eggplant, rice **leaf** close-ups |
 | 2 | `training/download_wild.py` | PlantDoc, field veg, chili fruit, iNat whole plants, robot copies |
 | 3 | `training/download_negatives.py` | Objects, other plants, indoor / people / clothes as `other` |
+| 3b | `training/download_insitu.py` | GBIF living-plant observations, **framing-gated** to the standing-distance view. Crop-only |
 | 4 | `training/remap.py` | Folders → `crop` + `health` via `data/label_map.yaml` |
 | 5 | `training/finetune_other.py` | Continue `best.pt`; skip health on unlabeled fruit rows |
 | 6 | `training/finetune_gate.py` | Optional: hard-negative in-list gate |
 | 7 | `training/cache_dictionary.py` | Rebuild CLIP phrase cache after YAML edits |
 
 Wild one-shot: `python training/run_wild_train.py` (download → remap → finetune_other).
+
+#### Framing gate (`download_insitu.py`)
+
+Everything in steps 1–2 is a leaf that fills the frame. The robot sees a whole
+plant on gravel from ~0.5–2 m. Public sets do not have that view, so we harvest
+it from GBIF observations (which aggregates iNaturalist + Pl@ntNet) and throw
+away anything framed like a lab shot:
+
+| Filter | Why |
+| --- | --- |
+| `basisOfRecord=HUMAN_OBSERVATION` | Drops herbarium sheets — **93 %** of GBIF `Oryza sativa` and `Capsicum frutescens` images are pressed dried specimens |
+| `green_frac < 0.75`, non-plant ≥ 25 % of frame | The decisive test. Our own 13 field photos sit at green 0.16–0.37; a leaf macro or a filled canopy sits above 0.75 |
+| `box_frac < 0.93` (YOLO-World) | Only rejects when the box *is* the frame. Our field photos run 0.77–0.92, so a tighter bound would reject the target view |
+| No box + green ≥ 0.08 → keep | YOLO-World at `imgsz=320` misses thin wispy sili on gravel — 3 of our own 13. Green coverage is the more reliable witness |
+| `--per-occurrence 2`, dhash | One observation is often five near-identical shots of the same plant |
+| Media-licence recheck | GBIF returns `"Name (cc-by-nc)"` as often as a licence URL |
+
+`sili` leads with **`Capsicum frutescens`** — siling labuyo is *frutescens*, and the
+older iNat pull only ever asked for *annuum*.
+
+Per-image licence, rights holder, country and gate scores land in
+`data/insitu_ledger.csv`. Keep rate is ~30 %; `--max-green` trades yield for framing.
 
 Grouped split by `group_id` so the same leaf does not leak into val.
 

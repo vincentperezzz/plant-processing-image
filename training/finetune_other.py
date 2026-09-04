@@ -144,6 +144,10 @@ def sampler_for(df: pd.DataFrame) -> WeightedRandomSampler:
             for src_name, n in big.items():
                 mask = palay & (source == src_name) & (health.fillna("") == hkey)
                 w[mask.to_numpy()] = (1.0 / float(n)) / n_big
+        # Boost field sili so new field images get thorough exposure with augmentation
+        field_sili_mask = (crop == "sili") & (source == "field_sili")
+        if field_sili_mask.any():
+            w[field_sili_mask.to_numpy()] *= 35.0
     n_pos = int((df["crop"] != "other").sum())
     num = min(POS_PER_EPOCH, n_pos) + min(NEG_PER_EPOCH, len(df) - n_pos)
     return WeightedRandomSampler(torch.as_tensor(w, dtype=torch.double), num_samples=num, replacement=True)

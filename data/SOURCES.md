@@ -16,3 +16,4 @@ Downloaded: 2026-08-13
 - iNaturalist CC0/CC BY whole-plant photos (crop-only)
 - Paddy Doctor field palay 2026-08-19 https://huggingface.co/datasets/Project-AgML/paddy_disease_classification (Petchiammal et al. 2022; dead_heart mapped to dead)
 - RiceLeafDiseaseBD field palay 2026-08-19 https://data.mendeley.com/datasets/86s4jzj2m4/2 CC BY 4.0 (Leaf Smut + blast/tungro/sheath blight; not UCI holdout)
+- GBIF in-situ whole-plant harvest 2026-09-04 (licence=all-cc, basisOfRecord=HUMAN_OBSERVATION, framing-gated) https://www.gbif.org/occurrence/search - per-image licence and rights holder in data/insitu_ledger.csv. Includes Capsicum frutescens (siling labuyo).

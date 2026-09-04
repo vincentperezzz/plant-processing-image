@@ -18,6 +18,7 @@ data/realistic_results.csv
 data/negatives/
 data/negatives_manifest.csv
 data/scans/
+data/fine-tuning/
 data/.cache/
 models/*.pt
 models/*.pth

@@ -25,6 +25,7 @@ SOURCE_HINTS = (
     ("olid", None),
     ("rob2pheno", "tomato"),
     ("inat", None),
+    ("insitu", None),
 )
 
 
