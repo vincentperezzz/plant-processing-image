@@ -203,6 +203,7 @@ class Scanner:
         *,
         detail: bool = True,
         assume_plant: bool = False,
+        enable_fallback: bool = True,
     ) -> dict:
         if isinstance(image, Image.Image):
             img = image.convert("RGB")
@@ -256,10 +257,16 @@ class Scanner:
         cnn_name = self.crop_names[crop_i]
         if hint in FARM_CROPS and hint in self.crop_names and cnn_name != "palay" and crop != "palay":
             # If CNN is already confident about an in-list farm crop, do not overwrite it with a different hint
-            cnn_confident = (not unknown) and crop_conf >= 0.70 and margin >= 0.15 and (crop in FARM_CROPS)
-            if not cnn_confident or hint == crop:
-                strong = (look.get("fruit_round") or 0) >= 0.008 or (look.get("fruit_skinny") or 0) >= 0.005 or (look.get("fruit") or 0) >= 0.02
-                if strong or unknown:
+            # EXCEPT if CNN predicted a non-fruiting crop like lettuce while an undeniably distinct fruit is present
+            fruit_conflict = (cnn_name in ("lettuce", "palay")) and (hint in ("sili", "tomato", "eggplant"))
+            if fruit_conflict:
+                strong = (
+                    (look.get("fruit_skinny") or 0) >= 0.015
+                    or (look.get("fruit_red") or 0) >= 0.020
+                    or (look.get("fruit_round") or 0) >= 0.020
+                    or (look.get("fruit_purple") or 0) >= 0.020
+                )
+                if strong:
                     crop = hint
                     crop_i = self.crop_names.index(hint)
                     crop_conf = max(crop_conf, 0.75)
@@ -267,6 +274,18 @@ class Scanner:
                     unknown = False
                     reason = None
                     health = self.health_names[health_i] if health_conf >= self.health_thr else health
+            else:
+                cnn_confident = (not unknown) and crop_conf >= 0.70 and margin >= 0.15 and (crop in FARM_CROPS)
+                if not cnn_confident or hint == crop:
+                    strong = (look.get("fruit_round") or 0) >= 0.008 or (look.get("fruit_skinny") or 0) >= 0.005 or (look.get("fruit") or 0) >= 0.02
+                    if strong or unknown:
+                        crop = hint
+                        crop_i = self.crop_names.index(hint)
+                        crop_conf = max(crop_conf, 0.75)
+                        margin = max(margin, 0.25)
+                        unknown = False
+                        reason = None
+                        health = self.health_names[health_i] if health_conf >= self.health_thr else health
         trust_cnn = (not unknown) and crop in FARM_CROPS
         closeup = look["leaf"] >= 0.20 and look["fruit"] < 0.08
         view = "leaf" if trust_cnn and closeup else "plant"
@@ -308,6 +327,37 @@ class Scanner:
                 crop = None
                 health = None
                 view = "junk"
+
+        # ExG bounding-box fallback when full frame is uncertain, ambiguous, or has fruit-vs-leaf conflict
+        fruit_mismatch = bool(hint and hint in ("sili", "tomato", "eggplant") and crop in ("lettuce", "palay", None))
+        if enable_fallback and (unknown or crop_conf < 0.65 or margin < 0.20 or fruit_mismatch):
+            try:
+                from src.detect import find_plants_exg
+                boxes = find_plants_exg(img)
+                w_img, h_img = img.size
+                total_area = float(w_img * h_img)
+                valid_boxes = []
+                for b in boxes:
+                    x1, y1, x2, y2 = b["xyxy"]
+                    area = float((x2 - x1) * (y2 - y1))
+                    # Check that the box isolates a sub-region (between 4% and 88% of the frame)
+                    if 0.04 * total_area <= area <= 0.88 * total_area:
+                        valid_boxes.append((area, b))
+                if valid_boxes:
+                    valid_boxes.sort(key=lambda item: item[0], reverse=True)
+                    for _, best_b in valid_boxes[:2]:
+                        x1, y1, x2, y2 = best_b["xyxy"]
+                        crop_box_img = img.crop((x1, y1, x2, y2))
+                        box_res = self.scan(crop_box_img, detail=detail, assume_plant=assume_plant, enable_fallback=False)
+                        if not box_res["unknown"] and box_res["crop"] in FARM_CROPS:
+                            # Adopt if full scan was unknown, fruit mismatched, or box has higher confidence/margin
+                            if unknown or fruit_mismatch or box_res["crop_confidence"] > crop_conf or box_res["crop_margin"] > margin:
+                                box_res["fallback_used"] = True
+                                box_res["fallback_box"] = best_b["xyxy"]
+                                return box_res
+            except Exception:
+                pass
+
         facts = {
             "reject": reason == "not_a_leaf",
             "reason": reason or "ok",
@@ -342,6 +392,8 @@ class Scanner:
             "dictionary_guesses": guesses,
             "named_plant": named_label,
             "tip": word_tip(facts) if detail else "",
+            "fallback_used": False,
+            "fallback_box": None,
         }
 
 

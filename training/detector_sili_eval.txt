@@ -1,0 +1,97 @@
+Image sili 5.jpg (1536x2048):
+  Full scan: sili (conf=0.95, guess=sili, dict=None)
+  Boxes (5):
+    box (608, 0, 1536, 1010) -> crop=sili (conf=0.97, guess=sili) [sili:97.4% other:1.0% tomato:1.0%]
+    box (0, 872, 784, 1713) -> crop=sili (conf=0.89, guess=sili) [sili:89.1% tomato:4.3% lettuce:3.0%]
+    box (0, 0, 592, 668) -> crop=sili (conf=0.98, guess=sili) [sili:97.8% other:1.7% tomato:0.4%]
+    box (315, 403, 848, 920) -> crop=sili (conf=0.99, guess=sili) [sili:99.0% tomato:0.8% other:0.1%]
+    box (833, 1220, 1048, 1674) -> crop=sili (conf=0.75, guess=sili) [sili:48.5% tomato:26.4% lettuce:24.8%]
+
+Image sili-1.jpg (1080x1920):
+  Full scan: sili (conf=0.88, guess=sili, dict=None)
+  Boxes (1):
+    box (49, 0, 1080, 1307) -> crop=sili (conf=0.95, guess=sili) [sili:95.1% tomato:4.2% lettuce:0.6%]
+
+Image sili-10.jpg (1536x2048):
+  Full scan: sili (conf=0.97, guess=sili, dict=None)
+  Boxes (5):
+    box (543, 0, 1536, 1036) -> crop=sili (conf=0.93, guess=sili) [sili:92.6% other:5.1% tomato:1.6%]
+    box (0, 0, 733, 543) -> crop=sili (conf=0.98, guess=sili) [sili:98.4% other:1.0% tomato:0.4%]
+    box (302, 975, 811, 1665) -> crop=sili (conf=0.94, guess=sili) [sili:94.1% tomato:4.7% lettuce:1.2%]
+    box (784, 1286, 970, 1647) -> crop=sili (conf=0.75, guess=sili) [sili:48.1% lettuce:27.3% tomato:16.3%]
+    box (337, 757, 587, 1002) -> crop=sili (conf=0.75, guess=sili) [sili:73.7% other:17.6% lettuce:5.8%]
+
+Image sili-11.jpg (1536x2048):
+  Full scan: sili (conf=0.89, guess=sili, dict=None)
+  Boxes (3):
+    box (227, 0, 1536, 1800) -> crop=sili (conf=0.89, guess=sili) [sili:89.2% other:7.4% tomato:2.5%]
+    box (0, 0, 507, 509) -> crop=sili (conf=0.97, guess=sili) [sili:97.4% tomato:1.8% other:0.7%]
+    box (272, 197, 655, 661) -> crop=sili (conf=1.00, guess=sili) [sili:99.7% tomato:0.2% lettuce:0.1%]
+
+Image sili-12.jpg (1536x2048):
+  Full scan: lettuce (conf=0.90, guess=lettuce, dict=None)
+  Boxes (4):
+    box (171, 154, 1536, 1735) -> crop=sili (conf=0.75, guess=sili) [sili:70.4% lettuce:24.7% tomato:4.6%]
+    box (264, 256, 753, 1230) -> crop=sili (conf=0.75, guess=sili) [sili:63.5% lettuce:32.9% tomato:3.3%]
+    box (0, 36, 330, 464) -> crop=sili (conf=0.75, guess=sili) [lettuce:44.1% other:28.3% sili:23.5%]
+    box (695, 0, 969, 222) -> crop=tomato (conf=0.75, guess=tomato) [sili:50.9% tomato:17.6% lettuce:17.2%]
+
+Image sili-13.jpg (1536x2048):
+  Full scan: sili (conf=0.94, guess=sili, dict=None)
+  Boxes (5):
+    box (689, 0, 1536, 1148) -> crop=sili (conf=1.00, guess=sili) [sili:99.9% tomato:0.1% other:0.0%]
+    box (0, 0, 672, 622) -> crop=sili (conf=0.97, guess=sili) [sili:97.4% tomato:2.2% lettuce:0.3%]
+    box (319, 1014, 826, 1494) -> crop=sili (conf=0.89, guess=sili) [sili:88.7% other:8.3% lettuce:1.6%]
+    box (529, 492, 824, 1032) -> crop=sili (conf=0.84, guess=sili) [sili:84.4% tomato:5.8% lettuce:5.6%]
+    box (301, 1355, 673, 1719) -> crop=sili (conf=1.00, guess=sili) [sili:100.0% tomato:0.0% palay:0.0%]
+
+Image sili-2.jpg (1080x1920):
+  Full scan: sili (conf=1.00, guess=sili, dict=None)
+  Boxes (3):
+    box (0, 58, 1080, 518) -> crop=unknown (conf=0.54, guess=lettuce) [lettuce:54.2% sili:43.2% tomato:2.2%]
+    box (196, 547, 800, 1255) -> crop=sili (conf=0.98, guess=sili) [sili:98.1% eggplant:1.6% lettuce:0.2%]
+    box (301, 844, 457, 1195) -> crop=sili (conf=1.00, guess=sili) [sili:99.8% lettuce:0.1% tomato:0.0%]
+
+Image sili-3.jpg (1536x2048):
+  Full scan: sili (conf=0.75, guess=sili, dict=None)
+  Boxes (1):
+    box (0, 0, 1536, 1783) -> crop=sili (conf=0.79, guess=sili) [sili:79.2% lettuce:17.7% tomato:2.8%]
+
+Image sili-4.jpg (1536x2048):
+  Full scan: sili (conf=0.75, guess=sili, dict=None)
+  Boxes (3):
+    box (312, 0, 1536, 2048) -> crop=sili (conf=0.85, guess=sili) [sili:85.3% tomato:7.5% other:4.8%]
+    box (0, 103, 125, 767) -> crop=sili (conf=0.75, guess=sili) [lettuce:48.0% tomato:37.0% sili:11.9%]
+    box (345, 891, 572, 1158) -> crop=sili (conf=0.75, guess=sili) [sili:72.4% lettuce:20.1% tomato:5.5%]
+
+Image sili-6.jpg (1536x2048):
+  Full scan: sili (conf=0.80, guess=sili, dict=None)
+  Boxes (5):
+    box (0, 0, 1536, 1014) -> crop=sili (conf=0.97, guess=sili) [sili:97.5% tomato:1.1% lettuce:0.7%]
+    box (398, 896, 842, 1440) -> crop=sili (conf=0.80, guess=sili) [sili:80.0% eggplant:16.2% other:2.1%]
+    box (320, 1236, 688, 1586) -> crop=sili (conf=1.00, guess=sili) [sili:99.8% eggplant:0.1% tomato:0.0%]
+    box (778, 1170, 976, 1525) -> crop=sili (conf=0.28, guess=lettuce) [lettuce:68.8% sili:29.0% tomato:1.6%]
+    box (271, 221, 496, 496) -> crop=sili (conf=0.75, guess=sili) [other:73.7% tomato:11.5% palay:8.6%]
+
+Image sili-7.jpg (1536x2048):
+  Full scan: sili (conf=0.92, guess=sili, dict=None)
+  Boxes (5):
+    box (489, 0, 1536, 1046) -> crop=sili (conf=0.99, guess=sili) [sili:99.3% lettuce:0.3% other:0.2%]
+    box (178, 530, 700, 1037) -> crop=sili (conf=0.98, guess=sili) [sili:97.7% other:1.2% tomato:0.7%]
+    box (351, 1438, 724, 1881) -> crop=sili (conf=0.93, guess=sili) [sili:92.7% lettuce:3.8% tomato:2.9%]
+    box (0, 0, 339, 441) -> crop=sili (conf=0.75, guess=sili) [sili:52.0% palay:19.3% other:15.4%]
+    box (786, 1381, 983, 1727) -> crop=sili (conf=0.89, guess=sili) [sili:89.3% other:4.0% tomato:3.9%]
+
+Image sili-8.jpg (1536x2048):
+  Full scan: sili (conf=0.75, guess=sili, dict=None)
+  Boxes (3):
+    box (241, 430, 1021, 1922) -> crop=sili (conf=0.75, guess=sili) [tomato:47.1% sili:45.9% lettuce:6.8%]
+    box (719, 63, 1536, 1211) -> crop=sili (conf=0.76, guess=sili) [sili:75.7% lettuce:22.7% tomato:1.6%]
+    box (320, 0, 593, 296) -> crop=sili (conf=0.75, guess=sili) [other:66.6% sili:22.1% lettuce:6.6%]
+
+Image sili-9.jpg (1536x2048):
+  Full scan: sili (conf=0.97, guess=sili, dict=None)
+  Boxes (3):
+    box (0, 0, 1536, 1066) -> crop=sili (conf=0.79, guess=sili) [sili:79.0% other:15.1% lettuce:3.6%]
+    box (297, 441, 842, 1629) -> crop=sili (conf=0.77, guess=sili) [sili:76.5% eggplant:7.5% tomato:6.0%]
+    box (785, 1245, 976, 1616) -> crop=sili (conf=0.75, guess=sili) [sili:66.7% lettuce:29.4% other:1.9%]

@@ -25,8 +25,8 @@ NEG_MANIFEST = DATA / "negatives_manifest.csv"
 CROP_NAMES = crops() + ["other"]
 HEALTH_NAMES = health_levels()
 BATCH = 64
-POS_PER_EPOCH = 18000
-NEG_PER_EPOCH = 6000
+POS_PER_EPOCH = 16000
+NEG_PER_EPOCH = 10000
 
 TRAIN_TF = transforms.Compose(
     [
@@ -144,10 +144,13 @@ def sampler_for(df: pd.DataFrame) -> WeightedRandomSampler:
             for src_name, n in big.items():
                 mask = palay & (source == src_name) & (health.fillna("") == hkey)
                 w[mask.to_numpy()] = (1.0 / float(n)) / n_big
-        # Boost field sili so new field images get thorough exposure with augmentation
-        field_sili_mask = (crop == "sili") & (source == "field_sili")
-        if field_sili_mask.any():
-            w[field_sili_mask.to_numpy()] *= 35.0
+        # Ensure field/in-situ sili gets solid exposure while moderating uncurated in-situ lettuce
+        sili_mask = (crop == "sili") & (source.isin(["field_sili", "insitu", "inat"]))
+        if sili_mask.any():
+            w[sili_mask.to_numpy()] *= 3.0
+        lettuce_inat_mask = (crop == "lettuce") & (source == "lettuce")
+        if lettuce_inat_mask.any():
+            w[lettuce_inat_mask.to_numpy()] *= 0.65
     n_pos = int((df["crop"] != "other").sum())
     num = min(POS_PER_EPOCH, n_pos) + min(NEG_PER_EPOCH, len(df) - n_pos)
     return WeightedRandomSampler(torch.as_tensor(w, dtype=torch.double), num_samples=num, replacement=True)
@@ -211,12 +214,12 @@ def pick_batch(device: torch.device) -> int:
     return chosen
 
 
-def class_weights(series: pd.Series, names: list[str], device) -> torch.Tensor:
+def class_weights(series: pd.Series, names: list[str], device, power: float = 0.5) -> torch.Tensor:
     counts = series.value_counts()
     w = []
     for name in names:
         c = float(counts.get(name, 0))
-        w.append(0.0 if c <= 0 else 1.0 / c)
+        w.append(0.0 if c <= 0 else (1.0 / c) ** power)
     t = torch.tensor(w, dtype=torch.float32, device=device)
     if float(t.sum()) == 0:
         return torch.ones(len(names), device=device)
@@ -324,9 +327,17 @@ def main() -> None:
         persistent_workers=workers > 0,
         prefetch_factor=4 if workers > 0 else None,
     )
-    crop_w = class_weights(train_df["crop"], CROP_NAMES, device)
+    crop_w = class_weights(train_df["crop"], CROP_NAMES, device, power=0.5)
     health_rows = train_df.loc[train_df["health"].isin(HEALTH_NAMES), "health"]
-    health_w = class_weights(health_rows, HEALTH_NAMES, device)
+    health_w = class_weights(health_rows, HEALTH_NAMES, device, power=0.7)
+    # Boost healthy and dead classes to counteract false-mild drift
+    h_names = list(HEALTH_NAMES)
+    if "healthy" in h_names:
+        health_w[h_names.index("healthy")] *= 1.30
+    if "dead" in h_names:
+        health_w[h_names.index("dead")] *= 1.40
+    health_w = health_w * (len(h_names) / health_w.sum().clamp_min(1e-8))
+
     scaler = torch.amp.GradScaler("cuda", enabled=device.type == "cuda")
     best = -1.0
     phases = [("heads", True, 1e-3, 2), ("last4", False, 2e-4, 3), ("full", "full", 5e-5, 3)]
@@ -334,12 +345,37 @@ def main() -> None:
         print(f"phase {name}")
         if freeze is True:
             model.freeze_backbone(True)
-        elif freeze == "full":
-            model.freeze_backbone(False)
+            params = [p for p in model.parameters() if p.requires_grad]
+            opt = torch.optim.AdamW(params, lr=lr, weight_decay=1e-4)
         else:
-            model.unfreeze_last(4)
-        params = [p for p in model.parameters() if p.requires_grad]
-        opt = torch.optim.AdamW(params, lr=lr, weight_decay=1e-4)
+            if freeze == "full":
+                model.freeze_backbone(False)
+            else:
+                model.unfreeze_last(4)
+            # Differential learning rates: lower on backbone to preserve representations, higher on health head
+            backbone_params = []
+            crop_params = []
+            health_params = []
+            gate_params = []
+            for n, p in model.named_parameters():
+                if not p.requires_grad:
+                    continue
+                if "health_head" in n:
+                    health_params.append(p)
+                elif "crop_head" in n:
+                    crop_params.append(p)
+                elif "gate_head" in n:
+                    gate_params.append(p)
+                else:
+                    backbone_params.append(p)
+            param_groups = [
+                {"params": backbone_params, "lr": lr * 0.25},  # lower LR on backbone
+                {"params": crop_params, "lr": lr},             # standard LR on crop head
+                {"params": health_params, "lr": lr * 2.0},     # boosted LR on health head
+            ]
+            if gate_params:
+                param_groups.append({"params": gate_params, "lr": lr})
+            opt = torch.optim.AdamW(param_groups, weight_decay=1e-4)
         for epoch in range(1, epochs + 1):
             tr = run_epoch(model, train_loader, opt, scaler, crop_w, health_w, True, device)
             va = run_epoch(model, val_loader, opt, scaler, crop_w, health_w, False, device)

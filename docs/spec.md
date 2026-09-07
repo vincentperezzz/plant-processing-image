@@ -290,6 +290,21 @@ older iNat pull only ever asked for *annuum*.
 Per-image licence, rights holder, country and gate scores land in
 `data/insitu_ledger.csv`. Keep rate is ~30 %; `--max-green` trades yield for framing.
 
+**Regional skew — read before training.** The harvest runs tropical Asia first,
+then fills globally, and the global pass is far larger for the common crops. The
+2026-09-04 run came out at only **26 % tropical Asia** overall:
+
+| Crop | Kept | Tropical Asia | Note |
+| --- | --- | --- | --- |
+| sili | 1 177 | **8 %** | global pass is US desert chiltepin — right species, wrong environment |
+| lettuce | 320 | **4 %** | RU / US / FR / NL glasshouse and garden rows |
+| tomato | 1 200 | 34 % | |
+| eggplant | 331 | 59 % | best of the five |
+| palay | 226 | 56 % | |
+
+Use `--asia-only` for a smaller, on-domain set, or weight by the ledger's
+`country` column at train time. Do not assume the folder is Philippine-like.
+
 Grouped split by `group_id` so the same leaf does not leak into val.
 
 Public sets name **diseases**. We map them to the four-level gauge using extension / IRRI typical outcomes in `data/label_map.yaml`. Sources: `data/SOURCES.md`. Crop-only rows (empty / `crop_only` health) skip health loss (`ignore_index=-1`).

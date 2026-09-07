@@ -1,0 +1,18 @@
+Checkpoint: D:\dev\plant-processing-image\models\best.pt
+Evaluating 13 files in D:\dev\plant-processing-image\data\fine-tuning:
+
+Filename        Pred Crop  Conf   Marg   Health     Eggplant %   Sili %     Tomato %   Fruit Hint
+-----------------------------------------------------------------------------------------------
+sili 5.jpg      sili       0.95   0.92   healthy    0.5%         94.7%      2.4%       sili      
+sili-1.jpg      sili       0.88   0.77   mild       0.0%         10.5%      1.5%       sili      
+sili-10.jpg     sili       0.97   0.95   healthy    0.1%         97.3%      0.2%       sili      
+sili-11.jpg     sili       0.89   0.87   unknown    0.0%         89.4%      2.1%       sili      
+sili-12.jpg     lettuce    0.90   0.82   critical   0.0%         7.9%       2.6%       None      
+sili-13.jpg     sili       0.94   0.91   healthy    3.0%         94.0%      1.2%       sili      
+sili-2.jpg      sili       1.00   1.00   healthy    0.0%         100.0%     0.0%       sili      
+sili-3.jpg      sili       0.75   0.30   mild       0.0%         63.8%      2.3%       sili      
+sili-4.jpg      sili       0.75   0.57   healthy    0.2%         70.9%      13.9%      sili      
+sili-6.jpg      sili       0.80   0.64   healthy    0.0%         79.7%      4.0%       sili      
+sili-7.jpg      sili       0.92   0.85   healthy    0.0%         91.5%      2.2%       tomato    
+sili-8.jpg      sili       0.75   0.30   healthy    0.0%         31.4%      6.9%       sili      
+sili-9.jpg      sili       0.97   0.94   healthy    0.1%         96.6%      0.4%       sili      

@@ -34,3 +34,7 @@ dist/
 test-results/
 /yolov8*.pt
 /yolo11*.pt
+
+logs/
+data/*_backup_*.csv
+data/insitu_ledger.csv
